@@ -19,14 +19,12 @@ function markdownToHtml(markdown) {
 
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
-    // Inline Code
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-
     // Code Blocks
     html = html.replace(/```([\s\S]*?)```/g, function (match, p1) {
         return '<pre class="code-block"><code>' + p1.trim() + '</code></pre>';
     });
+    // Inline Code
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
     // Bold
     html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
