@@ -18,7 +18,7 @@ To create custom commands, follow these steps:
 
 ### Example Command Script
 
-Here’s an example of a basic command setup:,<br>
+Here’s an example of a basic command setup:
 
 ```lua
 return {
