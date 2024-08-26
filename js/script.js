@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Example list of Markdown files
-    const markdownFiles = ['cmdR.md'];
+    const markdownFiles = ['index.md', 'guide.md', 'cmdR.md'];
 
     // Generate sidebar and load default content
     generateSidebar(markdownFiles);
