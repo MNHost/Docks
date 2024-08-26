@@ -37,4 +37,4 @@ return {
             player.Character:SetPrimaryPartCFrame(CFrame.new(0, 50, 0))
         end
     end
-}
+}```
