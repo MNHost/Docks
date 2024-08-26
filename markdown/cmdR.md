@@ -18,9 +18,9 @@ To create custom commands, follow these steps:
 
 ### Example Command Script
 
-Here’s an example of a basic command setup:
-`
-lua
+Here’s an example of a basic command setup:,<br>
+
+```lua
 return {
     greet = function()
         print("Hello, world!")
@@ -38,4 +38,3 @@ return {
         end
     end
 }
-`
