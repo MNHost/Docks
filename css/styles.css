@@ -41,3 +41,29 @@ body {
     padding: 20px;
     overflow-y: auto;
 }
+pre {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap; /* Ensure long lines wrap */
+}
+
+code {
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    display: block;
+}
+
+/* Basic syntax highlighting */
+.code-block {
+    color: #d63384; /* Example color for the code */
+}
