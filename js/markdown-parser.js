@@ -1,18 +1,21 @@
 function markdownToHtml(markdown) {
     let html = markdown;
 
+    // Escape HTML characters
+    html = escapeHtml(html);
+
     // Headers
-    html = html.replace(/^###### (.*$)/gm, '<h6>$1</h6>');
-    html = html.replace(/^##### (.*$)/gm, '<h5>$1</h5>');
-    html = html.replace(/^#### (.*$)/gm, '<h4>$1</h4>');
-    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-    html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+    html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
+    html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
+    html = html.replace(/^#### (.*)$/gm, '<h4>$1</h4>');
+    html = html.replace(/^### (.*)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.*)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.*)$/gm, '<h1>$1</h1>');
 
     // Lists
-    html = html.replace(/^\* (.*$)/gm, '<ul><li>$1</li></ul>');
-    html = html.replace(/^\+ (.*$)/gm, '<ul><li>$1</li></ul>');
-    html = html.replace(/^\- (.*$)/gm, '<ul><li>$1</li></ul>');
+    html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
+    html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
+    html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
 
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
@@ -22,7 +25,7 @@ function markdownToHtml(markdown) {
 
     // Code Blocks
     html = html.replace(/```([\s\S]*?)```/g, function (match, p1) {
-        return '<pre><code>' + escapeHtml(p1) + '</code></pre>';
+        return '<pre class="code-block"><code>' + p1 + '</code></pre>';
     });
 
     // Bold
@@ -35,7 +38,7 @@ function markdownToHtml(markdown) {
     html = html.replace(/^---$/gm, '<hr>');
 
     // Blockquotes
-    html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
+    html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
     // Line Breaks
     html = html.replace(/\n/g, '<br>');
