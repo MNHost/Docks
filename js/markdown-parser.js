@@ -21,8 +21,8 @@ function markdownToHtml(markdown) {
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
     // Code Blocks
-    html = html.replace(/```([\s\S]*?)```/g, function (match, p1) {
-        return '<pre><code>' + escapeHtml(p1) + '</code></pre>';
+    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function (match, p1, p2) {
+        return '<pre><code class="' + escapeHtml(p1) + '">' + escapeHtml(p2) + '</code></pre>';
     });
 
     // Bold
