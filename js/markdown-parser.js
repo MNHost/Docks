@@ -6,7 +6,7 @@ function markdownToHtml(markdown) {
     markdown = markdown.replace(/```(\w+)?\n([\s\S]*?)\n```/g, '<pre><code class="$1">$2</code></pre>');
 
     // Handle code blocks with triple tildes (~~~ ... ~~~)
-    markdown = markdown.replace(/~~~(\w+)?\n([\s\S]*?)\n~~~\/g, '<pre><code class="$1">$2</code></pre>');
+    markdown = markdown.replace(/~~~(\w+)?\n([\s\S]*?)\n~~~(?!~)/g, '<pre><code class="$1">$2</code></pre>');
 
     // Split by `</pre>` to process code blocks and normal text separately
     var html = '';
