@@ -21,7 +21,7 @@ function markdownToHtml(markdown) {
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
     // Code Blocks
-    html = html.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+    html = html.replace(/```([^`]+)```/gs, '<pre><code>$1</code></pre>');
 
     // Bold
     html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
@@ -29,8 +29,17 @@ function markdownToHtml(markdown) {
     // Italics
     html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
 
+    // Horizontal Rules
+    html = html.replace(/^---$/gm, '<hr>');
+
+    // Blockquotes
+    html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
+
     // Line Breaks
     html = html.replace(/\n/g, '<br>');
+
+    // Remove empty <ul> tags
+    html = html.replace(/<ul><\/ul>/g, '');
 
     return html;
 }
