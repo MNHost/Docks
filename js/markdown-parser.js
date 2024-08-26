@@ -1,43 +1,57 @@
-function markdownToHtml(markdown) {
-    // Normalize newlines
-    markdown = markdown.replace(/\r\n/g, '\n');
+function markdownToHTML(markdown) {
 
-    // Handle code blocks with triple backticks (``` ... ```)
-    markdown = markdown.replace(/```(\w+)?\n([\s\S]*?)\n```/g, '<pre><code class="$1">$2</code></pre>');
+  // first, handle syntax for code-block
+  mdText = markdown.replace(/\r\n/g, '\n')
+  mdText = markdown.replace(/\n~~~ *(.*?)\n([\s\S]*?)\n
 
-    // Handle code blocks with triple tildes (~~~ ... ~~~)
-    markdown = markdown.replace(/~~~(\w+)?\n([\s\S]*?)\n~~~(?!~)/g, '<pre><code class="$1">$2</code></pre>');
+~~~/g, '<pre><code title="$1">$2</code></pre>' )
+  mdText = mdText.replace(/\n``` *(.*?)\n([\s\S]*?)\n```/g, '<pre><code title="$1">$2</code></pre>' )
 
-    // Split by `</pre>` to process code blocks and normal text separately
-    var html = '';
-    var parts = markdown.split('</pre>');
+  // split by "pre>", skip for code-block and process normal text
+  var mdHTML = ''
+  var mdCode = mdText.split( 'pre>')
 
-    for (var i = 0; i < parts.length; i++) {
-        if (parts[i].endsWith('</code>')) {
-            html += '<pre>' + parts[i] + '</pre>';
-        } else {
-            html += parts[i]
-                .replace(/^##### (.*?)$/gm, '<h5>$1</h5>')
-                .replace(/^#### (.*?)$/gm, '<h4>$1</h4>')
-                .replace(/^### (.*?)$/gm, '<h3>$1</h3>')
-                .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
-                .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
-                .replace(/^\* (.*?)$/gm, '<ul><li>$1</li></ul>')
-                .replace(/^\+ (.*?)$/gm, '<ul><li>$1</li></ul>')
-                .replace(/^\- (.*?)$/gm, '<ul><li>$1</li></ul>')
-                .replace(/^\d+\. (.*?)$/gm, '<ol><li>$1</li></ol>')
-                .replace(/^\> (.*?)$/gm, '<blockquote>$1</blockquote>')
-                .replace(/!\[(.*?)\]\((.*?)\)/gm, '<img alt="$1" src="$2" />')
-                .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
-                .replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')
-                .replace(/\*([^\*]+)\*/gm, '<em>$1</em>')
-                .replace(/`([^`]+)`/gm, '<code>$1</code>')
-                .replace(/~~([^~]+)~~/gm, '<del>$1</del>')
-                .replace(/\\([`*_{}\[\]()#+\-.!])/g, '$1') // Escape Markdown special characters
-                .replace(/\n\n+/g, '</p><p>') // Replace multiple newlines with paragraph breaks
-                .replace(/^\n+|\n+$/g, ''); // Trim leading and trailing newlines
-        }
-    }
+  for (var i=0; i<mdCode.length; i++) {
+    if ( mdCode[i].substr(-2) == '</' ) {
+      mdHTML += '<pre>' + mdCode[i] + 'pre>'
+    } else {
+      mdHTML += mdCode[i].replace(/(.*)<$/, '$1')
+        .replace(/^##### (.*?)\s*#*$/gm, '<h5>$1</h5>')
+        .replace(/^#### (.*?)\s*#*$/gm, '<h4 id="$1">$1</h4>')
+        .replace(/^### (.*?)\s*#*$/gm, '<h3 id="$1">$1</h3>')
+        .replace(/^## (.*?)\s*#*$/gm, '<h2 id="$1">$1</h2>')
+        .replace(/^# (.*?)\s*#*$/gm, '<h1 id="$1">$1</h1>')    
+        .replace(/^-{3,}|^\_{3,}|^\*{3,}/gm, '<hr/>')    
+        .replace(/``(.*?)``/gm, '<code>$1</code>' )
+        .replace(/`(.*?)`/gm, '<code>$1</code>' )
+        .replace(/^\>> (.*$)/gm, '<blockquote><blockquote>$1</blockquote></blockquote>')
+        .replace(/^\> (.*$)/gm, '<blockquote>$1</blockquote>')
+        .replace(/<\/blockquote\>\n<blockquote\>/g, '\n<br>' )
+        .replace(/<\/blockquote\>\n<br\><blockquote\>/g, '\n<br>' )
+        .replace(/!\[(.*?)\]\((.*?) "(.*?)"\)/gm, '<img alt="$1" src="$2" $3 />')
+        .replace(/!\[(.*?)\]\((.*?)\)/gm, '<img alt="$1" src="$2" />')
+        .replace(/\[(.*?)\]\((.*?) "(.*?)"\)/gm, '<a href="$2" title="$3">$1</a>')
+        .replace(/<http(.*?)\>/gm, '<a href="http$1">http$1</a>')
+        .replace(/\[(.*?)\]\(\)/gm, '<a href="$1">$1</a>')
+        .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
+        .replace(/^[\*|+|-][ |.](.*)/gm, '<ul><li>$1</li></ul>' ).replace(/<\/ul\>\n<ul\>/g, '\n' )
+        .replace(/^\d[ |.](.*)/gm, '<ol><li>$1</li></ol>' ).replace(/<\/ol\>\n<ol\>/g, '\n' )
+        .replace(/\*\*\*(.*)\*\*\*/gm, '<b><em>$1</em></b>')
+        .replace(/\*\*(.*)\*\*/gm, '<b>$1</b>')
+        .replace(/\*([\w \d]*)\*/gm, '<em>$1</em>')
+        .replace(/___(.*)___/gm, '<b><em>$1</em></b>')
+        .replace(/__(.*)__/gm, '<u>$1</u>')
+        .replace(/_([\w \d]*)_/gm, '<em>$1</em>')
+        .replace(/~~(.*)~~/gm, '<del>$1</del>')
+        .replace(/\^\^(.*)\^\^/gm, '<ins>$1</ins>')
+        .replace(/ +\n/g, '\n<br/>')
+        .replace(/\n\s*\n/g, '\n<p>\n')
+        .replace(/^ {4,10}(.*)/gm, '<pre><code>$1</code></pre>' )
+        .replace(/^\t(.*)/gm, '<pre><code>$1</code></pre>' )
+        .replace(/<\/code\><\/pre\>\n<pre\><code\>/g, '\n' )
+        .replace(/\\([`_\\\*\+\-\.\(\)\[\]\{\}])/gm, '$1' )
+    }  
+  }
 
-    return html.trim();
+  return html.trim()
 }
