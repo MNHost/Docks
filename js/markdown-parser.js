@@ -1,57 +1,43 @@
 function markdownToHtml(markdown) {
-    let html = markdown;
+    // Normalize newlines
+    markdown = markdown.replace(/\r\n/g, '\n');
 
-    // Headers
-    html = html.replace(/^###### (.*$)/gm, '<h6>$1</h6>');
-    html = html.replace(/^##### (.*$)/gm, '<h5>$1</h5>');
-    html = html.replace(/^#### (.*$)/gm, '<h4>$1</h4>');
-    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-    html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+    // Handle code blocks with triple backticks (``` ... ```)
+    markdown = markdown.replace(/```(\w+)?\n([\s\S]*?)\n```/g, '<pre><code class="$1">$2</code></pre>');
 
-    // Lists
-    html = html.replace(/^\* (.*$)/gm, '<ul><li>$1</li></ul>');
-    html = html.replace(/^\+ (.*$)/gm, '<ul><li>$1</li></ul>');
-    html = html.replace(/^\- (.*$)/gm, '<ul><li>$1</li></ul>');
+    // Handle code blocks with triple tildes (~~~ ... ~~~)
+    markdown = markdown.replace(/~~~(\w+)?\n([\s\S]*?)\n~~~\/g, '<pre><code class="$1">$2</code></pre>');
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    // Split by `</pre>` to process code blocks and normal text separately
+    var html = '';
+    var parts = markdown.split('</pre>');
 
-    // Inline Code
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    for (var i = 0; i < parts.length; i++) {
+        if (parts[i].endsWith('</code>')) {
+            html += '<pre>' + parts[i] + '</pre>';
+        } else {
+            html += parts[i]
+                .replace(/^##### (.*?)$/gm, '<h5>$1</h5>')
+                .replace(/^#### (.*?)$/gm, '<h4>$1</h4>')
+                .replace(/^### (.*?)$/gm, '<h3>$1</h3>')
+                .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
+                .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
+                .replace(/^\* (.*?)$/gm, '<ul><li>$1</li></ul>')
+                .replace(/^\+ (.*?)$/gm, '<ul><li>$1</li></ul>')
+                .replace(/^\- (.*?)$/gm, '<ul><li>$1</li></ul>')
+                .replace(/^\d+\. (.*?)$/gm, '<ol><li>$1</li></ol>')
+                .replace(/^\> (.*?)$/gm, '<blockquote>$1</blockquote>')
+                .replace(/!\[(.*?)\]\((.*?)\)/gm, '<img alt="$1" src="$2" />')
+                .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
+                .replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>')
+                .replace(/\*([^\*]+)\*/gm, '<em>$1</em>')
+                .replace(/`([^`]+)`/gm, '<code>$1</code>')
+                .replace(/~~([^~]+)~~/gm, '<del>$1</del>')
+                .replace(/\\([`*_{}\[\]()#+\-.!])/g, '$1') // Escape Markdown special characters
+                .replace(/\n\n+/g, '</p><p>') // Replace multiple newlines with paragraph breaks
+                .replace(/^\n+|\n+$/g, ''); // Trim leading and trailing newlines
+        }
+    }
 
-    // Code Blocks
-    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function (match, p1, p2) {
-        return '<pre><code class="' + escapeHtml(p1) + '">' + escapeHtml(p2) + '</code></pre>';
-    });
-
-    // Bold
-    html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-
-    // Italics
-    html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
-
-    // Horizontal Rules
-    html = html.replace(/^---$/gm, '<hr>');
-
-    // Blockquotes
-    html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
-
-    // Line Breaks
-    html = html.replace(/\n/g, '<br>');
-
-    // Remove empty <ul> tags
-    html = html.replace(/<ul><\/ul>/g, '');
-
-    return html;
-}
-
-// Escape HTML characters
-function escapeHtml(text) {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    return html.trim();
 }
