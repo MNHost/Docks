@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
-    
+
     // Function to load Markdown files
     async function loadMarkdown(file) {
         try {
             const response = await fetch(file);
             const text = await response.text();
-            const html = marked.parse(text);
+            const html = markdownToHtml(text);
             contentDiv.innerHTML = html;
-            hljs.highlightAll(); // Highlight code blocks
         } catch (error) {
             contentDiv.innerHTML = `<p>Error loading file: ${error.message}</p>`;
         }
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Example list of Markdown files
-    const markdownFiles = ['cmdR.md'];
+    const markdownFiles = ['index.md', 'guide.md'];
 
     // Generate sidebar and load default content
     generateSidebar(markdownFiles);
