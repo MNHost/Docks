@@ -41,6 +41,7 @@ body {
     padding: 20px;
     overflow-y: auto;
 }
+
 pre {
     background-color: #f4f4f4;
     border: 1px solid #ddd;
@@ -48,6 +49,8 @@ pre {
     border-radius: 5px;
     overflow-x: auto;
     white-space: pre-wrap; /* Ensure long lines wrap */
+    width: 100%; /* Full width for code blocks */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 code {
@@ -63,23 +66,23 @@ pre code {
     display: block;
 }
 
-/* Basic syntax highlighting */
-.code-block {
-    color: #d63384; /* Example color for the code */
-}
-/* Add this CSS to style the code blocks */
+/* Code Block Styles */
 pre.code-block {
     background-color: #f4f4f4;
     border: 1px solid #ddd;
     padding: 10px;
     overflow: auto;
     margin: 0;
+    width: 100%; /* Ensure code blocks are full width */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
 pre.code-block code {
     display: block;
     white-space: pre-wrap; /* Wraps code lines */
     color: #333;
+    padding: 0; /* Remove extra padding */
+    background: none; /* Remove background color for code inside pre */
 }
 
 /* Optional: Add syntax highlighting if needed */
@@ -94,4 +97,3 @@ pre.code-block .string {
 pre.code-block .comment {
     color: #6a737d; /* Example color for comments */
 }
-
