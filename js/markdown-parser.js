@@ -1,8 +1,6 @@
 function markdownToHtml(markdown) {
     let html = markdown;
 
-    // Escape HTML characters
-    html = escapeHtml(html);
 
     // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
@@ -50,12 +48,3 @@ function markdownToHtml(markdown) {
     return html;
 }
 
-// Escape HTML characters
-function escapeHtml(text) {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
