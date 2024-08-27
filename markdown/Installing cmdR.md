@@ -20,7 +20,7 @@ The 3rd and final way to download the file is using your computer's CLI. Below a
 **wget**<br>
 `wget -O "C:\Users\{userhere}\AppData\Local\Roblox\Plugins\cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`<br>
 **Windows PowerShell**<br>
-`Invoke-WebRequest -Uri "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua" -OutFile "C:\Users\{userhere}\AppData\Local\Roblox\Plugins\cmdR.lua"`<br>
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua" -OutFile"C:\Users\sarai\AppData\Local\Roblox\Plugins\cmdR.lua"
 **MacOS Commands:**<br>
 **curl**<br>
 `curl -L -o "~/Downloads/cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`<br>
