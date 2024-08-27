@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
 
-![404 Article Not Found](https://github.com/FoundationINCCorporateTeam/RODocs/Designer.jpeg)
+![404 Article Not Found](https://github.com/FoundationINCCorporateTeam/RODocs/blob/main/Designer.jpeg)
 
 You can navigate back to the [button:Button Text](?article=Home).
         `;
