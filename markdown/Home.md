@@ -4,7 +4,7 @@
 
 Welcome to the cmdR documentation! We're excited to have you here. Whether you're a new user or a seasoned pro, this guide will help you get the most out of cmdR. Explore the features, follow the quick start guide, and dive into our detailed sections to master cmdR.
 
-![cmdR Overview](/Designer%20(1).jpeg){width=500 height=250 align=center}
+![cmdR Overview](https://cdn.statically.io/gh/FoundationINCCorporateTeam/RODocs/main/Designer%20(1).jpeg){width=500 height=250 align=center}
 
 ## 🌟 Features
 
