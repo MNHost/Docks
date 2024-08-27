@@ -2,9 +2,16 @@
 
 Thank you for using the cmdR plugin.
 
-There are 2 ways to install cmdR:
-[tab:Tab 1]
-Content for Tab 1
+There are 2 ways to install cmdR:<br>
+::: tabs
 
-[tab:Tab 2]
-Content for Tab 2
+### Tab 1
+Content for tab 1.
+
+### Tab 2
+Content for tab 2.
+
+### Tab 3
+Content for tab 3.
+
+:::
