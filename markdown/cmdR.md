@@ -32,7 +32,6 @@ local commands = {}
     end
 return commands
 ```
-
 3. **Creating commands** After understanding the syntax you can now create commands. The requirements for creating commands are a basic understanding of Roblox Luau coding and for some commands it may require a basic understanding of web coding and programming languages. We are going to go over 2 ways to create a command. 1: A basic command:
    ```lua
    local commands = {}
