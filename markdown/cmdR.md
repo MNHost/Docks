@@ -21,6 +21,7 @@ To create custom commands, follow these steps:
 Here’s an example of a basic command setup:
 
 ```javascript
+//Hello!
 return {
     greet = function()
         print("Hello, world!")
