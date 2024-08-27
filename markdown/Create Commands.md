@@ -40,7 +40,7 @@ return commands
    print("Example Command!")
    -- Add other logic below
    end
-	return commands
+return commands
 ```    
 Now the second kind of command a variable command. This is a command where a user will input a variable that will effect the command:
 ```lua
@@ -54,30 +54,8 @@ commands["%cmdR printInput"] = function(input)
 		print("No input provided.")
 	end
 end
-	return commands
+return commands
 ```
-
-### Example Command Script
-
-Here’s an example of a basic command setup:
-
-```javascript
-//Hello!
-return {
-    greet = function()
-        print("Hello, world!")
-    end,
-    
-    addNumbers = function()
-        local sum = 5 + 10
-        print("The sum is: " .. sum)
-    end,
-    
-    teleportPlayer = function()
-        local player = game.Players.LocalPlayer
-        if player and player.Character then
-            player.Character:SetPrimaryPartCFrame(CFrame.new(0, 50, 0))
-        end
-    end
-}
-```
+## Using the GUI
+1. This is coming soon.
+### Please be careful about what you are installing. A package trust score system will be coming out soon.
