@@ -40,6 +40,9 @@ return commands
    commands["%cmdR exampleCommand"] = function ()
    print("Example Command!")
    -- Add other logic below
+   end
+return commands
+```
 
 Now the second kind of command a variable command. This is a command where a user will input a variable that will effect the command:
 ```lua
