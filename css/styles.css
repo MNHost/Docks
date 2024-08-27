@@ -1,10 +1,13 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
     overflow: hidden;
+    color: #333;
+    background-color: #fafafa;
 }
 
 .container {
@@ -13,52 +16,67 @@ body {
     height: 100%;
 }
 
+/* Sidebar Styles */
 .sidebar {
     width: 250px;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    border-right: 1px solid #ddd;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar li {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .sidebar a {
     text-decoration: none;
     color: #333;
-    font-weight: bold;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
+.sidebar a:hover {
+    color: #007bff;
+}
+
+/* Content Styles */
 .content {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    background-color: #ffffff;
+    border-left: 1px solid #ddd;
 }
 
+/* Code Block Styles */
 pre {
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    padding: 15px;
+    border-radius: 6px;
     overflow-x: auto;
     white-space: pre-wrap; /* Ensure long lines wrap */
     width: 100%; /* Full width for code blocks */
     box-sizing: border-box; /* Include padding and border in width */
+    color: #dcdcdc; /* Light grey for code text */
 }
 
 code {
-    background-color: #f4f4f4;
+    background-color: #1e1e1e;
     padding: 2px 4px;
     border-radius: 4px;
+    color: #dcdcdc;
 }
 
+/* Syntax Highlighting */
 pre code {
     background: none;
     padding: 0;
@@ -66,41 +84,13 @@ pre code {
     display: block;
 }
 
-/* Code Block Styles */
-pre.code-block {
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    padding: 10px;
-    overflow: auto;
-    margin: 0;
-    white-space: pre-wrap;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-pre.code-block code {
-    display: block;
-    background: none;
-    padding: 0;
-    border: none;
-    color: #333;
-}
-
-/* Example syntax highlighting */
-pre.code-block .keyword {
-    color: #d73a49; /* Keywords */
-}
-
-pre.code-block .string {
-    color: #032f62; /* Strings */
-}
-
-pre.code-block .comment {
-    color: #6a737d; /* Comments */
-}
-
 /* Add class to specify language-specific styles */
 pre.code-block.python .keyword { color: #3572a5; }
-pre.code-block.javascript .keyword { color: #f1e05a; }
-/* Add more language-specific styles as needed */
+pre.code-block.python .string { color: #32a852; }
+pre.code-block.python .comment { color: #6a737d; }
 
+pre.code-block.javascript .keyword { color: #f1e05a; }
+pre.code-block.javascript .string { color: #032f62; }
+pre.code-block.javascript .comment { color: #6a737d; }
+
+/* Add more language-specific styles as needed */
