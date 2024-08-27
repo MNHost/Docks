@@ -14,9 +14,14 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
     
+    // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
+
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+    // Images
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
     // Code Blocks
     html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
@@ -38,8 +43,6 @@ function markdownToHtml(markdown) {
 
     // Blockquotes
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
-
-    // Buttons
 
     // Line Breaks
     html = html.replace(/\n/g, '<br>');
