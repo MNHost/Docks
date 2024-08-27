@@ -1,5 +1,5 @@
-# cmdR Docs
+# The cmdR Docs
 
-## Introduction
-
-Hi! Welcome to the docs! This is where you will come to get all of you information about cmdR! If you can't find what you need here you can take a look on our support page. (Coming soon!)
+## Welcome
+Welcome to the commander docs! Here is where you will learn about all there is to know about cmdR!
+[![Get it on SERVICE](https://gist.github.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/SERVICE.svg)](https://example.com/...)
