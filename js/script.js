@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
     async function loadMarkdown(file) {
         try {
             const response = await fetch(file);
+            if (!response.ok) throw new Error('File not found');
             const text = await response.text();
             const html = markdownToHtml(text);
             contentDiv.innerHTML = html;
         } catch (error) {
-            contentDiv.innerHTML = `<p>Error loading file: ${error.message}</p>`;
+            loadArticleNotFound();
         }
     }
 
@@ -19,18 +20,54 @@ document.addEventListener('DOMContentLoaded', function () {
         files.forEach(file => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
-            link.href = '#';
+            link.href = `?article=${encodeURIComponent(file.replace('.md', ''))}`;
             link.textContent = file.replace('.md', '');
-            link.addEventListener('click', () => loadMarkdown(`markdown/${file}`));
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadMarkdown(`markdown/${file}`);
+            });
             listItem.appendChild(link);
             navList.appendChild(listItem);
         });
     }
 
+    // Function to load the "Article Not Found" page
+    function loadArticleNotFound() {
+        const notFoundMarkdown = `
+# Article Not Found
+
+Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
+
+![Error](https://via.placeholder.com/600x200.png?text=404+-+Article+Not+Found)
+
+You can navigate back to the [Home Page](?article=Home).
+        `;
+        const html = markdownToHtml(notFoundMarkdown);
+        contentDiv.innerHTML = html;
+    }
+
+    // Get the article from the URL parameter if it exists
+    function getArticleFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('article');
+    }
+
     // Example list of Markdown files
     const markdownFiles = ['Home.md', 'guide.md', 'Create Commands.md'];
 
-    // Generate sidebar and load default content
+    // Generate sidebar
     generateSidebar(markdownFiles);
-    loadMarkdown(`markdown/${markdownFiles[0]}`);
+
+    // Load article based on URL parameter or default to the first article
+    const articleName = getArticleFromUrl();
+    if (articleName) {
+        const fileName = `${articleName}.md`;
+        if (markdownFiles.includes(fileName)) {
+            loadMarkdown(`markdown/${fileName}`);
+        } else {
+            loadArticleNotFound();
+        }
+    } else {
+        loadMarkdown(`markdown/${markdownFiles[0]}`);
+    }
 });
