@@ -13,9 +13,19 @@ The 2nd way to download cmdR is through our website using the script.<br> Downlo
 
 
 ### Using the CLI
-The 3rd and final way to download the file is using your computer's CLI. Below are commands for different CLI programs:
-CMDS HERE
-
+The 3rd and final way to download the file is using your computer's CLI. Below are commands for different CLI programs:<br>
+**Replace the {userhere} value with the desktop name**
+**curl**<br>
+`curl -L -o "C:\Users\{userhere}\AppData\Local\Roblox\Plugins\cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`<br>
+**wget**<br>
+`wget -O "C:\Users\{userhere}\AppData\Local\Roblox\Plugins\cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`<br>
+**Windows PowerShell**<br>
+`Invoke-WebRequest -Uri "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua" -OutFile "C:\Users\{userhere}\AppData\Local\Roblox\Plugins\cmdR.lua"`<br>
+**MacOS Commands:**<br>
+**curl**<br>
+`curl -L -o "~/Downloads/cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`<br>
+**wget**<br>
+`wget -O "~/Downloads/cmdR.lua" "https://raw.githubusercontent.com/FoundationINCCorporateTeam/cmdR/main/cmdR.lua"`
 :::
 
 After you finish installing cmdR go to the [button:Getting Started](?article=Getting Started) article to learn how to use cmdR and go further.
