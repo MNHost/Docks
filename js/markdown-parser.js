@@ -21,7 +21,7 @@ function markdownToHtml(markdown) {
     // Code Blocks
     html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
         // p1 is the language specifier, p2 is the code
-        return '<pre class="code-block"><code class="' + escapeHtml(p1) + '">' + escapeHtml(p2) + '</code></pre>';
+        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
     });
 
     // Inline Code
