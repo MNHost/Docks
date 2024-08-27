@@ -1,6 +1,26 @@
 function markdownToHtml(markdown) {
     let html = markdown;
+ // Tabs
+    html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
+        // Extract tab titles and contents
+        const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
 
+        // Generate HTML for tabs
+        const tabButtons = tabs.map((tab, index) => {
+            const title = tab.split('\n')[0].replace(/^###\s/, '');
+            return `<button class="tab-button" data-tab="tab${index}">${title}</button>`;
+        }).join('');
+
+        const tabContents = tabs.map((tab, index) => {
+            const content = tab.replace(/^###\s.*\n/, ''); // Remove title line
+            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content)}</div>`;
+        }).join('');
+
+        return `<div class="tabs-container">
+                    <div class="tab-buttons">${tabButtons}</div>
+                    <div class="tab-contents">${tabContents}</div>
+                </div>`;
+    });
     // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
@@ -14,26 +34,6 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
     
-   // Tabs
-    html = html.replace(/^\[tabgroup\]\n([\s\S]*?)\n\[endtabgroup\]/gm, function (match, tabs) {
-        let tabButtons = '';
-        let tabContents = '';
-        const tabRegex = /^\[tab:([^\]]+)\]\n([\s\S]*?)(?=\n\[tab:|\n\[endtabgroup\])/gm;
-
-        let matchTab;
-        while ((matchTab = tabRegex.exec(tabs)) !== null) {
-            const tabName = matchTab[1];
-            const tabContent = matchTab[2];
-            
-            tabButtons += `<button class="tab-button" data-tab="${tabName}">${tabName}</button>`;
-            tabContents += `<div class="tab-content" data-tab="${tabName}">${tabContent}</div>`;
-        }
-
-        return `<div class="tabs-container">
-                    <div class="tab-buttons">${tabButtons}</div>
-                    ${tabContents}
-                </div>`;
-    });
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
        // Images with size and alignment control
