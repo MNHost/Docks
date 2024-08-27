@@ -10,37 +10,49 @@ document.addEventListener('DOMContentLoaded', function () {
             const text = await response.text();
             const html = markdownToHtml(text);
             contentDiv.innerHTML = html;
+
+            // Initialize tabs after content is loaded
+            initializeTabs();
         } catch (error) {
             loadArticleNotFound();
         }
     }
-const tabs = document.querySelectorAll('.tab');
-    const tabButtons = document.querySelectorAll('.tab-buttons button');
 
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const targetTab = this.getAttribute('data-tab');
+    // Function to initialize tab functionality
+    function initializeTabs() {
+        const tabsContainers = document.querySelectorAll('.tabs-container');
 
-            // Hide all tabs
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
+        tabsContainers.forEach(container => {
+            const tabButtons = container.querySelectorAll('.tab-buttons button');
+            const tabContents = container.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetTab = this.getAttribute('data-tab');
+
+                    // Hide all tabs
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    // Show the selected tab
+                    container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
+
+                    // Set the active button
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
             });
 
-            // Show the selected tab
-            document.querySelector(`.tab[data-tab="${targetTab}"]`).classList.add('active');
-
-            // Set the active button
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
+            // Initialize first tab
+            if (tabButtons.length > 0) {
+                tabButtons[0].click();
+            }
         });
-    });
-
-    // Initialize first tab
-    if (tabButtons.length > 0) {
-        tabButtons[0].click();
     }
+
     // Function to generate the sidebar with sections
     function generateSidebar(sections) {
         sections.forEach(section => {
