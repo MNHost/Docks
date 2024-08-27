@@ -87,22 +87,23 @@ body {
 
 /* Code Block Styles */
 pre {
-    background-color: #282c34; /* Dark background for code blocks */
-    border: 1px solid #444850;
+    background-color: #2e2e2e; /* Dark background for code blocks */
+    border: 1px solid #444; /* Slightly lighter border */
     padding: 15px;
     border-radius: 8px;
     overflow-x: auto;
     white-space: pre-wrap; /* Ensure long lines wrap */
     width: 100%; /* Full width for code blocks */
     box-sizing: border-box; /* Include padding and border in width */
-    color: #abb2bf; /* Light grey for code text */
+    color: #dcdcdc; /* Light grey for code text */
 }
 
+/* Inline Code Styling */
 code {
-    background-color: #282c34; /* Dark background for inline code */
+    background-color: #2e2e2e; /* Dark background for inline code */
     padding: 2px 4px;
     border-radius: 4px;
-    color: #e06c75; /* Light pink for inline code */
+    color: #e1e1e1; /* Slightly lighter color for inline code */
 }
 
 /* Syntax Highlighting */
@@ -113,14 +114,19 @@ pre code {
     display: block;
 }
 
-/* Add class to specify language-specific styles */
-pre.code-block.python .keyword { color: #c678dd; } /* Purple for keywords */
-pre.code-block.python .string { color: #98c379; } /* Green for strings */
-pre.code-block.python .comment { color: #5c6370; } /* Grey for comments */
+/* Syntax Highlighting Styles */
+pre.code-block .keyword { color: #ff79c6; } /* Pink for keywords */
+pre.code-block .string { color: #50fa7b; } /* Light green for strings */
+pre.code-block .comment { color: #6272a4; } /* Light blue for comments */
 
-pre.code-block.javascript .keyword { color: #f1e05a; } /* Yellow for keywords */
-pre.code-block.javascript .string { color: #98c379; } /* Green for strings */
-pre.code-block.javascript .comment { color: #6a737d; } /* Grey for comments */
+/* Add class to specify language-specific styles */
+pre.code-block.python .keyword { color: #ff79c6; } /* Pink for Python keywords */
+pre.code-block.python .string { color: #50fa7b; } /* Light green for Python strings */
+pre.code-block.python .comment { color: #6272a4; } /* Light blue for Python comments */
+
+pre.code-block.javascript .keyword { color: #ff79c6; } /* Pink for JavaScript keywords */
+pre.code-block.javascript .string { color: #50fa7b; } /* Light green for JavaScript strings */
+pre.code-block.javascript .comment { color: #6272a4; } /* Light blue for JavaScript comments */
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
