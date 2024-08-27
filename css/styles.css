@@ -73,27 +73,34 @@ pre.code-block {
     padding: 10px;
     overflow: auto;
     margin: 0;
-    width: 100%; /* Ensure code blocks are full width */
-    box-sizing: border-box; /* Include padding and border in width */
+    white-space: pre-wrap;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 pre.code-block code {
     display: block;
-    white-space: pre-wrap; /* Wraps code lines */
+    background: none;
+    padding: 0;
+    border: none;
     color: #333;
-    padding: 0; /* Remove extra padding */
-    background: none; /* Remove background color for code inside pre */
 }
 
-/* Optional: Add syntax highlighting if needed */
+/* Example syntax highlighting */
 pre.code-block .keyword {
-    color: #d73a49; /* Example color for keywords */
+    color: #d73a49; /* Keywords */
 }
 
 pre.code-block .string {
-    color: #032f62; /* Example color for strings */
+    color: #032f62; /* Strings */
 }
 
 pre.code-block .comment {
-    color: #6a737d; /* Example color for comments */
+    color: #6a737d; /* Comments */
 }
+
+/* Add class to specify language-specific styles */
+pre.code-block.python .keyword { color: #3572a5; }
+pre.code-block.javascript .keyword { color: #f1e05a; }
+/* Add more language-specific styles as needed */
+
