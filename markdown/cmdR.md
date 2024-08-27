@@ -31,14 +31,13 @@ local commands = {}
         -- Add different logic here
     end
 return commands
-```
 3. **Creating commands** After understanding the syntax you can now create commands. The requirements for creating commands are a basic understanding of Roblox Luau coding and for some commands it may require a basic understanding of web coding and programming languages. We are going to go over 2 ways to create a command. 1: A basic command: ```lua
    local commands = {}
    -- Choose whatever command you want below it is required to have the % sign:
    commands["%cmdR exampleCommand"] = function ()
    print("Example Command!")
    -- Add other logic below
-```
+
 Now the second kind of command a variable command. This is a command where a user will input a variable that will effect the command:
 ```lua
 local commands = {}
