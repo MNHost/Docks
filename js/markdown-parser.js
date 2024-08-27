@@ -16,7 +16,23 @@ function markdownToHtml(markdown) {
     
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
-        html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+        html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)\s*\{([^}]*)\}/g, function (match, alt, src, size) {
+        let width = '';
+        let height = '';
+
+        const widthMatch = size.match(/width=(\d+)/);
+        const heightMatch = size.match(/height=(\d+)/);
+
+        if (widthMatch) {
+            width = `width="${widthMatch[1]}" `;
+        }
+        if (heightMatch) {
+            height = `height="${heightMatch[1]}" `;
+        }
+
+        return `<img src="${src}" alt="${alt}" ${width}${height}>`;
+    });
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
