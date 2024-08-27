@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
 
-![Error](https://via.placeholder.com/600x200.png?text=404+-+Article+Not+Found)
+![404 Article Not Found](https://github.com/FoundationINCCorporateTeam/RODocs/Designer.jpeg)
 
-You can navigate back to the [Home Page](?article=Home).
+You can navigate back to the [button:Button Text](?article=Home).
         `;
         const html = markdownToHtml(notFoundMarkdown);
         contentDiv.innerHTML = html;
