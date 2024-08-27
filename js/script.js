@@ -15,19 +15,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to generate the sidebar
-    function generateSidebar(files) {
-        files.forEach(file => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `?article=${encodeURIComponent(file.replace('.md', ''))}`;
-            link.textContent = file.replace('.md', '');
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                loadMarkdown(`markdown/${file}`);
+    // Function to generate the sidebar with sections
+    function generateSidebar(sections) {
+        sections.forEach(section => {
+            const sectionItem = document.createElement('li');
+            sectionItem.textContent = section.title;
+            sectionItem.classList.add('sidebar-section-title');
+
+            const ul = document.createElement('ul');
+            section.articles.forEach(article => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = article.replace('.md', '');
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    loadMarkdown(`markdown/${article}`);
+                    history.pushState({}, '', window.location.pathname); // Remove URL query
+                });
+                listItem.appendChild(link);
+                ul.appendChild(listItem);
             });
-            listItem.appendChild(link);
-            navList.appendChild(listItem);
+
+            sectionItem.appendChild(ul);
+            navList.appendChild(sectionItem);
         });
     }
 
@@ -40,7 +51,7 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 
 ![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
 
-You can navigate back to the [button:Home](?article=Home).
+You can navigate back to the [button:Home](?article=Home)
         `;
         const html = markdownToHtml(notFoundMarkdown);
         contentDiv.innerHTML = html;
@@ -52,22 +63,34 @@ You can navigate back to the [button:Home](?article=Home).
         return params.get('article');
     }
 
-    // Example list of Markdown files
-    const markdownFiles = ['Home.md', 'guide.md', 'Create Commands.md'];
+    // Example structure of sections with Markdown files
+    const sections = [
+        {
+            title: 'Getting Started',
+            articles: ['Home.md', 'guide.md']
+        },
+        {
+            title: 'Advanced Topics',
+            articles: ['Create Commands.md']
+        }
+    ];
 
-    // Generate sidebar
-    generateSidebar(markdownFiles);
+    // Generate sidebar with sections
+    generateSidebar(sections);
 
     // Load article based on URL parameter or default to the first article
     const articleName = getArticleFromUrl();
     if (articleName) {
         const fileName = `${articleName}.md`;
-        if (markdownFiles.includes(fileName)) {
+        // Check if the file exists in any section
+        const fileExists = sections.some(section => section.articles.includes(fileName));
+        if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
             loadArticleNotFound();
         }
     } else {
-        loadMarkdown(`markdown/${markdownFiles[0]}`);
+        // Load the first article in the first section by default
+        loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
 });
