@@ -1,7 +1,6 @@
 function markdownToHtml(markdown) {
     let html = markdown;
 
-
     // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
@@ -39,6 +38,9 @@ function markdownToHtml(markdown) {
     // Blockquotes
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
+    // Buttons
+    html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="button">$1</a>');
+
     // Line Breaks
     html = html.replace(/\n/g, '<br>');
 
@@ -47,4 +49,3 @@ function markdownToHtml(markdown) {
 
     return html;
 }
-
