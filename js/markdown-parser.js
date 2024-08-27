@@ -39,7 +39,7 @@ function markdownToHtml(markdown) {
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
 
     // Buttons
-    html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="button">$1</a>');
+    html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
 
     // Line Breaks
     html = html.replace(/\n/g, '<br>');
