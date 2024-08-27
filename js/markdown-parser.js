@@ -46,7 +46,7 @@ function markdownToHtml(markdown) {
 
         return imgHtml;
     });
-
+html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
