@@ -20,7 +20,7 @@ To create custom commands, follow these steps:
 
 Here’s an example of a basic command setup:
 
-```lua
+```javascript
 return {
     greet = function()
         print("Hello, world!")
