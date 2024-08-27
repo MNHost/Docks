@@ -204,4 +204,32 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .button:focus {
     outline: none;
 }
+/* CSS for image alignment */
+.img-left {
+    text-align: left;
+}
+
+.img-center {
+    text-align: center;
+}
+
+.img-right {
+    text-align: right;
+}
+
+.img-left img,
+.img-center img,
+.img-right img {
+    display: block;
+    margin: 0 auto; /* Center image for 'center' alignment */
+}
+
+.img-left img {
+    margin-left: 0;
+}
+
+.img-right img {
+    margin-right: 0;
+    margin-left: auto;
+}
 
