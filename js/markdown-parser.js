@@ -19,10 +19,13 @@ function markdownToHtml(markdown) {
 
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
     // Code Blocks
-    html = html.replace(/```([\s\S]*?)```/g, function (match, p1) {
-        return '<pre class="code-block"><code>' + p1.trim() + '</code></pre>';
+    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
+        // p1 is the language specifier, p2 is the code
+        return '<pre class="code-block"><code class="' + escapeHtml(p1) + '">' + escapeHtml(p2) + '</code></pre>';
     });
+
     // Inline Code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
