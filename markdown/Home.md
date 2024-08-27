@@ -4,7 +4,7 @@
 
 Welcome to the cmdR documentation! We're excited to have you here. Whether you're a new user or a seasoned pro, this guide will help you get the most out of cmdR. Explore the features, follow the quick start guide, and dive into our detailed sections to master cmdR.
 
-![cmdR Overview](https://via.placeholder.com/1200x400?text=cmdR+Overview)
+![cmdR Overview](/Designer (1).jpeg){width=500 height=250 align=center
 
 ## 🌟 Features
 
@@ -16,31 +16,22 @@ Welcome to the cmdR documentation! We're excited to have you here. Whether you'r
 
 Get up and running quickly with these simple steps:
 
-1. **Install cmdR:** Follow the installation guide to get cmdR set up on your system.
-2. **Configure:** Adjust the settings to fit your requirements.
-3. **Use cmdR:** Start using cmdR to automate and streamline your workflows.
+1. **Installing cmdR** Visit the [button:Installing cmdR](?article=Installing cmdR) article to see how to install cmdR
 
-For a detailed guide, check out our [Getting Started](?article=Getting+Started) section.
+For a detailed guide, check out our [Getting Started](?article=Getting Started) section.
 
 ## 📚 Documentation
 
-- **[Features](?article=Features):** Learn about all the powerful features of cmdR.
-- **[API Reference](?article=API+Reference):** Dive into the API documentation for advanced usage.
-- **[Troubleshooting](?article=Troubleshooting):** Find solutions to common issues and FAQs.
+Nothing Here yet
 
 ## 💬 Community
 
 Join the cmdR community to connect with other users, share your experiences, and get support:
 
-- **[Forum](https://forum.cmdr.com):** Participate in discussions and ask questions.
-- **[Slack](https://slack.cmdr.com):** Chat with the community and the developers.
-- **[GitHub](https://github.com/cmdr/cmdr):** Contribute to the project and track development.
+Nothing Here yet
 
 ## 🔗 Useful Links
-
-- [Download cmdR](https://cmdr.com/download): Get the latest version.
-- [Contact Us](mailto:support@cmdr.com): Reach out for support and inquiries.
-
+Nothing Here yet
 ---
 
 ### We hope you find cmdR as valuable as we do. If you have any questions or need help, don't hesitate to reach out!
