@@ -233,4 +233,48 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     margin-right: 0;
     margin-left: auto;
 }
+/* Tabs Container */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.tab {
+    display: none;
+}
+
+/* Tab Buttons */
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-buttons button {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.tab-buttons button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Show active tab */
+.tab.active {
+    display: block;
+}
 
