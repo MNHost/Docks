@@ -1,5 +1,5 @@
 # The cmdR Docs
 
 ## Welcome
-Welcome to the commander docs! Here is where you will learn about all there is to know about cmdR!
+Welcome to the commander docs! Here is where you will learn about all there is to know about cmdR! \n
 [button:Button Text](https://example.com)
