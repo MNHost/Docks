@@ -13,7 +13,13 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
-    
+        html = html.replace(/\[tab:([^\]]+)\]\n([\s\S]*?)(?=\n\[tab:|\n\[end\])/g, function (match, tabName, tabContent) {
+        return `<div class="tab" data-tab="${tabName}">${tabContent}</div>`;
+    });
+
+    html = html.replace(/\[tab:([^\]]+)\]\n([\s\S]*?)\n\[end\]/g, function (match, tabName, tabContent) {
+        return `<div class="tab" data-tab="${tabName}">${tabContent}</div>`;
+    });
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
        // Images with size and alignment control
