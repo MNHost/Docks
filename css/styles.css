@@ -185,3 +185,23 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .content a:hover {
     color: #2980b9; /* Darker blue on hover */
 }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.button:focus {
+    outline: none;
+}
+
