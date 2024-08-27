@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
 Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
 
 ![404 Article Not Found](/Designer.png){width=800 height=400}
+![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
+![404 Article Not Found](/Designer.png)
 
 You can navigate back to the [button:Button Text](?article=Home).
         `;
