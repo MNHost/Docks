@@ -13,7 +13,8 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
-html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href='$2'">$1</button>');
+    
+    html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
