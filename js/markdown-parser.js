@@ -13,12 +13,26 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
-        html = html.replace(/\[tab:([^\]]+)\]\n([\s\S]*?)(?=\n\[tab:|\n\[end\])/g, function (match, tabName, tabContent) {
-        return `<div class="tab" data-tab="${tabName}">${tabContent}</div>`;
-    });
+    
+   // Tabs
+    html = html.replace(/^\[tabgroup\]\n([\s\S]*?)\n\[endtabgroup\]/gm, function (match, tabs) {
+        let tabButtons = '';
+        let tabContents = '';
+        const tabRegex = /^\[tab:([^\]]+)\]\n([\s\S]*?)(?=\n\[tab:|\n\[endtabgroup\])/gm;
 
-    html = html.replace(/\[tab:([^\]]+)\]\n([\s\S]*?)\n\[end\]/g, function (match, tabName, tabContent) {
-        return `<div class="tab" data-tab="${tabName}">${tabContent}</div>`;
+        let matchTab;
+        while ((matchTab = tabRegex.exec(tabs)) !== null) {
+            const tabName = matchTab[1];
+            const tabContent = matchTab[2];
+            
+            tabButtons += `<button class="tab-button" data-tab="${tabName}">${tabName}</button>`;
+            tabContents += `<div class="tab-content" data-tab="${tabName}">${tabContent}</div>`;
+        }
+
+        return `<div class="tabs-container">
+                    <div class="tab-buttons">${tabButtons}</div>
+                    ${tabContents}
+                </div>`;
     });
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
