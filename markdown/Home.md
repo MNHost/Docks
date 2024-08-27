@@ -20,25 +20,37 @@ Get up and running quickly with these simple steps:
 
 For a detailed guide, check out our [Getting Started](?article=Getting Started) section.
 
-## 📚 Documentation
+## 📚 Explore the Documentation
 
-Nothing Here yet
+- **[Section 1](?article=Section+1):** Overview of what’s covered in this section.
+- **[Section 2](?article=Section+2):** Detailed information on another topic.
+- **[Section 3](?article=Section+3):** Insights into additional important topics.
 
-## 💬 Community
+## 🛠️ Tools and Resources
 
-Join the cmdR community to connect with other users, share your experiences, and get support:
+- **[Tool 1](?article=Tool+1):** Description of a tool or resource.
+- **[Tool 2](?article=Tool+2):** Information on another useful tool.
+- **[Resource 1](?article=Resource+1):** Details on a key resource.
 
-Nothing Here yet
+## 🏆 Community and Support
 
-## 🔗 Useful Links
-Nothing Here yet
+Join the cmdR community and get support:
+
+- **[Community Forum](?article=Community+Forum):** Participate in discussions and get help.
+- **[Support Center](?article=Support+Center):** Access help resources and contact support.
+
+## 🔗 Additional Information
+
+- **[About cmdR](?article=About+cmdR):** Learn more about cmdR and its mission.
+- **[Contact Us](?article=Contact+Us):** Reach out for any inquiries or support.
+
 ---
 
-### We hope you find cmdR as valuable as we do. If you have any questions or need help, don't hesitate to reach out!
+### We hope you find cmdR valuable and easy to use. If you need assistance, feel free to get in touch!
 
 ---
 
 ### Get Started Today!
 
-[button:Download cmdR](https://cmdr.com/download)
+[button:Download cmdR](#)  
 [button:Explore Documentation](?article=Getting+Started)
