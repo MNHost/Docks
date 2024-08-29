@@ -92,6 +92,14 @@ body {
     display: inline-block;
 }
 
+#theme-toggle {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
 #theme-dropdown {
     display: none;
     position: absolute;
@@ -99,6 +107,7 @@ body {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    border-radius: 4px;
 }
 
 #theme-dropdown a {
@@ -109,13 +118,12 @@ body {
 }
 
 #theme-dropdown a:hover {
-    background-color: #f1f1f1;
+    background-color: #ddd;
 }
 
-.theme-switcher:hover #theme-dropdown {
+.theme-switcher.active #theme-dropdown {
     display: block;
 }
-
 
 /* Content Styles */
 .content {
