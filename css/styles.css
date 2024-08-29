@@ -1,3 +1,45 @@
+/* Define CSS Variables for Theming */
+:root {
+    /* General Colors */
+    --text-color: #2b2b2b; /* Darker text color */
+    --background-color: #ffffff; /* Soft blue-tinted background */
+
+    /* Sidebar */
+    --sidebar-background: #5a5aff; /* Deep blue background for the sidebar */
+    --sidebar-border: #2c3e50; /* Slightly darker border for separation */
+    --sidebar-text: #ffffff; /* White text color in the sidebar */
+
+    /* Links */
+    --link-color: #ecf0f1; /* Light grey for links */
+    --link-hover-background: #2980b9; /* Bright blue on hover */
+    --link-hover-color: #ffffff; /* White text on hover */
+
+    /* Content */
+    --content-background: #ffffff; /* White background for content */
+
+    /* Code Blocks */
+    --code-background: #2d2d2d; /* Dark background for code blocks */
+    --code-border: #444; /* Slightly lighter border */
+    --code-text: #e5e5e5; /* Light grey for code text */
+
+    /* Button */
+    --button-background: #e74c3c; /* Vibrant red for buttons */
+    --button-text: #ffffff; /* White text on buttons */
+    --button-hover-background: #c0392b; /* Darker red on hover */
+
+    /* Header */
+    --header-color: #34495e; /* Deep blue for headers */
+
+    /* Paragraph */
+    --paragraph-text: #7f8c8d; /* Soft grey for paragraph text */
+
+    /* Tabs */
+    --tab-button-background: #f1f1f1;
+    --tab-button-active-background: #007bff;
+    --tab-button-active-text: #ffffff;
+    --tab-content-background: #ffffff;
+}
+
 /* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
@@ -6,7 +48,7 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
-    color: var(--text-color); /* Use CSS variables for dynamic theming */
+    color: var(--text-color);
     background-color: var(--background-color);
 }
 
@@ -24,7 +66,7 @@ body {
     background-color: var(--sidebar-background);
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-right: 2px solid var(--border-color);
+    border-right: 2px solid var(--sidebar-border);
     overflow-y: auto;
     transition: width 0.3s ease;
 }
@@ -116,13 +158,26 @@ pre code {
 }
 
 /* Syntax Highlighting Styles */
-pre.code-block .keyword { color: var(--keyword-color); }
-pre.code-block .string { color: var(--string-color); }
-pre.code-block .comment { color: var(--comment-color); }
-pre.code-block .number { color: var(--number-color); }
-pre.code-block .function { color: var(--function-color); }
-pre.code-block .operator { color: var(--operator-color); }
-pre.code-block .variable { color: var(--variable-color); }
+pre.code-block .keyword { color: #ff79c6; } /* Pink for keywords */
+pre.code-block .string { color: #50fa7b; } /* Light green for strings */
+pre.code-block .comment { color: #6272a4; } /* Light blue for comments */
+pre.code-block .number { color: #bd93f9; } /* Light purple for numbers */
+pre.code-block .function { color: #ffb86c; } /* Light orange for functions */
+pre.code-block .operator { color: #f8f8f2; } /* Off-white for operators */
+pre.code-block .variable { color: #f1fa8c; } /* Light yellow for variables */
+
+/* Add class to specify language-specific styles */
+pre.code-block.python .keyword { color: #ff79c6; } /* Pink for Python keywords */
+pre.code-block.python .string { color: #50fa7b; } /* Light green for Python strings */
+pre.code-block.python .comment { color: #6272a4; } /* Light blue for Python comments */
+pre.code-block.python .number { color: #bd93f9; } /* Light purple for Python numbers */
+pre.code-block.python .function { color: #ffb86c; } /* Light orange for Python functions */
+
+pre.code-block.javascript .keyword { color: #ff79c6; } /* Pink for JavaScript keywords */
+pre.code-block.javascript .string { color: #50fa7b; } /* Light green for JavaScript strings */
+pre.code-block.javascript .comment { color: #6272a4; } /* Light blue for JavaScript comments */
+pre.code-block.javascript .number { color: #bd93f9; } /* Light purple for JavaScript numbers */
+pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for JavaScript functions */
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
@@ -152,28 +207,14 @@ pre.code-block .variable { color: var(--variable-color); }
     background-color: var(--button-hover-background);
 }
 
-/* Theme Switcher */
-.theme-switcher {
-    margin-top: 20px;
-}
-
-/* Search Input */
-#search-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--search-border);
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-
-/* Content Header */
+/* Header Styling */
 .content .header {
     font-size: 24px;
     color: var(--header-color);
     margin-bottom: 20px;
 }
 
+/* Paragraph Styling */
 .content p {
     color: var(--paragraph-text);
     line-height: 1.6;
@@ -187,7 +228,7 @@ pre.code-block .variable { color: var(--variable-color); }
 }
 
 .content a:hover {
-    color: var(--link-hover-color);
+    color: var(--link-hover-background);
 }
 
 /* Button Styling */
@@ -211,7 +252,7 @@ pre.code-block .variable { color: var(--variable-color); }
     outline: none;
 }
 
-/* CSS for image alignment */
+/* Image Alignment */
 .img-left {
     text-align: left;
 }
@@ -228,7 +269,7 @@ pre.code-block .variable { color: var(--variable-color); }
 .img-center img,
 .img-right img {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto; /* Center image for 'center' alignment */
 }
 
 .img-left img {
