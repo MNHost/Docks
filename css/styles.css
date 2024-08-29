@@ -1,1 +1,297 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    color: #2b2b2b; /* Darker text color */
+    background-color: #ffffff; /* Soft blue-tinted background */
+}
 
+/* Container Styles */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #5a5aff; /* Deep blue background for the sidebar */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-right: 2px solid #2c3e50; /* Slightly darker border for separation */
+    overflow-y: auto;
+    transition: width 0.3s ease; /* Smooth transition for responsiveness */
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        height: 100%;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+/* Sidebar List Styles */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.sidebar li {
+    margin: 5px 0;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #ecf0f1; /* Light grey for links */
+    font-weight: 500;
+    transition: color 0.3s, background-color 0.3s;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: #2980b9; /* Bright blue on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Content Styles */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #ffffff; /* White background for content */
+}
+
+/* Code Block Styles */
+pre {
+    background-color: #2d2d2d; /* Dark background for code blocks */
+    border: 1px solid #444; /* Slightly lighter border */
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap; /* Ensure long lines wrap */
+    width: 100%; /* Full width for code blocks */
+    box-sizing: border-box; /* Include padding and border in width */
+    color: #e5e5e5; /* Light grey for code text */
+}
+
+/* Inline Code Styling */
+code {
+    background-color: #2d2d2d; /* Dark background for inline code */
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #e5e5e5; /* Slightly lighter color for inline code */
+}
+
+/* Syntax Highlighting */
+pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    display: block;
+}
+
+/* Syntax Highlighting Styles */
+pre.code-block .keyword { color: #ff79c6; } /* Pink for keywords */
+pre.code-block .string { color: #50fa7b; } /* Light green for strings */
+pre.code-block .comment { color: #6272a4; } /* Light blue for comments */
+pre.code-block .number { color: #bd93f9; } /* Light purple for numbers */
+pre.code-block .function { color: #ffb86c; } /* Light orange for functions */
+pre.code-block .operator { color: #f8f8f2; } /* Off-white for operators */
+pre.code-block .variable { color: #f1fa8c; } /* Light yellow for variables */
+
+/* Add class to specify language-specific styles */
+pre.code-block.python .keyword { color: #ff79c6; } /* Pink for Python keywords */
+pre.code-block.python .string { color: #50fa7b; } /* Light green for Python strings */
+pre.code-block.python .comment { color: #6272a4; } /* Light blue for Python comments */
+pre.code-block.python .number { color: #bd93f9; } /* Light purple for Python numbers */
+pre.code-block.python .function { color: #ffb86c; } /* Light orange for Python functions */
+
+pre.code-block.javascript .keyword { color: #ff79c6; } /* Pink for JavaScript keywords */
+pre.code-block.javascript .string { color: #50fa7b; } /* Light green for JavaScript strings */
+pre.code-block.javascript .comment { color: #6272a4; } /* Light blue for JavaScript comments */
+pre.code-block.javascript .number { color: #bd93f9; } /* Light purple for JavaScript numbers */
+pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for JavaScript functions */
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .content {
+        padding: 10px;
+    }
+
+    pre {
+        padding: 10px;
+    }
+}
+
+/* Additional Styling for Buttons */
+.sidebar .button {
+    background-color: #e74c3c; /* Vibrant red for buttons */
+    color: #ffffff; /* White text on buttons */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Theme Switcher */
+.theme-switcher {
+    margin-top: 20px;
+}
+
+/* Search Input */
+#search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Content Header */
+.content .header {
+    font-size: 24px;
+    color: #34495e; /* Deep blue for headers */
+    margin-bottom: 20px;
+}
+
+.content p {
+    color: #7f8c8d; /* Soft grey for paragraph text */
+    line-height: 1.6;
+}
+
+/* Links in Content */
+.content a {
+    color: #3498db; /* Bright blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.content a:hover {
+    color: #2980b9; /* Darker blue on hover */
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.button:focus {
+    outline: none;
+}
+
+/* CSS for image alignment */
+.img-left {
+    text-align: left;
+}
+
+.img-center {
+    text-align: center;
+}
+
+.img-right {
+    text-align: right;
+}
+
+.img-left img,
+.img-center img,
+.img-right img {
+    display: block;
+    margin: 0 auto; /* Center image for 'center' alignment */
+}
+
+.img-left img {
+    margin-left: 0;
+}
+
+.img-right img {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+/* Tabs Container */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    flex: 1;
+    text-align: center;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Show active tab content */
+.tab-content.active {
+    display: block;
+}
