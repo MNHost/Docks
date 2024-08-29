@@ -89,14 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to load the "Article Not Found" page
     function loadArticleNotFound() {
-        const notFoundMarkdown = `
-# Article Not Found
-
-Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
-
-![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
-
-You can navigate back to the [button:Home](?article=Home)
+        const notFoundMarkdown = `# Article Not Found
+        Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
+        ![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
+        You can navigate back to the [button:Home](?article=Home)
         `;
         const html = markdownToHtml(notFoundMarkdown);
         contentDiv.innerHTML = html;
