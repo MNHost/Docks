@@ -54,10 +54,9 @@ There are two ways to create custom commands. Please follow the steps below:
          -- Add other logic below
      end
      
-     return commands
-     ```
+     return commands```
    - **Variable Command Example:**  
-     This type of command allows a user to input a variable that affects the command's behavior. (At the moment only single variable commands are allowed.)
+     This type of command allows a user to input a variable that affects the command's behavior. (At the moment only single variable commands are allowed.)<br>
      ```lua
      local commands = {}
      
