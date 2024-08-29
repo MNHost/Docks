@@ -55,7 +55,7 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-```
+     ```
    - **Variable Command Example:**  
      This type of command allows a user to input a variable that affects the command's behavior.
 ```lua
