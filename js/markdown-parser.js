@@ -1,5 +1,10 @@
 function markdownToHtml(markdown) {
     let html = markdown;
+    // Code Blocks
+    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
+        // p1 is the language specifier, p2 is the code
+        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
+    });
  // Tabs
     html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
         // Extract tab titles and contents
@@ -71,12 +76,6 @@ html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
     // Images
-
-    // Code Blocks
-    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
-        // p1 is the language specifier, p2 is the code
-        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
-    });
 
     // Inline Code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
