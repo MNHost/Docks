@@ -1,0 +1,23 @@
+/* Dark Theme Styles */
+body {
+    --text-color: #e5e5e5;
+    --background-color: #1e1e1e;
+    --sidebar-background: #333;
+    --sidebar-text: #e5e5e5;
+    --link-color: #9a9a9a;
+    --link-hover-background: #555;
+    --link-hover-color: #fff;
+    --content-background: #1e1e1e;
+    --code-background: #2d2d2d;
+    --code-text: #e5e5e5;
+    --button-background: #ff5555;
+    --button-text: #fff;
+    --button-hover-background: #ff4444;
+    --search-border: #555;
+    --header-color: #e5e5e5;
+    --paragraph-text: #9a9a9a;
+    --tab-button-background: #444;
+    --tab-button-active-background: #007bff;
+    --tab-button-active-text: #fff;
+    --tab-content-background: #2e2e2e;
+}
