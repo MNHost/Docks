@@ -28,32 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to initialize tab functionality
     function initializeTabs() {
         const tabsContainers = document.querySelectorAll('.tabs-container');
-
         tabsContainers.forEach(container => {
             const tabButtons = container.querySelectorAll('.tab-buttons button');
             const tabContents = container.querySelectorAll('.tab-content');
-
             tabButtons.forEach(button => {
                 button.addEventListener('click', function () {
                     const targetTab = this.getAttribute('data-tab');
-
-                    // Hide all tabs
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                    });
-
-                    // Show the selected tab
+                    tabContents.forEach(content => content.classList.remove('active'));
                     container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
-
-                    // Set the active button
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
-
-            // Initialize first tab
             if (tabButtons.length > 0) {
                 tabButtons[0].click();
             }
@@ -66,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const sectionItem = document.createElement('li');
             sectionItem.textContent = section.title;
             sectionItem.classList.add('sidebar-section-title');
-
             const ul = document.createElement('ul');
             section.articles.forEach(article => {
                 const listItem = document.createElement('li');
@@ -76,12 +61,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     loadMarkdown(`markdown/${article}`);
-                    history.pushState({}, '', window.location.pathname); // Remove URL query
+                    history.pushState({}, '', window.location.pathname);
                 });
                 listItem.appendChild(link);
                 ul.appendChild(listItem);
             });
-
             sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
@@ -89,10 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to load the "Article Not Found" page
     function loadArticleNotFound() {
-        const notFoundMarkdown = `# Article Not Found
-        Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
-        ![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
-        You can navigate back to the [button:Home](?article=Home)
+        const notFoundMarkdown = `
+# Article Not Found
+
+Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
+
+![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
+
+You can navigate back to the [button:Home](?article=Home)
         `;
         const html = markdownToHtml(notFoundMarkdown);
         contentDiv.innerHTML = html;
@@ -145,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const articleName = getArticleFromUrl();
     if (articleName) {
         const fileName = `${articleName}.md`;
-        // Check if the file exists in any section
         const fileExists = sections.some(section => section.articles.includes(fileName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
@@ -153,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
             loadArticleNotFound();
         }
     } else {
-        // Load the first article in the first section by default
         loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
 });
