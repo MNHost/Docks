@@ -1,5 +1,5 @@
-/* Dark Theme Styles */
-body {
+/* Dark Theme Overrides */
+:root {
     --text-color: #e5e5e5;
     --background-color: #1e1e1e;
     --sidebar-background: #333;
@@ -19,5 +19,5 @@ body {
     --tab-button-background: #444;
     --tab-button-active-background: #007bff;
     --tab-button-active-text: #fff;
-    --tab-content-background: #2e2e2e;
+    --tab-content-background: #2d2d2d;
 }
