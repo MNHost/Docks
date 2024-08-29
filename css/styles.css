@@ -92,14 +92,6 @@ body {
     display: inline-block;
 }
 
-#theme-switcher-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
 #theme-dropdown {
     display: none;
     position: absolute;
@@ -120,7 +112,7 @@ body {
     background-color: #f1f1f1;
 }
 
-.theme-switcher.show #theme-dropdown {
+.theme-switcher:hover #theme-dropdown {
     display: block;
 }
 
