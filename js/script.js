@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
+    const searchInput = document.getElementById('search-input');
+    const themeSelector = document.getElementById('theme-selector');
 
     // Function to load Markdown files
     async function loadMarkdown(file) {
@@ -13,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Initialize tabs after content is loaded
             initializeTabs();
+
+            // Highlight code blocks after content is loaded
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
         } catch (error) {
             loadArticleNotFound();
         }
@@ -100,6 +107,28 @@ You can navigate back to the [button:Home](?article=Home)
         const params = new URLSearchParams(window.location.search);
         return params.get('article');
     }
+
+    // Handle theme switching
+    themeSelector.addEventListener('change', function () {
+        const theme = this.value;
+        document.getElementById('theme-style').setAttribute('href', `css/styles-${theme}.css`);
+        localStorage.setItem('theme', theme); // Save the theme preference
+    });
+
+    // Load saved theme on page load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    themeSelector.value = savedTheme;
+    document.getElementById('theme-style').setAttribute('href', `css/styles-${savedTheme}.css`);
+
+    // Function to handle search functionality
+    searchInput.addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const listItems = navList.querySelectorAll('li ul li');
+        listItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? '' : 'none';
+        });
+    });
 
     // Example structure of sections with Markdown files
     const sections = [
