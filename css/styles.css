@@ -6,9 +6,8 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
-    color: #2b2b2b; /* Default text color */
-    background-color: #ffffff; /* Default light background color */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
+    color: #2b2b2b; /* Darker text color */
+    background-color: #ffffff; /* Soft blue-tinted background */
 }
 
 /* Container Styles */
@@ -22,6 +21,7 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: 250px;
+    background-color: #5a5aff; /* Deep blue background for the sidebar */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-right: 2px solid #2c3e50; /* Slightly darker border for separation */
@@ -65,6 +65,7 @@ body {
 
 .sidebar a {
     text-decoration: none;
+    color: #ecf0f1; /* Light grey for links */
     font-weight: 500;
     transition: color 0.3s, background-color 0.3s;
     display: block;
@@ -73,33 +74,8 @@ body {
 }
 
 .sidebar a:hover {
+    background-color: #2980b9; /* Bright blue on hover */
     color: #ffffff; /* White text on hover */
-}
-
-/* Search Input */
-.search-input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-/* Theme Switcher Button */
-#theme-switcher {
-    background-color: #2ecc71; /* Green for the theme switcher */
-    color: #ffffff; /* White text */
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-}
-
-#theme-switcher:hover {
-    background-color: #27ae60; /* Darker green on hover */
 }
 
 /* Content Styles */
@@ -107,7 +83,7 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
+    background-color: #ffffff; /* White background for content */
 }
 
 /* Code Block Styles */
@@ -123,6 +99,7 @@ pre {
     color: #e5e5e5; /* Light grey for code text */
 }
 
+/* Inline Code Styling */
 code {
     background-color: #2d2d2d; /* Dark background for inline code */
     padding: 2px 4px;
@@ -190,6 +167,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .content .header {
     font-size: 24px;
+    color: #34495e; /* Deep blue for headers */
     margin-bottom: 20px;
 }
 
@@ -208,7 +186,25 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .content a:hover {
     color: #2980b9; /* Darker blue on hover */
 }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+.button:hover {
+    background-color: #2980b9;
+}
+
+.button:focus {
+    outline: none;
+}
 /* CSS for image alignment */
 .img-left {
     text-align: left;
@@ -236,6 +232,16 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .img-right img {
     margin-right: 0;
     margin-left: auto;
+}
+/* Tabs Container */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.tab {
+    display: none;
 }
 
 /* Tabs Container */
@@ -279,106 +285,4 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 /* Show active tab content */
 .tab-content.active {
     display: block;
-}
-
-/* Light Theme (Default) */
-.light-theme {
-    background-color: #ffffff;
-    color: #2b2b2b;
-}
-
-.light-theme .sidebar {
-    background-color: #5a5aff;
-    border-right: 2px solid #2c3e50;
-}
-
-.light-theme .content {
-    background-color: #ffffff;
-}
-
-.light-theme pre, .light-theme code {
-    background-color: #2d2d2d;
-    color: #e5e5e5;
-}
-
-.light-theme .search-input {
-    border: 1px solid #ccc;
-    background-color: #ffffff;
-    color: #2b2b2b;
-}
-
-.light-theme #theme-switcher {
-    background-color: #2ecc71; /* Green for the light theme switcher */
-}
-
-.light-theme #theme-switcher:hover {
-    background-color: #27ae60; /* Darker green on hover */
-}
-
-/* Dark Theme */
-.dark-theme {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-}
-
-.dark-theme .sidebar {
-    background-color: #34495e;
-    border-right: 2px solid #2c3e50;
-}
-
-.dark-theme .content {
-    background-color: #2c3e50;
-}
-
-.dark-theme pre, .dark-theme code {
-    background-color: #1e272e;
-    color: #dfe6e9;
-}
-
-.dark-theme .search-input {
-    border: 1px solid #444;
-    background-color: #34495e;
-    color: #ecf0f1;
-}
-
-.dark-theme #theme-switcher {
-    background-color: #27ae60; /* Darker green for the dark theme */
-}
-
-.dark-theme #theme-switcher:hover {
-    background-color: #1e8449; /* Even darker green on hover */
-}
-
-/* Blue Theme */
-.blue-theme {
-    background-color: #eaf0f9;
-    color: #2c3e50;
-}
-
-.blue-theme .sidebar {
-    background-color: #3498db;
-    border-right: 2px solid #2980b9;
-}
-
-.blue-theme .content {
-    background-color: #ffffff;
-}
-
-.blue-theme pre, .blue-theme code {
-    background-color: #dfe6e9;
-    color: #2c3e50;
-}
-
-.blue-theme .search-input {
-    border: 1px solid #3498db;
-    background-color: #eaf0f9;
-    color: #2c3e50;
-}
-
-.blue-theme #theme-switcher {
-    background-color: #2980b9; /* Blue for the blue theme switcher */
-}
-
-.blue-theme #theme-switcher:hover {
-    background-color: #1f618d; /* Darker blue on hover */
 }
