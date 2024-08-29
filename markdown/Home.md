@@ -35,7 +35,7 @@ For a detailed guide, check out our [Getting Started](?article=Getting Started) 
 ## 🏆 Community and Support
 
 Join the cmdR community and get support:
-
+Coming Soon:
 - **[Community Forum](?article=Community+Forum):** Participate in discussions and get help.
 - **[Support Center](?article=Support+Center):** Access help resources and contact support.
 
