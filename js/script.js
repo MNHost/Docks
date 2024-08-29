@@ -42,12 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
+            // Debugging output
+            console.log('Markdown content:', text);
             const html = markdownToHtml(text); // This function is defined in markdown-parser.js
             contentDiv.innerHTML = html;
 
             // Initialize tabs after content is loaded
             initializeTabs();
         } catch (error) {
+            console.error('Error loading markdown:', error);
             loadArticleNotFound();
         }
     }
