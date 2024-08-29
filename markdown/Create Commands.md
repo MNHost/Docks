@@ -1,80 +1,61 @@
 # Custom Package Commands (Information and Setup)
 
 ## Introduction
-With cmdR packages, you can add custom commands to enhance integration with other packages. Custom commands are versatile and can automate tasks, install scripts, or execute Lua-based or web-based operations within your game.
+With your cmdR packages you can add custom commands. Using custom commands can be useful for integrating with other packages. This system is highly flexible and can be used to automate tasks, install scripts, or perform any Lua-based or Web-based operations within your game.
 
-This documentation will guide you through the process of creating commands, setting them up, and leveraging various functionalities.
+This documentation will guide you through the syntax for creating commands, setting them up, and leveraging various functionalities.
 
 ## Restrictions
-We moderate all packages and reserve the right to remove any package for any reason. Creating malicious packages, commands, or content is strictly prohibited. Please read the following important message about malicious packages:
-
+We can and do moderate any and all packages as we please. We reserve the right to remove any packages a user creates for any reason. Do not create any malicious packages, commands, or content. Please read below for information about malicious packages, commands, or content.
 ### IMPORTANT MESSAGE
-**ATTENTION! CREATING MALICIOUS PACKAGES IS A CRIME.** It is a federal felony to create harmful programs. If convicted by a court of law, penalties for damaging digital property (including data) or using malicious programs for unlawful activities can be up to 10 years in state or federal prison. If fraudulent activities are involved, the penalty could exceed 20 years.
+ATTENTION! CREATING MALICIOUS PACKAGES IS IN FACT A CRIME. IT IS A FEDERAL FELONY TO CREATE HARMFUL PROGRAMS. IF YOU ARE FOUND GUILTY OF CREATING A HARMFUL PROGRAM BY A COURT OF LAW, THE PENALTY FOR DAMAGING DIGITAL PROPERTY (INCLUDING DATA) OR USING MALICIOUS PROGRAMS FOR UNLAWFUL ACTIVITES IS UP TO 10 YEARS IN STATE OR FEDERAL PRISON. IF THE MALICIOUS PROGRAM IS FOUND TO HAVE COMMITTED FRAUDULENT ACTIVITES THE PENALTY COULD BE 20 YEARS OR MORE IN STATE OR FEDERAL PRISON.
 
 ## Setting Up Commands
 
-There are two ways to create custom commands:
+There are 2 ways to create custom commands. Please take a look at the following:
 
-### Using the Package GUI
+### Using the package GUI
 
-1. **Create the Script**
-   - In the GUI, click the button labeled **"Create Custom Commands"** to begin.
-   - **Important:** Do not rename the command file in your Roblox game. The file name should be `@cmdR/cmdconfig`. Renaming this file will cause custom commands to fail.
+1. **Create the script** In the GUI you will see a button that says: "Create Custom Commands." When you are ready to create your commands, please click the button.
+(IMPORTANT) In you roblox game DO NOT CHANGE THE COMMAND FILE'S NAME. File name: @cmdR/cmdconfig | This file's name is important and doing so will result in custom commands failing to work.
+2. **Understanding the command syntax** After clicking the button it will take you to a script editor.  In the script editor you can add as many commands as you like. Please remember to write your commands as a ModuleScript. Below is an example of the command syntax.
+```lua
+local commands = {}
+    commands["%cmdR myCustomCommand"] = function()
+        print("Executing custom command: myCustomCommand")
+        -- Add any custom logic here
+    end
+    
+    commands["%cmdR anotherCommand"] = function()
+        print("Running another custom command")
+        -- Add different logic here
+    end
+return commands
+```
+3. **Creating commands** After understanding the syntax you can now create commands. The requirements for creating commands are a basic understanding of Roblox Luau coding and for some commands it may require a basic understanding of web coding and programming languages. We are going to go over 2 ways to create a command. 1: A basic command:
+   ```lua
+   local commands = {}
+   -- Choose whatever command you want below it is required to have the % sign:
+   commands["%cmdR exampleCommand"] = function ()
+   print("Example Command!")
+   -- Add other logic below
+   end
+return commands
+```    
+Now the second kind of command a variable command. This is a command where a user will input a variable that will effect the command:
+```lua
+local commands = {}
 
-2. **Understanding the Command Syntax**
-   - After clicking the button, you will be directed to a script editor. You can add as many commands as you like here. Commands should be written as a `ModuleScript`. Below is an example of the command syntax:
-     ```lua
-     local commands = {}
-     
-     commands["%cmdR myCustomCommand"] = function()
-         print("Executing custom command: myCustomCommand")
-         -- Add any custom logic here
-     end
-     
-     commands["%cmdR anotherCommand"] = function()
-         print("Running another custom command")
-         -- Add different logic here
-     end
-     
-     return commands
-     ```
-
-3. **Creating Commands**
-   - After understanding the syntax, you can create commands. Basic command creation requires a fundamental understanding of Roblox Luau coding. Some commands may also require knowledge of web coding and other programming languages.
-
-   - **Basic Command:**
-     ```lua
-     local commands = {}
-     
-     -- Choose whatever command you want below; it is required to have the % sign:
-     commands["%cmdR exampleCommand"] = function()
-         print("Example Command!")
-         -- Add other logic below
-     end
-     
-     return commands
-     ```
-
-   - **Variable Command:**
-     This type of command allows users to input variables that affect the command:
-     ```lua
-     local commands = {}
-
-     -- Example command: Print the input
-     commands["%cmdR printInput"] = function(input)
-         if input and input ~= "" then
-             print("Received input:", input)
-         else
-             print("No input provided.")
-         end
-     end
-     
-     return commands
-     ```
-
+-- Example command: Print the input
+commands["%cmdR printInput"] = function(input)
+	if input and input ~= "" then
+		print("Received input:", input)
+	else
+		print("No input provided.")
+	end
+end
+return commands
+```
 ## Using the GUI
-1. **Coming Soon**
-   - Stay tuned for updates. We will introduce a package trust score system soon.
-
-### Caution
-Please be cautious about the packages you install. A trust score system for packages will be available in the near future.
+1. This is coming soon.
+### Please be careful about what you are installing. A package trust score system will be coming out soon.
