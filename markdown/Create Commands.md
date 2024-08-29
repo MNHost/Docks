@@ -26,7 +26,7 @@ There are two ways to create custom commands. Please follow the steps below:
 
 2. **Understanding the Command Syntax**  
    After clicking the button, you will be directed to a script editor. In this editor, you can add as many commands as needed. Write your commands as a `ModuleScript`. Here’s an example of the command syntax:
-```lua
+[mcode]lua
    local commands = {}
    
    commands["%cmdR myCustomCommand"] = function()
@@ -40,12 +40,12 @@ There are two ways to create custom commands. Please follow the steps below:
    end
    
    return commands
-```
+[mcode]
 3. **Creating Commands**  
    Once you understand the syntax, you can start creating commands. A basic understanding of Roblox Luau coding is required, and for some commands, knowledge of web coding and other programming languages may be beneficial.
 
    - **Basic Command Example:**
-     ```lua
+     [mcode]lua
      local commands = {}
      
      -- Choose a command with the % sign
@@ -55,12 +55,12 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-     ```
+     [mcode]
 
    - **Variable Command Example:**  
      This type of command allows a user to input a variable that affects the command's behavior. (Only 1 input allowed at the moment.)
      
-     ```lua
+     [mcode]lua
      local commands = {}
      
      -- Example command: Print the input
@@ -73,7 +73,7 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-     ```
+     [mcode]
 
 ## Using the GUI
 1. This feature is coming soon.
