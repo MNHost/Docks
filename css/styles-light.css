@@ -1,5 +1,5 @@
-/* Light Theme Styles */
-body {
+/* Light Theme Overrides */
+:root {
     --text-color: #333;
     --background-color: #fff;
     --sidebar-background: #f4f4f4;
