@@ -3,7 +3,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const navList = document.getElementById('nav-list');
     const searchInput = document.getElementById('search');
     const themeSwitcher = document.getElementById('theme-switcher');
-    let isDarkTheme = false;
+
+    // Function to apply the selected theme
+    function applyTheme(theme) {
+        document.body.classList.remove('light-theme', 'dark-theme', 'blue-theme');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme', theme); // Save the selected theme in localStorage
+        themeSwitcher.textContent = getThemeSwitcherText(theme);
+    }
+
+    // Function to get the text for the theme switcher button
+    function getThemeSwitcherText(theme) {
+        switch (theme) {
+            case 'dark-theme': return 'Switch to Light Theme';
+            case 'blue-theme': return 'Switch to Dark Theme';
+            default: return 'Switch to Blue Theme';
+        }
+    }
+
+    // Load the selected theme from localStorage or default to light theme
+    const savedTheme = localStorage.getItem('theme') || 'light-theme';
+    applyTheme(savedTheme);
+
+    // Theme switcher button event listener
+    themeSwitcher.addEventListener('click', function () {
+        const currentTheme = document.body.classList.contains('light-theme') ? 'light-theme' :
+                             document.body.classList.contains('dark-theme') ? 'dark-theme' :
+                             document.body.classList.contains('blue-theme') ? 'blue-theme' : 'light-theme';
+        const newTheme = currentTheme === 'light-theme' ? 'dark-theme' :
+                         currentTheme === 'dark-theme' ? 'blue-theme' :
+                         'light-theme';
+        applyTheme(newTheme);
+    });
 
     // Function to load Markdown files
     async function loadMarkdown(file) {
@@ -11,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            const html = markdownToHtml(text);
+            const html = markdownToHtml(text); // This function is defined in markdown-parser.js
             contentDiv.innerHTML = html;
 
             // Initialize tabs after content is loaded
@@ -94,7 +125,7 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 
 You can navigate back to the [button:Home](?article=Home)
         `;
-        const html = markdownToHtml(notFoundMarkdown);
+        const html = markdownToHtml(notFoundMarkdown); // This function is defined in markdown-parser.js
         contentDiv.innerHTML = html;
     }
 
@@ -144,12 +175,5 @@ You can navigate back to the [button:Home](?article=Home)
             const text = item.textContent.toLowerCase();
             item.style.display = text.includes(query) ? 'block' : 'none';
         });
-    });
-
-    // Theme switcher functionality
-    themeSwitcher.addEventListener('click', function() {
-        isDarkTheme = !isDarkTheme;
-        document.body.classList.toggle('dark-theme', isDarkTheme);
-        this.textContent = isDarkTheme ? 'Switch to Light Theme' : 'Switch to Dark Theme';
     });
 });
