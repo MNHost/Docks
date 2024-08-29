@@ -248,7 +248,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .tabs-container {
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
 }
 
 .tab-buttons {
@@ -256,7 +255,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     border-bottom: 1px solid #ddd;
 }
 
-.tab-button {
+.tab-buttons button {
     background-color: #f1f1f1;
     border: none;
     border-radius: 4px;
@@ -269,16 +268,19 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     text-align: center;
 }
 
-.tab-button.active {
+.tab-buttons button.active {
     background-color: #007bff;
     color: white;
+}
+
+.tab-contents {
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .tab-content {
     display: none;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
     background-color: #fff;
 }
 
