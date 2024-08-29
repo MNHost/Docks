@@ -58,7 +58,7 @@ There are two ways to create custom commands. Please follow the steps below:
      ```
    - **Variable Command Example:**  
      This type of command allows a user to input a variable that affects the command's behavior. (At the moment only single variable commands are allowed.)
-```lua
+     ```lua
      local commands = {}
      
      -- Example command: Print the input
@@ -71,7 +71,7 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-```
+     ```
 ## Using the GUI
 1. This feature is coming soon.
 2. **Please be careful about what you are installing.** A package trust score system will be coming out soon.
