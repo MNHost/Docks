@@ -40,7 +40,7 @@ There are two ways to create custom commands. Please follow the steps below:
    end
    
    return commands
-[mcode]
+[/mcode]
 3. **Creating Commands**  
    Once you understand the syntax, you can start creating commands. A basic understanding of Roblox Luau coding is required, and for some commands, knowledge of web coding and other programming languages may be beneficial.
 
@@ -55,7 +55,7 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-     [mcode]
+     [/mcode]
 
    - **Variable Command Example:**  
      This type of command allows a user to input a variable that affects the command's behavior. (Only 1 input allowed at the moment.)
@@ -73,8 +73,7 @@ There are two ways to create custom commands. Please follow the steps below:
      end
      
      return commands
-     [mcode]
-
+     [/mcode]
 ## Using the GUI
 1. This feature is coming soon.
 2. **Please be careful about what you are installing.** A package trust score system will be coming out soon.
