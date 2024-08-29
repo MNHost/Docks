@@ -56,18 +56,20 @@ There are two ways to create custom commands. Please follow the steps below:
      
      return commands
      ```
+
    - **Variable Command Example:**  
-     This type of command allows a user to input a variable that affects the command's behavior. (At the moment only single variable commands are allowed.)<br>
+     This type of command allows a user to input a variable that affects the command's behavior. (Only 1 input allowed at the moment.)
+     
      ```lua
      local commands = {}
      
      -- Example command: Print the input
      commands["%cmdR printInput"] = function(input)
-        if input and input ~= "" then
+         if input and input ~= "" then
             print("Received input:", input)
          else
              print("No input provided.")
-        end
+         end
      end
      
      return commands
