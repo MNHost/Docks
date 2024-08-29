@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
     const searchInput = document.getElementById('search');
+    const themeToggle = document.getElementById('theme-toggle');
     const themeDropdown = document.getElementById('theme-dropdown');
 
     // Function to apply the selected theme
@@ -21,7 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             const newTheme = this.getAttribute('data-theme');
             applyTheme(newTheme);
+            themeToggle.textContent = `Theme: ${this.textContent}`; // Update button text
+            themeDropdown.style.display = 'none'; // Hide dropdown after selection
         });
+    });
+
+    // Toggle dropdown visibility
+    themeToggle.addEventListener('click', function () {
+        const isVisible = themeDropdown.style.display === 'block';
+        themeDropdown.style.display = isVisible ? 'none' : 'block';
     });
 
     // Function to load Markdown files
