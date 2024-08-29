@@ -76,7 +76,7 @@ function markdownToHtml(markdown) {
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
     // Code Blocks
-    html = html.replace(/\[mcode\](\w*)\n([\s\S]*?)\n\[\/mcode\]/g, function (match, p1, p2) {
+    html = html.replace(/\[mcode\](\w*)\n([\s\S]*?)\[\/mcode\]/g, function (match, p1, p2) {
         // p1 is the language specifier, p2 is the code
         return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
     });
