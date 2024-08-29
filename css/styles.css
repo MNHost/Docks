@@ -1,45 +1,3 @@
-/* Define CSS Variables for Theming */
-:root {
-    /* General Colors */
-    --text-color: #2b2b2b; /* Darker text color */
-    --background-color: #ffffff; /* Soft blue-tinted background */
-
-    /* Sidebar */
-    --sidebar-background: #5a5aff; /* Deep blue background for the sidebar */
-    --sidebar-border: #2c3e50; /* Slightly darker border for separation */
-    --sidebar-text: #ffffff; /* White text color in the sidebar */
-
-    /* Links */
-    --link-color: #ecf0f1; /* Light grey for links */
-    --link-hover-background: #2980b9; /* Bright blue on hover */
-    --link-hover-color: #ffffff; /* White text on hover */
-
-    /* Content */
-    --content-background: #ffffff; /* White background for content */
-
-    /* Code Blocks */
-    --code-background: #2d2d2d; /* Dark background for code blocks */
-    --code-border: #444; /* Slightly lighter border */
-    --code-text: #e5e5e5; /* Light grey for code text */
-
-    /* Button */
-    --button-background: #e74c3c; /* Vibrant red for buttons */
-    --button-text: #ffffff; /* White text on buttons */
-    --button-hover-background: #c0392b; /* Darker red on hover */
-
-    /* Header */
-    --header-color: #34495e; /* Deep blue for headers */
-
-    /* Paragraph */
-    --paragraph-text: #7f8c8d; /* Soft grey for paragraph text */
-
-    /* Tabs */
-    --tab-button-background: #f1f1f1;
-    --tab-button-active-background: #007bff;
-    --tab-button-active-text: #ffffff;
-    --tab-content-background: #ffffff;
-}
-
 /* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
@@ -48,8 +6,8 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: #2b2b2b; /* Darker text color */
+    background-color: #ffffff; /* Soft blue-tinted background */
 }
 
 /* Container Styles */
@@ -63,12 +21,12 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: 250px;
-    background-color: var(--sidebar-background);
+    background-color: #5a5aff; /* Deep blue background for the sidebar */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-right: 2px solid var(--sidebar-border);
+    border-right: 2px solid #2c3e50; /* Slightly darker border for separation */
     overflow-y: auto;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease; /* Smooth transition for responsiveness */
 }
 
 /* Responsive Sidebar */
@@ -98,7 +56,7 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    color: var(--sidebar-text);
+    color: white;
 }
 
 .sidebar li {
@@ -107,7 +65,7 @@ body {
 
 .sidebar a {
     text-decoration: none;
-    color: var(--link-color);
+    color: #ecf0f1; /* Light grey for links */
     font-weight: 500;
     transition: color 0.3s, background-color 0.3s;
     display: block;
@@ -116,8 +74,8 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: var(--link-hover-background);
-    color: var(--link-hover-color);
+    background-color: #2980b9; /* Bright blue on hover */
+    color: #ffffff; /* White text on hover */
 }
 
 /* Content Styles */
@@ -125,28 +83,28 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: var(--content-background);
+    background-color: #ffffff; /* White background for content */
 }
 
 /* Code Block Styles */
 pre {
-    background-color: var(--code-background);
-    border: 1px solid var(--code-border);
+    background-color: #2d2d2d; /* Dark background for code blocks */
+    border: 1px solid #444; /* Slightly lighter border */
     padding: 15px;
     border-radius: 8px;
     overflow-x: auto;
-    white-space: pre-wrap;
-    width: 100%;
-    box-sizing: border-box;
-    color: var(--code-text);
+    white-space: pre-wrap; /* Ensure long lines wrap */
+    width: 100%; /* Full width for code blocks */
+    box-sizing: border-box; /* Include padding and border in width */
+    color: #e5e5e5; /* Light grey for code text */
 }
 
 /* Inline Code Styling */
 code {
-    background-color: var(--code-background);
+    background-color: #2d2d2d; /* Dark background for inline code */
     padding: 2px 4px;
     border-radius: 4px;
-    color: var(--code-text);
+    color: #e5e5e5; /* Slightly lighter color for inline code */
 }
 
 /* Syntax Highlighting */
@@ -192,8 +150,8 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 /* Additional Styling for Buttons */
 .sidebar .button {
-    background-color: var(--button-background);
-    color: var(--button-text);
+    background-color: #e74c3c; /* Vibrant red for buttons */
+    color: #ffffff; /* White text on buttons */
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -204,39 +162,35 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 
 .sidebar .button:hover {
-    background-color: var(--button-hover-background);
+    background-color: #c0392b; /* Darker red on hover */
 }
 
-/* Header Styling */
 .content .header {
     font-size: 24px;
-    color: var(--header-color);
+    color: #34495e; /* Deep blue for headers */
     margin-bottom: 20px;
 }
 
-/* Paragraph Styling */
 .content p {
-    color: var(--paragraph-text);
+    color: #7f8c8d; /* Soft grey for paragraph text */
     line-height: 1.6;
 }
 
 /* Links in Content */
 .content a {
-    color: var(--link-color);
+    color: #3498db; /* Bright blue for links */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .content a:hover {
-    color: var(--link-hover-background);
+    color: #2980b9; /* Darker blue on hover */
 }
-
-/* Button Styling */
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: var(--button-background);
-    color: var(--button-text);
+    background-color: #3498db;
+    color: #fff;
     border: none;
     border-radius: 5px;
     font-weight: bold;
@@ -245,14 +199,13 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 
 .button:hover {
-    background-color: var(--button-hover-background);
+    background-color: #2980b9;
 }
 
 .button:focus {
     outline: none;
 }
-
-/* Image Alignment */
+/* CSS for image alignment */
 .img-left {
     text-align: left;
 }
@@ -280,6 +233,16 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     margin-right: 0;
     margin-left: auto;
 }
+/* Tabs Container */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.tab {
+    display: none;
+}
 
 /* Tabs Container */
 .tabs-container {
@@ -294,7 +257,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 
 .tab-button {
-    background-color: var(--tab-button-background);
+    background-color: #f1f1f1;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -307,8 +270,8 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 
 .tab-button.active {
-    background-color: var(--tab-button-active-background);
-    color: var(--tab-button-active-text);
+    background-color: #007bff;
+    color: white;
 }
 
 .tab-content {
@@ -316,7 +279,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: var(--tab-content-background);
+    background-color: #fff;
 }
 
 /* Show active tab content */
