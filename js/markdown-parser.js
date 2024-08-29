@@ -33,7 +33,10 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
-    
+        html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
+        // p1 is the language specifier, p2 is the code
+        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
+    });
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
        // Images with size and alignment control
@@ -72,11 +75,7 @@ html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
     // Images
 
-    // Code Blocks
-    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
-        // p1 is the language specifier, p2 is the code
-        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
-    });
+    // Code Block
 
     // Inline Code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
