@@ -7,7 +7,8 @@ body {
     height: 100vh;
     overflow: hidden;
     color: #2b2b2b; /* Darker text color */
-    background-color: #ffffff; /* Soft blue-tinted background */
+    background-color: #ffffff; /* Default light background color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
 }
 
 /* Container Styles */
@@ -78,12 +79,40 @@ body {
     color: #ffffff; /* White text on hover */
 }
 
+/* Search Input */
+.search-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Theme Switcher Button */
+#theme-switcher {
+    background-color: #2ecc71; /* Green for the theme switcher */
+    color: #ffffff; /* White text */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#theme-switcher:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}
+
 /* Content Styles */
 .content {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: #ffffff; /* White background for content */
+    background-color: #ffffff; /* Default light background color */
+    color: #2b2b2b; /* Default text color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
 }
 
 /* Code Block Styles */
@@ -186,25 +215,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .content a:hover {
     color: #2980b9; /* Darker blue on hover */
 }
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-.button:hover {
-    background-color: #2980b9;
-}
-
-.button:focus {
-    outline: none;
-}
 /* CSS for image alignment */
 .img-left {
     text-align: left;
@@ -232,16 +243,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .img-right img {
     margin-right: 0;
     margin-left: auto;
-}
-/* Tabs Container */
-.tabs-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-
-.tab {
-    display: none;
 }
 
 /* Tabs Container */
@@ -285,4 +286,54 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 /* Show active tab content */
 .tab-content.active {
     display: block;
+}
+
+/* Dark Theme */
+.dark-theme {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.dark-theme .sidebar {
+    background-color: #34495e;
+    border-right: 2px solid #1abc9c;
+}
+
+.dark-theme .content {
+    background-color: #2c3e50;
+}
+
+.dark-theme pre, .dark-theme code {
+    background-color: #1e272e;
+    color: #dfe6e9;
+}
+
+.dark-theme .search-input {
+    border: 1px solid #444;
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.dark-theme #theme-switcher {
+    background-color: #27ae60; /* Darker green for the dark theme */
+}
+
+.dark-theme #theme-switcher:hover {
+    background-color: #1e8449; /* Even darker green on hover */
+}
+
+.dark-theme .content .header {
+    color: #ecf0f1;
+}
+
+.dark-theme .content p {
+    color: #bdc3c7;
+}
+
+.dark-theme .content a {
+    color: #1abc9c;
+}
+
+.dark-theme .content a:hover {
+    color: #16a085;
 }
