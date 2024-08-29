@@ -74,6 +74,7 @@ There are two ways to create custom commands. Please follow the steps below:
      
      return commands
      ```
+
 ## Using the GUI
 1. This feature is coming soon.
 2. **Please be careful about what you are installing.** A package trust score system will be coming out soon.
