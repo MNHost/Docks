@@ -1,22 +1,6 @@
 function markdownToHtml(markdown) {
     let html = markdown;
-
-    // Escape HTML in code blocks
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;')
-                   .replace(/</g, '&lt;')
-                   .replace(/>/g, '&gt;')
-                   .replace(/"/g, '&quot;')
-                   .replace(/'/g, '&#039;');
-    }
-
-    // Code Blocks
-    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
-        // p1 is the language specifier, p2 is the code
-        return `<pre class="code-block"><code class="${p1}">${escapeHtml(p2)}</code></pre>`;
-    });
-
-    // Tabs
+ // Tabs
     html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
         // Extract tab titles and contents
         const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
@@ -37,7 +21,6 @@ function markdownToHtml(markdown) {
                     <div class="tab-contents">${tabContents}</div>
                 </div>`;
     });
-
     // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
@@ -50,11 +33,10 @@ function markdownToHtml(markdown) {
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\+ (.*)$/gm, '<ul><li>$1</li></ul>');
     html = html.replace(/^\- (.*)$/gm, '<ul><li>$1</li></ul>');
-
+    
     // Buttons
     html = html.replace(/\[button:([^\]]+)\]\(([^)]+)\)/g, '<button class="button" onclick="window.location.href=\'$2\'">$1</button>');
-
-    // Images with size and alignment control
+       // Images with size and alignment control
     html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)\s*\{([^}]*)\}/g, function (match, alt, src, properties) {
         let width = '';
         let height = '';
@@ -84,10 +66,17 @@ function markdownToHtml(markdown) {
 
         return imgHtml;
     });
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
-
+html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+    // Images
+
+    // Code Blocks
+    html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
+        // p1 is the language specifier, p2 is the code
+        return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
+    });
 
     // Inline Code
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
