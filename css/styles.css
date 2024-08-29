@@ -231,6 +231,25 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .content a:hover {
     color: #2980b9; /* Darker blue on hover */
 }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.button:focus {
+    outline: none;
+}
 
 /* CSS for image alignment */
 .img-left {
@@ -337,6 +356,10 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .light-theme #theme-switcher:hover {
     background-color: #27ae60; /* Darker green on hover */
 }
+.light-theme .button {
+    background-color: #3498db;
+    color: #ffffff;
+}
 
 /* Dark Theme */
 .dark-theme {
@@ -371,6 +394,10 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .dark-theme #theme-switcher:hover {
     background-color: #1e8449; /* Even darker green on hover */
 }
+.dark-theme .button {
+    background-color: black;
+    color: white;
+}
 
 /* Blue Theme */
 .blue-theme {
@@ -404,4 +431,8 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .blue-theme #theme-switcher:hover {
     background-color: #1f618d; /* Darker blue on hover */
+}
+.blue-theme .button {
+    background-color: white;
+    color: blue;
 }
