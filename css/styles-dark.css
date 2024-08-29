@@ -1,23 +1,23 @@
-/* Dark Theme Overrides */
 :root {
     --text-color: #e5e5e5;
     --background-color: #1e1e1e;
-    --sidebar-background: #333;
+    --sidebar-background: #2d2d2d;
+    --sidebar-border: #444;
     --sidebar-text: #e5e5e5;
-    --link-color: #9a9a9a;
-    --link-hover-background: #555;
-    --link-hover-color: #fff;
+    --link-color: #1e90ff;
+    --link-hover-background: #4169e1;
+    --link-hover-color: #ffffff;
     --content-background: #1e1e1e;
     --code-background: #2d2d2d;
+    --code-border: #444;
     --code-text: #e5e5e5;
-    --button-background: #ff5555;
-    --button-text: #fff;
-    --button-hover-background: #ff4444;
-    --search-border: #555;
+    --button-background: #1e90ff;
+    --button-text: #ffffff;
+    --button-hover-background: #1c86ee;
     --header-color: #e5e5e5;
-    --paragraph-text: #9a9a9a;
-    --tab-button-background: #444;
+    --paragraph-text: #b0b0b0;
+    --tab-button-background: #2d2d2d;
     --tab-button-active-background: #007bff;
-    --tab-button-active-text: #fff;
-    --tab-content-background: #2d2d2d;
+    --tab-button-active-text: #ffffff;
+    --tab-content-background: #1e1e1e;
 }
