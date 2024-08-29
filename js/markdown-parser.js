@@ -1,6 +1,15 @@
 function markdownToHtml(markdown) {
     let html = markdown;
 
+    // Escape HTML in code blocks
+    function escapeHtml(text) {
+        return text.replace(/&/g, '&amp;')
+                   .replace(/</g, '&lt;')
+                   .replace(/>/g, '&gt;')
+                   .replace(/"/g, '&quot;')
+                   .replace(/'/g, '&#039;');
+    }
+
     // Code Blocks
     html = html.replace(/```(\w*)\n([\s\S]*?)\n```/g, function (match, p1, p2) {
         // p1 is the language specifier, p2 is the code
@@ -102,13 +111,4 @@ function markdownToHtml(markdown) {
     html = html.replace(/<ul><\/ul>/g, '');
 
     return html;
-}
-
-// Helper function to escape HTML entities in code blocks
-function escapeHtml(text) {
-    return text.replace(/&/g, '&amp;')
-               .replace(/</g, '&lt;')
-               .replace(/>/g, '&gt;')
-               .replace(/"/g, '&quot;')
-               .replace(/'/g, '&#039;');
 }
