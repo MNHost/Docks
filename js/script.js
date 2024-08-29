@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
     const searchInput = document.getElementById('search');
-    const themeSwitcher = document.getElementById('theme-switcher');
-
+    const themeSwitcherButton = document.getElementById('theme-switcher-button');
+    const themeDropdown = document.getElementById('theme-dropdown');
+    
     // Function to apply the selected theme
     function applyTheme(theme) {
         document.body.classList.remove('light-theme', 'dark-theme', 'blue-theme');
         document.body.classList.add(theme);
         localStorage.setItem('theme', theme); // Save the selected theme in localStorage
-        themeSwitcher.textContent = getThemeSwitcherText(theme);
+        themeSwitcherButton.textContent = getThemeSwitcherText(theme);
     }
 
     // Function to get the text for the theme switcher button
@@ -26,14 +27,18 @@ document.addEventListener('DOMContentLoaded', function () {
     applyTheme(savedTheme);
 
     // Theme switcher button event listener
-    themeSwitcher.addEventListener('click', function () {
-        const currentTheme = document.body.classList.contains('light-theme') ? 'light-theme' :
-                             document.body.classList.contains('dark-theme') ? 'dark-theme' :
-                             document.body.classList.contains('blue-theme') ? 'blue-theme' : 'light-theme';
-        const newTheme = currentTheme === 'light-theme' ? 'dark-theme' :
-                         currentTheme === 'dark-theme' ? 'blue-theme' :
-                         'light-theme';
-        applyTheme(newTheme);
+    themeSwitcherButton.addEventListener('click', function () {
+        themeDropdown.classList.toggle('show');
+    });
+
+    // Dropdown item event listeners
+    themeDropdown.querySelectorAll('a').forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault();
+            const newTheme = this.getAttribute('data-theme');
+            applyTheme(newTheme);
+            themeDropdown.classList.remove('show'); // Hide dropdown after selection
+        });
     });
 
     // Function to load Markdown files
