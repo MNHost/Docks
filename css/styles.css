@@ -93,7 +93,8 @@ body {
 }
 
 #theme-toggle {
-    background-color: #f1f1f1;
+    background-color: black;
+    color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -360,6 +361,9 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #3498db;
     color: #ffffff;
 }
+.light-theme .sidebar a {
+    color: black; /* Dark text color for light theme */
+}
 
 /* Dark Theme */
 .dark-theme {
@@ -398,7 +402,9 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: black;
     color: white;
 }
-
+.dark-theme .sidebar a {
+    color: white; /* Dark text color for light theme */
+}
 /* Blue Theme */
 .blue-theme {
     background-color: #eaf0f9;
@@ -435,4 +441,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .blue-theme .button {
     background-color: white;
     color: blue;
+}
+.blue-theme .sidebar a {
+    color: blue; /* Dark text color for light theme */
 }
