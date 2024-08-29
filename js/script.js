@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
+    const searchInput = document.getElementById('search');
+    const themeSwitcher = document.getElementById('theme-switcher');
+    let isDarkTheme = false;
 
     // Function to load Markdown files
     async function loadMarkdown(file) {
@@ -131,4 +134,22 @@ You can navigate back to the [button:Home](?article=Home)
         // Load the first article in the first section by default
         loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
+
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const items = navList.querySelectorAll('li');
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? 'block' : 'none';
+        });
+    });
+
+    // Theme switcher functionality
+    themeSwitcher.addEventListener('click', function() {
+        isDarkTheme = !isDarkTheme;
+        document.body.classList.toggle('dark-theme', isDarkTheme);
+        this.textContent = isDarkTheme ? 'Switch to Light Theme' : 'Switch to Dark Theme';
+    });
 });
