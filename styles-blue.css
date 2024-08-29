@@ -1,0 +1,23 @@
+/* Blue Theme Styles */
+body {
+    --text-color: #fff;
+    --background-color: #003366;
+    --sidebar-background: #00509e;
+    --sidebar-text: #fff;
+    --link-color: #99c2ff;
+    --link-hover-background: #003399;
+    --link-hover-color: #fff;
+    --content-background: #003366;
+    --code-background: #002f5f;
+    --code-text: #fff;
+    --button-background: #0056b3;
+    --button-text: #fff;
+    --button-hover-background: #003d80;
+    --search-border: #003d66;
+    --header-color: #fff;
+    --paragraph-text: #ccc;
+    --tab-button-background: #004080;
+    --tab-button-active-background: #0056b3;
+    --tab-button-active-text: #fff;
+    --tab-content-background: #002f5f;
+}
