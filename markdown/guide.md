@@ -22,8 +22,8 @@ Set up your environment by configuring the necessary settings:
   2. (Coming Soon) You can go into the package's "cmdRConfig" file and set can display ads to false. But remember some packages may have code that does not run without ads.
   3. In the future we may create a cmdR pro version where you could have no ads.
 - **Game Storage**: Please understand that some packages can be very big. This could slow down your game and effect your users experience. Here are some tips to free up some storage:
-  1. **Delete old package versions**
-  2. **Find "mini packages"**
+  1. **Delete old package versions** If you have a previous package version installed, then after updating your code you can remove the outdated package from your game.
+  2. **Find "mini packages"** In the future
   3. Expand on this
 
 For detailed configuration instructions, see the [Getting Started With cmdR](?article=Getting Started).
