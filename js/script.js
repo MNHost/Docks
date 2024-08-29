@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
     const searchInput = document.getElementById('search-input');
-    const themeSelector = document.getElementById('theme-selector');
+    const themeSwitcher = document.getElementById('theme-switcher');
 
     // Function to load Markdown files
     async function loadMarkdown(file) {
@@ -15,11 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Initialize tabs after content is loaded
             initializeTabs();
-
-            // Highlight code blocks after content is loaded
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-            });
         } catch (error) {
             loadArticleNotFound();
         }
@@ -28,18 +23,32 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to initialize tab functionality
     function initializeTabs() {
         const tabsContainers = document.querySelectorAll('.tabs-container');
+
         tabsContainers.forEach(container => {
             const tabButtons = container.querySelectorAll('.tab-buttons button');
             const tabContents = container.querySelectorAll('.tab-content');
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', function () {
                     const targetTab = this.getAttribute('data-tab');
-                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Hide all tabs
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    // Show the selected tab
                     container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Set the active button
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
                     this.classList.add('active');
                 });
             });
+
+            // Initialize first tab
             if (tabButtons.length > 0) {
                 tabButtons[0].click();
             }
@@ -48,10 +57,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to generate the sidebar with sections
     function generateSidebar(sections) {
+        navList.innerHTML = ''; // Clear existing sidebar content
+
         sections.forEach(section => {
             const sectionItem = document.createElement('li');
             sectionItem.textContent = section.title;
             sectionItem.classList.add('sidebar-section-title');
+
             const ul = document.createElement('ul');
             section.articles.forEach(article => {
                 const listItem = document.createElement('li');
@@ -61,14 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     loadMarkdown(`markdown/${article}`);
-                    history.pushState({}, '', window.location.pathname);
+                    history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
                 ul.appendChild(listItem);
             });
+
             sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
+
+        // Initialize search functionality after generating sidebar
+        initializeSearch();
     }
 
     // Function to load the "Article Not Found" page
@@ -86,33 +102,48 @@ You can navigate back to the [button:Home](?article=Home)
         contentDiv.innerHTML = html;
     }
 
-    // Get the article from the URL parameter if it exists
+    // Function to get the article from the URL parameter if it exists
     function getArticleFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('article');
     }
 
-    // Handle theme switching
-    themeSelector.addEventListener('change', function () {
-        const theme = this.value;
-        document.getElementById('theme-style').setAttribute('href', `css/styles-${theme}.css`);
-        localStorage.setItem('theme', theme); // Save the theme preference
-    });
+    // Function to initialize the search input
+    function initializeSearch() {
+        searchInput.addEventListener('input', function () {
+            const query = searchInput.value.toLowerCase();
+            const links = navList.querySelectorAll('a');
 
-    // Load saved theme on page load
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    themeSelector.value = savedTheme;
-    document.getElementById('theme-style').setAttribute('href', `css/styles-${savedTheme}.css`);
+            links.forEach(link => {
+                const text = link.textContent.toLowerCase();
+                const listItem = link.parentElement;
 
-    // Function to handle search functionality
-    searchInput.addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-        const listItems = navList.querySelectorAll('li ul li');
-        listItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(query) ? '' : 'none';
+                if (text.includes(query)) {
+                    listItem.style.display = '';
+                } else {
+                    listItem.style.display = 'none';
+                }
+            });
         });
-    });
+    }
+
+    // Function to switch themes
+    function switchTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Save the selected theme to local storage
+        localStorage.setItem('theme', theme);
+    }
+
+    // Function to initialize theme switcher
+    function initializeThemeSwitcher() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        switchTheme(savedTheme);
+
+        themeSwitcher.addEventListener('change', function () {
+            switchTheme(this.value);
+        });
+    }
 
     // Example structure of sections with Markdown files
     const sections = [
@@ -133,6 +164,7 @@ You can navigate back to the [button:Home](?article=Home)
     const articleName = getArticleFromUrl();
     if (articleName) {
         const fileName = `${articleName}.md`;
+        // Check if the file exists in any section
         const fileExists = sections.some(section => section.articles.includes(fileName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
@@ -140,6 +172,10 @@ You can navigate back to the [button:Home](?article=Home)
             loadArticleNotFound();
         }
     } else {
+        // Load the first article in the first section by default
         loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
+
+    // Initialize theme switcher
+    initializeThemeSwitcher();
 });
