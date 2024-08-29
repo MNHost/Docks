@@ -1,19 +1,19 @@
-/* Blue Theme Overrides */
 :root {
     --text-color: #333;
     --background-color: #f0f8ff;
     --sidebar-background: #4682b4;
+    --sidebar-border: #2c3e50;
     --sidebar-text: #fff;
     --link-color: #1e90ff;
     --link-hover-background: #4169e1;
     --link-hover-color: #fff;
     --content-background: #f0f8ff;
     --code-background: #f5f5f5;
+    --code-border: #ccc;
     --code-text: #000;
     --button-background: #1e90ff;
     --button-text: #fff;
     --button-hover-background: #1c86ee;
-    --search-border: #ccc;
     --header-color: #333;
     --paragraph-text: #666;
     --tab-button-background: #f0f8ff;
