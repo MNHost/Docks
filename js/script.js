@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
-    const searchInput = document.getElementById('search-input');
-    const themeSwitcher = document.getElementById('theme-switcher');
 
     // Function to load Markdown files
     async function loadMarkdown(file) {
@@ -57,8 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to generate the sidebar with sections
     function generateSidebar(sections) {
-        navList.innerHTML = ''; // Clear existing sidebar content
-
         sections.forEach(section => {
             const sectionItem = document.createElement('li');
             sectionItem.textContent = section.title;
@@ -82,9 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
-
-        // Initialize search functionality after generating sidebar
-        initializeSearch();
     }
 
     // Function to load the "Article Not Found" page
@@ -102,47 +95,10 @@ You can navigate back to the [button:Home](?article=Home)
         contentDiv.innerHTML = html;
     }
 
-    // Function to get the article from the URL parameter if it exists
+    // Get the article from the URL parameter if it exists
     function getArticleFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('article');
-    }
-
-    // Function to initialize the search input
-    function initializeSearch() {
-        searchInput.addEventListener('input', function () {
-            const query = searchInput.value.toLowerCase();
-            const links = navList.querySelectorAll('a');
-
-            links.forEach(link => {
-                const text = link.textContent.toLowerCase();
-                const listItem = link.parentElement;
-
-                if (text.includes(query)) {
-                    listItem.style.display = '';
-                } else {
-                    listItem.style.display = 'none';
-                }
-            });
-        });
-    }
-
-    // Function to switch themes
-    function switchTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-
-        // Save the selected theme to local storage
-        localStorage.setItem('theme', theme);
-    }
-
-    // Function to initialize theme switcher
-    function initializeThemeSwitcher() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        switchTheme(savedTheme);
-
-        themeSwitcher.addEventListener('change', function () {
-            switchTheme(this.value);
-        });
     }
 
     // Example structure of sections with Markdown files
@@ -175,7 +131,4 @@ You can navigate back to the [button:Home](?article=Home)
         // Load the first article in the first section by default
         loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
-
-    // Initialize theme switcher
-    initializeThemeSwitcher();
 });
