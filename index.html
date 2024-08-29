@@ -10,7 +10,14 @@
     <div class="container">
         <nav class="sidebar">
             <input type="text" id="search" placeholder="Search..." class="search-input">
-            <button id="theme-switcher" class="button">Switch Theme</button>
+            <div class="theme-switcher">
+                <button id="theme-switcher-button" class="button">Switch Theme</button>
+                <div id="theme-dropdown" class="dropdown-content">
+                    <a href="#" data-theme="light-theme">Light Theme</a>
+                    <a href="#" data-theme="dark-theme">Dark Theme</a>
+                    <a href="#" data-theme="blue-theme">Blue Theme</a>
+                </div>
+            </div>
             <ul id="nav-list">
                 <!-- Navigation items will be inserted here -->
             </ul>
