@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markdown Parser Documentation</title>
-    <link id="theme-style" rel="stylesheet" href="css/styles-light.css"> <!-- Default to Light Theme -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Base Styles -->
+    <link id="theme-style" rel="stylesheet" href="css/styles-light.css"> <!-- Default Theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 </head>
-
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <nav class="sidebar">
             <input type="text" id="search-input" placeholder="Search documentation..." />
-            <ul id="nav-list">
-                <!-- Navigation items will be inserted here -->
-            </ul>
-            <!-- Theme Switcher -->
+            <ul id="nav-list"></ul>
             <div class="theme-switcher">
                 <h3>Theme</h3>
                 <select id="theme-selector">
@@ -28,17 +23,11 @@
                 </select>
             </div>
         </nav>
-
-        <!-- Main Content -->
         <main class="content">
-            <div id="content">
-                <!-- Markdown content will be inserted here -->
-            </div>
+            <div id="content"></div>
         </main>
     </div>
-
     <script src="js/markdown-parser.js"></script>
     <script src="js/script.js"></script>
 </body>
-
 </html>
