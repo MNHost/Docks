@@ -2,34 +2,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const contentDiv = document.getElementById('content');
     const navList = document.getElementById('nav-list');
     const searchInput = document.getElementById('search');
-    const themeSwitcherButton = document.getElementById('theme-switcher-button');
     const themeDropdown = document.getElementById('theme-dropdown');
-    
+
     // Function to apply the selected theme
     function applyTheme(theme) {
         document.body.classList.remove('light-theme', 'dark-theme', 'blue-theme');
         document.body.classList.add(theme);
         localStorage.setItem('theme', theme); // Save the selected theme in localStorage
-        themeSwitcherButton.textContent = getThemeSwitcherText(theme);
     }
 
-    // Function to get the text for the theme switcher button
-    function getThemeSwitcherText(theme) {
-        switch (theme) {
-            case 'dark-theme': return 'Switch to Light Theme';
-            case 'blue-theme': return 'Switch to Dark Theme';
-            default: return 'Switch to Blue Theme';
-        }
-    }
-
-    // Load the selected theme from localStorage or default to light theme
+    // Function to load the selected theme from localStorage or default to light theme
     const savedTheme = localStorage.getItem('theme') || 'light-theme';
     applyTheme(savedTheme);
-
-    // Theme switcher button event listener
-    themeSwitcherButton.addEventListener('click', function () {
-        themeDropdown.classList.toggle('show');
-    });
 
     // Dropdown item event listeners
     themeDropdown.querySelectorAll('a').forEach(item => {
@@ -37,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             const newTheme = this.getAttribute('data-theme');
             applyTheme(newTheme);
-            themeDropdown.classList.remove('show'); // Hide dropdown after selection
         });
     });
 
