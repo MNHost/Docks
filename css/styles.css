@@ -6,7 +6,7 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
-    color: #2b2b2b; /* Darker text color */
+    color: #2b2b2b; /* Default text color */
     background-color: #ffffff; /* Default light background color */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
 }
@@ -22,7 +22,6 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: 250px;
-    background-color: #5a5aff; /* Deep blue background for the sidebar */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-right: 2px solid #2c3e50; /* Slightly darker border for separation */
@@ -66,7 +65,6 @@ body {
 
 .sidebar a {
     text-decoration: none;
-    color: #ecf0f1; /* Light grey for links */
     font-weight: 500;
     transition: color 0.3s, background-color 0.3s;
     display: block;
@@ -75,7 +73,6 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: #2980b9; /* Bright blue on hover */
     color: #ffffff; /* White text on hover */
 }
 
@@ -110,8 +107,6 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: #ffffff; /* Default light background color */
-    color: #2b2b2b; /* Default text color */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
 }
 
@@ -196,7 +191,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .content .header {
     font-size: 24px;
-    color: #34495e; /* Deep blue for headers */
     margin-bottom: 20px;
 }
 
@@ -288,6 +282,40 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     display: block;
 }
 
+/* Light Theme (Default) */
+.light-theme {
+    background-color: #ffffff;
+    color: #2b2b2b;
+}
+
+.light-theme .sidebar {
+    background-color: #5a5aff;
+    border-right: 2px solid #2c3e50;
+}
+
+.light-theme .content {
+    background-color: #ffffff;
+}
+
+.light-theme pre, .light-theme code {
+    background-color: #2d2d2d;
+    color: #e5e5e5;
+}
+
+.light-theme .search-input {
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #2b2b2b;
+}
+
+.light-theme #theme-switcher {
+    background-color: #2ecc71; /* Green for the light theme switcher */
+}
+
+.light-theme #theme-switcher:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}
+
 /* Dark Theme */
 .dark-theme {
     background-color: #2c3e50;
@@ -296,7 +324,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .dark-theme .sidebar {
     background-color: #34495e;
-    border-right: 2px solid #1abc9c;
+    border-right: 2px solid #2c3e50;
 }
 
 .dark-theme .content {
@@ -322,18 +350,36 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #1e8449; /* Even darker green on hover */
 }
 
-.dark-theme .content .header {
-    color: #ecf0f1;
+/* Blue Theme */
+.blue-theme {
+    background-color: #eaf0f9;
+    color: #2c3e50;
 }
 
-.dark-theme .content p {
-    color: #bdc3c7;
+.blue-theme .sidebar {
+    background-color: #3498db;
+    border-right: 2px solid #2980b9;
 }
 
-.dark-theme .content a {
-    color: #1abc9c;
+.blue-theme .content {
+    background-color: #ffffff;
 }
 
-.dark-theme .content a:hover {
-    color: #16a085;
+.blue-theme pre, .blue-theme code {
+    background-color: #dfe6e9;
+    color: #2c3e50;
+}
+
+.blue-theme .search-input {
+    border: 1px solid #3498db;
+    background-color: #eaf0f9;
+    color: #2c3e50;
+}
+
+.blue-theme #theme-switcher {
+    background-color: #2980b9; /* Blue for the blue theme switcher */
+}
+
+.blue-theme #theme-switcher:hover {
+    background-color: #1f618d; /* Darker blue on hover */
 }
