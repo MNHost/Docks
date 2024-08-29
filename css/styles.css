@@ -286,3 +286,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .tab-content.active {
     display: block;
 }
+.theme-switcher {
+    margin-top: 20px;
+}
