@@ -67,40 +67,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function generateSidebar(sections) {
-        sections.forEach(section => {
-            const sectionItem = document.createElement('li');
-            sectionItem.textContent = section.title;
-            sectionItem.classList.add('sidebar-section-title');
+function generateSidebar(sections) {
+    sections.forEach(section => {
+        const sectionItem = document.createElement('li');
+        sectionItem.textContent = section.title;
+        sectionItem.classList.add('sidebar-section-title');
 
-            const ul = document.createElement('ul');
-            section.articles.forEach(article => {
-                const listItem = document.createElement('li');
-                const link = document.createElement('a');
-                link.href = '#';
-                
-                // Load markdown to fetch config
-                loadMarkdown(`markdown/${article}`).then(() => {
+        const ul = document.createElement('ul');
+        section.articles.forEach(article => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = '#';
+
+            // Fetch markdown content to parse the configuration
+            fetch(`markdown/${article}`)
+                .then(response => response.text())
+                .then(text => {
                     // Extract the display name from config if available
                     const { config } = markdownToHtml(text);
                     link.textContent = config['display-name'] || article.replace('.md', '');
+                })
+                .catch(error => {
+                    console.error('Error loading markdown for sidebar:', error);
+                    link.textContent = article.replace('.md', ''); // Fallback name in case of error
                 });
 
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    loadMarkdown(`markdown/${article}`);
-                    history.pushState({}, '', window.location.pathname);
-                });
-                
-                listItem.appendChild(link);
-                ul.appendChild(listItem);
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadMarkdown(`markdown/${article}`);
+                history.pushState({}, '', window.location.pathname);
             });
 
-            sectionItem.appendChild(ul);
-            navList.appendChild(sectionItem);
+            listItem.appendChild(link);
+            ul.appendChild(listItem);
         });
-    }
 
+        sectionItem.appendChild(ul);
+        navList.appendChild(sectionItem);
+    });
+}
     function loadArticleNotFound() {
         const notFoundMarkdown = `
 # Article Not Found
