@@ -149,11 +149,11 @@ function getArticleFromUrl() {
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md', 'intro.md']
+            articles: ['Home', 'User Guide', 'Installing cmdR', 'intro']
         },
         {
             title: 'Advanced Topics',
-            articles: ['Create Commands.md']
+            articles: ['Create Commands']
         }
     ];
 
