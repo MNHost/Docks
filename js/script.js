@@ -41,11 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const text = await response.text();
             // Debugging output
             console.log('Markdown content:', text);
-            const html = markdownToHtml(text); // This function is defined in markdown-parser.js
+            const { html, config } = markdownToHtml(text); // Updated function returns config
             contentDiv.innerHTML = html;
+
+            // Update sidebar display name from config if available
+            if (config['display-name']) {
+                document.getElementById('page-title').textContent = config['display-name'];
+            }
 
             // Initialize tabs after content is loaded
             initializeTabs();
+            navigateToSection(getSectionFromUrl());
+
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -99,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = article.replace('.md', '');
+                link.textContent = article.displayName || article.title; // Use displayName if available
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    loadMarkdown(`markdown/${article}`);
+                    loadMarkdown(`markdown/${article.file}.md`); // Append .md when loading
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
@@ -125,7 +132,7 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 
 You can navigate back to the [button:Home](?article=Home)
         `;
-        const html = markdownToHtml(notFoundMarkdown); // This function is defined in markdown-parser.js
+        const html = markdownToHtml(notFoundMarkdown).html; // This function is defined in markdown-parser.js
         contentDiv.innerHTML = html;
     }
 
@@ -135,15 +142,37 @@ You can navigate back to the [button:Home](?article=Home)
         return params.get('article');
     }
 
+    // Get the section from the URL parameter if it exists
+    function getSectionFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('section');
+    }
+
+    // Function to navigate to a specific section
+    function navigateToSection(section) {
+        if (section) {
+            const targetElement = document.querySelector(`h2[id="${section}"], h3[id="${section}"], h4[id="${section}"], h5[id="${section}"], h6[id="${section}"]`);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
+
     // Example structure of sections with Markdown files
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
+            articles: [
+                { title: 'Home', file: 'Home', displayName: 'Welcome' },
+                { title: 'User Guide', file: 'User Guide' },
+                { title: 'Installing cmdR', file: 'Installing cmdR' }
+            ]
         },
         {
             title: 'Advanced Topics',
-            articles: ['Create Commands.md']
+            articles: [
+                { title: 'Create Commands', file: 'CreateCommands' }
+            ]
         }
     ];
 
@@ -155,7 +184,7 @@ You can navigate back to the [button:Home](?article=Home)
     if (articleName) {
         const fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.includes(fileName));
+        const fileExists = sections.some(section => section.articles.some(article => article.file === articleName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
@@ -163,7 +192,7 @@ You can navigate back to the [button:Home](?article=Home)
         }
     } else {
         // Load the first article in the first section by default
-        loadMarkdown(`markdown/${sections[0].articles[0]}`);
+        loadMarkdown(`markdown/${sections[0].articles[0].file}.md`);
     }
 
     // Search functionality
