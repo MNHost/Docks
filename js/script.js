@@ -128,7 +128,7 @@ You can navigate back to the [button:Home](?article=Home)
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'guide.md', 'Installing cmdR.md', 'intro.md']
+            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md', 'intro.md']
         },
         {
             title: 'Advanced Topics',
