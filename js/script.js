@@ -171,7 +171,7 @@ You can navigate back to the [button:Home](?article=Home)
         {
             title: 'Advanced Topics',
             articles: [
-                { title: 'Create Commands', file: 'CreateCommands' }
+                { title: 'Create Commands', file: 'Create Commands' }
             ]
         }
     ];
