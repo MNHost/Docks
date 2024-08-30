@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const text = await response.text();
             // Debugging output
             console.log('Markdown content:', text);
-            const { html, displayName } = markdownToHtml(text); // This function is defined below
+            const { html, config } = markdownToHtml(text); // This function is defined below
             contentDiv.innerHTML = html;
 
             // Update sidebar display name if available
-            if (displayName) {
+            if (config && config.displayName) {
                 const sidebarItem = document.querySelector(`.sidebar-section-title a[href$="${file}"]`);
                 if (sidebarItem) {
-                    sidebarItem.textContent = displayName;
+                    sidebarItem.textContent = config.displayName;
                 }
             }
 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = section.title; // Default to section title
+                link.textContent = article.replace('.md', ''); // Default to article name without .md
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     loadMarkdown(`markdown/${article}`);
@@ -166,7 +166,7 @@ You can navigate back to the [button:Home](?article=Home)
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md', 'intro.md']
+            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
         },
         {
             title: 'Advanced Topics',
