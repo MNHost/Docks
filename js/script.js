@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search');
     const themeToggle = document.getElementById('theme-toggle');
     const themeDropdown = document.getElementById('theme-dropdown');
-    const pageTitle = document.getElementById('page-title');
 
     // Function to apply the selected theme
     function applyTheme(theme) {
@@ -40,25 +39,26 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            const config = parseConfig(text); // Parse configuration from the Markdown content
-            const html = markdownToHtml(text); // Convert Markdown to HTML
+            // Debugging output
+            console.log('Markdown content:', text);
+            const { html, displayName } = markdownToHtml(text); // This function is defined below
             contentDiv.innerHTML = html;
+
+            // Update sidebar display name if available
+            if (displayName) {
+                const sidebarItem = document.querySelector(`.sidebar-section-title a[href$="${file}"]`);
+                if (sidebarItem) {
+                    sidebarItem.textContent = displayName;
+                }
+            }
 
             // Initialize tabs after content is loaded
             initializeTabs();
 
-            // Update sidebar items based on configuration
-            if (config) {
-                updateSidebarItems(config);
-            }
-
-            // Scroll to section if specified
+            // Scroll to specific section if specified
             const section = getSectionFromUrl();
             if (section) {
-                const targetElement = document.getElementById(section);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
+                scrollToSection(section);
             }
         } catch (error) {
             console.error('Error loading markdown:', error);
@@ -103,47 +103,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to generate the sidebar with sections
     function generateSidebar(sections) {
-        navList.innerHTML = ''; // Clear existing sidebar items
-
         sections.forEach(section => {
             const sectionItem = document.createElement('li');
-            sectionItem.textContent = section.title;
             sectionItem.classList.add('sidebar-section-title');
 
-            const ul = document.createElement('ul');
+            // Default display name is the section title
+            let displayName = section.title;
+
             section.articles.forEach(article => {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = article.displayName || article.name; // Use displayName or name
+                link.textContent = displayName; // Use the display name
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    loadMarkdown(`markdown/${article.name}`); // Automatically add .md extension
+                    loadMarkdown(`markdown/${article}`);
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
-                ul.appendChild(listItem);
+                sectionItem.appendChild(listItem);
             });
 
-            sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
-    }
-
-    // Function to update sidebar items based on configuration
-    function updateSidebarItems(config) {
-        if (config && config.articles) {
-            const items = navList.querySelectorAll('a');
-            items.forEach(item => {
-                const articleName = item.textContent;
-                const configItem = config.articles.find(article => article.name === articleName);
-                if (configItem && configItem.displayName) {
-                    item.textContent = configItem.displayName;
-                }
-            });
-        } else {
-            console.warn('No valid config or articles found to update sidebar items.');
-        }
     }
 
     // Function to load the "Article Not Found" page
@@ -157,28 +139,14 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 
 You can navigate back to the [button:Home](?article=Home)
         `;
-        const html = markdownToHtml(notFoundMarkdown); // This function is defined in markdown-parser.js
+        const { html } = markdownToHtml(notFoundMarkdown); // This function is defined below
         contentDiv.innerHTML = html;
     }
 
-    // Function to parse configuration from Markdown content
-    function parseConfig(markdown) {
-        const config = {};
-        const configStart = markdown.indexOf('-----');
-        if (configStart !== -1) {
-            const configEnd = markdown.indexOf('-----', configStart + 5);
-            if (configEnd !== -1) {
-                const configSection = markdown.substring(configStart + 5, configEnd).trim();
-                const lines = configSection.split('\n');
-                lines.forEach(line => {
-                    const [key, value] = line.split(':').map(part => part.trim());
-                    if (key && value) {
-                        config[key.toLowerCase()] = value;
-                    }
-                });
-            }
-        }
-        return config;
+    // Function to get the article from the URL parameter
+    function getArticleFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('article');
     }
 
     // Function to get the section from the URL parameter
@@ -187,21 +155,23 @@ You can navigate back to the [button:Home](?article=Home)
         return params.get('section');
     }
 
+    // Function to scroll to a specific section
+    function scrollToSection(section) {
+        const targetElement = document.querySelector(`h2[id="${section}"], h3[id="${section}"], h4[id="${section}"], h5[id="${section}"], h6[id="${section}"]`);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     // Example structure of sections with Markdown files
     const sections = [
         {
             title: 'Getting Started',
-            articles: [
-                { name: 'Home', displayName: 'Home' },
-                { name: 'User Guide', displayName: 'User Guide' },
-                { name: 'Installing cmdR', displayName: 'Installing cmdR' }
-            ]
+            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
         },
         {
             title: 'Advanced Topics',
-            articles: [
-                { name: 'Create Commands', displayName: 'Create Commands' }
-            ]
+            articles: ['Create Commands.md']
         }
     ];
 
@@ -209,11 +179,11 @@ You can navigate back to the [button:Home](?article=Home)
     generateSidebar(sections);
 
     // Load article based on URL parameter or default to the first article
-    const articleName = new URLSearchParams(window.location.search).get('article');
+    const articleName = getArticleFromUrl();
     if (articleName) {
         const fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.some(article => article.name === articleName));
+        const fileExists = sections.some(section => section.articles.includes(fileName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
@@ -221,11 +191,11 @@ You can navigate back to the [button:Home](?article=Home)
         }
     } else {
         // Load the first article in the first section by default
-        loadMarkdown(`markdown/${sections[0].articles[0].name}.md`);
+        loadMarkdown(`markdown/${sections[0].articles[0]}`);
     }
 
     // Search functionality
-    searchInput.addEventListener('input', function () {
+    searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase();
         const items = navList.querySelectorAll('li');
 
