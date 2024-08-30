@@ -165,7 +165,7 @@ You can navigate back to the [button:Home](?article=Home)
             articles: [
                 { title: 'Home', file: 'Home', displayName: 'Welcome' },
                 { title: 'User Guide', file: 'User Guide' },
-                { title: 'Installing cmdR', file: 'Installing cmdR' }
+                { title: 'Installing cmdR', file: 'Installing cmdR' },
                 { title: 'Intro', file: 'intro' }
             ]
         },
