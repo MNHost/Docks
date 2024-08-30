@@ -118,45 +118,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Function to generate the sidebar with sections
-    function generateSidebar(sections) {
-        sections.forEach(section => {
-            const sectionItem = document.createElement('li');
-            sectionItem.textContent = section.title;
-            sectionItem.classList.add('sidebar-section-title');
+function generateSidebar(sections) {
+    sections.forEach(section => {
+        const sectionItem = document.createElement('li');
+        sectionItem.textContent = section.title;
+        sectionItem.classList.add('sidebar-section-title');
 
-            const ul = document.createElement('ul');
-            section.articles.forEach(article => {
-                const listItem = document.createElement('li');
-                const link = document.createElement('a');
-                link.href = '#';
+        const ul = document.createElement('ul');
+        section.articles.forEach(article => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = '#';
 
-                fetch(`markdown/${article}.md`)
-                    .then(response => response.text())
-                    .then(text => {
-                        // Parse markdown and get the configuration
-                        const { config } = markdownToHtml(text);
-                        // Use the display-name from the config if it exists, otherwise use the article name
-                        link.textContent = config['display-name'] || article;
-                    })
-                    .catch(error => {
-                        console.error('Error loading markdown for sidebar:', error);
-                        link.textContent = article; // Fallback to article name in case of error
-                    });
-
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    loadMarkdown(`markdown/${article}.md`);
-                    history.pushState({}, '', window.location.pathname);
+            fetch(`markdown/${article}.md`)
+                .then(response => response.text())
+                .then(text => {
+                    // Parse markdown and get the configuration
+                    const { config, htmlContent } = markdownToHtml(text);
+                    // Use the display-name from the config if it exists, otherwise use the article name
+                    link.textContent = config['display-name'] || article;
+                })
+                .catch(error => {
+                    console.error('Error loading markdown for sidebar:', error);
+                    link.textContent = article; // Fallback to article name in case of error
                 });
 
-                listItem.appendChild(link);
-                ul.appendChild(listItem);
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadMarkdown(`markdown/${article}.md`);
+                history.pushState({}, '', window.location.pathname);
             });
 
-            sectionItem.appendChild(ul);
-            navList.appendChild(sectionItem);
+            listItem.appendChild(link);
+            ul.appendChild(listItem);
         });
-    }
+
+        sectionItem.appendChild(ul);
+        navList.appendChild(sectionItem);
+    });
+}
 
     // Function to load the "Article Not Found" page
     function loadArticleNotFound() {
