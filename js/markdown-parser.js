@@ -1,36 +1,36 @@
 function markdownToHtml(markdown) {
-    let html = markdown;
-    let config = {};
-
     // Extract configuration section
-    const configMatch = markdown.match(/^-----([\s\S]*?)-----/);
-    if (configMatch) {
-        const configText = configMatch[1];
-        // Process configuration
+    const configSectionMatch = markdown.match(/-----\n([\s\S]*?)\n-----/);
+    let config = {};
+    
+    if (configSectionMatch) {
+        // Parse the configuration
+        const configText = configSectionMatch[1];
         configText.split('\n').forEach(line => {
-            const [key, value] = line.split(':').map(s => s.trim());
+            const [key, value] = line.split('=').map(part => part.trim());
             if (key && value) {
                 config[key] = value;
             }
         });
-        // Remove the configuration section from the markdown
-        html = markdown.replace(/^-----[\s\S]*?-----/, '');
+        // Remove configuration section from markdown
+        markdown = markdown.replace(configSectionMatch[0], '');
     }
+
+    // Convert Markdown to HTML
+    let html = markdown;
 
     // Tabs
     html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
-        // Extract tab titles and contents
         const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
 
-        // Generate HTML for tabs
         const tabButtons = tabs.map((tab, index) => {
             const title = tab.split('\n')[0].replace(/^###\s/, '');
             return `<button class="tab-button" data-tab="tab${index}">${title}</button>`;
         }).join('');
 
         const tabContents = tabs.map((tab, index) => {
-            const content = tab.replace(/^###\s.*\n/, ''); // Remove title line
-            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content).html}</div>`;
+            const content = tab.replace(/^###\s.*\n/, '');
+            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content)}</div>`;
         }).join('');
 
         return `<div class="tabs-container">
@@ -72,13 +72,11 @@ function markdownToHtml(markdown) {
             height = `height="${heightMatch[1]}" `;
         }
         if (alignMatch) {
-            align = alignMatch[1]; // Get the alignment value
+            align = alignMatch[1];
         }
 
-        // Create the image HTML with alignment
         let imgHtml = `<img src="${src}" alt="${alt}" ${width}${height}>`;
 
-        // Wrap the image in a div with an alignment class
         if (align) {
             imgHtml = `<div class="img-${align}">${imgHtml}</div>`;
         }
@@ -93,7 +91,6 @@ function markdownToHtml(markdown) {
 
     // Code Blocks
     html = html.replace(/\[mcode\](\w*)\n([\s\S]*?)\[\/mcode\]/g, function (match, p1, p2) {
-        // p1 is the language specifier, p2 is the code
         return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
     });
 
