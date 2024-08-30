@@ -106,24 +106,23 @@ document.addEventListener('DOMContentLoaded', function () {
         sections.forEach(section => {
             const sectionItem = document.createElement('li');
             sectionItem.classList.add('sidebar-section-title');
-
-            // Default display name is the section title
-            let displayName = section.title;
+            const ul = document.createElement('ul');
 
             section.articles.forEach(article => {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = displayName; // Use the display name
+                link.textContent = section.title; // Default to section title
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     loadMarkdown(`markdown/${article}`);
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
-                sectionItem.appendChild(listItem);
+                ul.appendChild(listItem);
             });
 
+            sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
     }
@@ -167,7 +166,7 @@ You can navigate back to the [button:Home](?article=Home)
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
+            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md', 'intro.md']
         },
         {
             title: 'Advanced Topics',
