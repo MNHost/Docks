@@ -36,27 +36,23 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to load Markdown files
     async function loadMarkdown(file) {
         try {
-            const response = await fetch(`${file}.md`);
+            const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            const config = parseConfig(text); // Parse configuration from the Markdown content
-            const html = markdownToHtml(text); // Convert Markdown to HTML
+            // Debugging output
+            console.log('Markdown content:', text);
+            const { html, config } = markdownToHtml(text); // Updated function returns config
             contentDiv.innerHTML = html;
+
+            // Update sidebar display name from config if available
+            if (config['display-name']) {
+                document.getElementById('page-title').textContent = config['display-name'];
+            }
 
             // Initialize tabs after content is loaded
             initializeTabs();
+            navigateToSection(getSectionFromUrl());
 
-            // Update sidebar items based on configuration
-            updateSidebarItems(config);
-
-            // Scroll to section if specified
-            const section = getSectionFromUrl();
-            if (section) {
-                const targetElement = document.getElementById(section);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -110,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = article.replace('.md', '');
+                link.textContent = article.displayName || article.title; // Use displayName if available
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    loadMarkdown(`markdown/${article}`);
+                    loadMarkdown(`markdown/${article.file}.md`); // Append .md when loading
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
@@ -123,36 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionItem.appendChild(ul);
             navList.appendChild(sectionItem);
         });
-    }
-
-    // Function to update sidebar items based on configuration
-    function updateSidebarItems(config) {
-        if (config['display-name']) {
-            // Find the sidebar item with the corresponding article name and update its text
-            const items = navList.querySelectorAll('li');
-            items.forEach(item => {
-                const link = item.querySelector('a');
-                if (link && link.textContent === currentArticle.replace('.md', '')) {
-                    link.textContent = config['display-name'];
-                }
-            });
-        }
-    }
-
-    // Function to parse the configuration from Markdown content
-    function parseConfig(markdown) {
-        const config = {};
-        const configSection = markdown.match(/-----([\s\S]*?)-----/);
-        if (configSection) {
-            const configText = configSection[1].trim();
-            configText.split('\n').forEach(line => {
-                const [key, value] = line.split('=').map(part => part.trim());
-                if (key && value) {
-                    config[key] = value;
-                }
-            });
-        }
-        return config;
     }
 
     // Function to load the "Article Not Found" page
@@ -166,30 +132,48 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 
 You can navigate back to the [button:Home](?article=Home)
         `;
-        const html = markdownToHtml(notFoundMarkdown); // This function is defined in markdown-parser.js
+        const html = markdownToHtml(notFoundMarkdown).html; // This function is defined in markdown-parser.js
         contentDiv.innerHTML = html;
     }
 
-    // Get the article and section from URL parameters
+    // Get the article from the URL parameter if it exists
     function getArticleFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('article');
     }
 
+    // Get the section from the URL parameter if it exists
     function getSectionFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('section');
+    }
+
+    // Function to navigate to a specific section
+    function navigateToSection(section) {
+        if (section) {
+            const targetElement = document.querySelector(`h2[id="${section}"], h3[id="${section}"], h4[id="${section}"], h5[id="${section}"], h6[id="${section}"]`);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
     }
 
     // Example structure of sections with Markdown files
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home', 'User Guide', 'Installing cmdR', 'intro']
+            articles: [
+                { title: 'Home', file: 'Home', displayName: 'Welcome' },
+                { title: 'User Guide', file: 'User Guide' },
+                { title: 'Installing cmdR', file: 'Installing cmdR' },
+                { title: 'Intro', file: 'intro' }
+            ]
         },
         {
             title: 'Advanced Topics',
-            articles: ['Create Commands.md']
+            articles: [
+                { title: 'Create Commands', file: 'Create Commands' }
+            ]
         }
     ];
 
@@ -198,21 +182,18 @@ You can navigate back to the [button:Home](?article=Home)
 
     // Load article based on URL parameter or default to the first article
     const articleName = getArticleFromUrl();
-    const section = getSectionFromUrl();
-    let fileName = '';
     if (articleName) {
-        fileName = `${articleName}.md`;
+        const fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.includes(fileName));
+        const fileExists = sections.some(section => section.articles.some(article => article.file === articleName));
         if (fileExists) {
-            loadMarkdown(`markdown/${fileName}.md`);
+            loadMarkdown(`markdown/${fileName}`);
         } else {
             loadArticleNotFound();
         }
     } else {
         // Load the first article in the first section by default
-        fileName = sections[0].articles[0];
-        loadMarkdown(`markdown/${fileName}.md`);
+        loadMarkdown(`markdown/${sections[0].articles[0].file}.md`);
     }
 
     // Search functionality
