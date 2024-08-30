@@ -51,17 +51,35 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            // Debugging output
-            console.log('Markdown content:', text);
             const html = markdownToHtml(text); // This function is defined in markdown-parser.js
-            contentDiv.innerHTML = html;
-
-            // Initialize tabs after content is loaded
+            contentDiv.innerHTML = html.htmlContent; // Render the HTML part of the content
             initializeTabs();
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
         }
+    }
+
+    // Function to parse the Markdown and extract configuration
+    function markdownToHtml(markdown) {
+        const config = {};
+        let html = markdown;
+
+        // Extract configuration section
+        const configSection = markdown.match(/-----(.*?display-name=.*?)-----/s);
+        if (configSection) {
+            configSection[1].split('\n').forEach(line => {
+                const [key, value] = line.split('=');
+                if (key && value) config[key.trim()] = value.trim();
+            });
+            // Remove the config from the markdown content
+            html = html.replace(configSection[0], '');
+        }
+
+        // Rest of the Markdown parsing logic (tabs, headers, lists, etc.)
+        // ...
+
+        return { htmlContent: html, config };
     }
 
     // Function to initialize tab functionality
@@ -112,17 +130,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 const link = document.createElement('a');
                 link.href = '#';
 
-                // Fetch markdown content with the .md extension
                 fetch(`markdown/${article}.md`)
                     .then(response => response.text())
                     .then(text => {
-                        // Extract the display name from config if available
+                        // Parse markdown and get the configuration
                         const { config } = markdownToHtml(text);
+                        // Use the display-name from the config if it exists, otherwise use the article name
                         link.textContent = config['display-name'] || article;
                     })
                     .catch(error => {
                         console.error('Error loading markdown for sidebar:', error);
-                        link.textContent = article; // Fallback name in case of error
+                        link.textContent = article; // Fallback to article name in case of error
                     });
 
                 link.addEventListener('click', (event) => {
@@ -152,7 +170,7 @@ Sorry, the article you are looking for does not exist. Please check the URL or s
 You can navigate back to the [button:Home](?article=Home)
         `;
         const html = markdownToHtml(notFoundMarkdown); // This function is defined in markdown-parser.js
-        contentDiv.innerHTML = html;
+        contentDiv.innerHTML = html.htmlContent;
     }
 
     // Get the article from the URL parameter if it exists
