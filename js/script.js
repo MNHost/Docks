@@ -110,10 +110,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = article.displayName || article.name; // Display the name if defined
+                link.textContent = article.replace('.md', '');
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    loadMarkdown(`markdown/${article.name}.md`); // Automatically add .md extension
+                    loadMarkdown(`markdown/${article}`);
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
@@ -185,18 +185,11 @@ You can navigate back to the [button:Home](?article=Home)
     const sections = [
         {
             title: 'Getting Started',
-            articles: [
-                { name: 'Home', displayName: 'Home' },
-                { name: 'User Guide', displayName: 'User Guide' },
-                { name: 'Installing cmdR', displayName: 'Installing cmdR' },
-                { name: 'intro', displayName: 'Intro' }
-            ]
+            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
         },
         {
             title: 'Advanced Topics',
-            articles: [
-                { name: 'Create Commands', displayName: 'Creating Commands' }
-            ]
+            articles: ['Create Commands.md']
         }
     ];
 
@@ -210,7 +203,7 @@ You can navigate back to the [button:Home](?article=Home)
     if (articleName) {
         fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.some(article => article.name === articleName));
+        const fileExists = sections.some(section => section.articles.includes(fileName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
@@ -218,7 +211,7 @@ You can navigate back to the [button:Home](?article=Home)
         }
     } else {
         // Load the first article in the first section by default
-        fileName = `${sections[0].articles[0].name}.md`;
+        fileName = sections[0].articles[0];
         loadMarkdown(`markdown/${fileName}`);
     }
 
