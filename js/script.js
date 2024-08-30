@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
             initializeTabs();
 
             // Update sidebar items based on configuration
-            updateSidebarItems(config);
+            if (config) {
+                updateSidebarItems(config);
+            }
 
             // Scroll to section if specified
             const section = getSectionFromUrl();
@@ -130,14 +132,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update sidebar items based on configuration
     function updateSidebarItems(config) {
-        const items = navList.querySelectorAll('a');
-        items.forEach(item => {
-            const articleName = item.textContent;
-            const configItem = config.articles.find(article => article.name === articleName);
-            if (configItem && configItem.displayName) {
-                item.textContent = configItem.displayName;
-            }
-        });
+        if (config && config.articles) {
+            const items = navList.querySelectorAll('a');
+            items.forEach(item => {
+                const articleName = item.textContent;
+                const configItem = config.articles.find(article => article.name === articleName);
+                if (configItem && configItem.displayName) {
+                    item.textContent = configItem.displayName;
+                }
+            });
+        } else {
+            console.warn('No valid config or articles found to update sidebar items.');
+        }
     }
 
     // Function to load the "Article Not Found" page
@@ -186,15 +192,15 @@ You can navigate back to the [button:Home](?article=Home)
         {
             title: 'Getting Started',
             articles: [
-                { name: 'Home.md', displayName: 'Home' },
-                { name: 'User Guide.md', displayName: 'UserGuide' },
-                { name: 'Installing cmdR.md', displayName: 'Installing cmdR' }
+                { name: 'Home', displayName: 'Home' },
+                { name: 'User Guide', displayName: 'User Guide' },
+                { name: 'Installing cmdR', displayName: 'Installing cmdR' }
             ]
         },
         {
             title: 'Advanced Topics',
             articles: [
-                { name: 'Create Commands.md', displayName: 'Create Commands' }
+                { name: 'Create Commands', displayName: 'Create Commands' }
             ]
         }
     ];
@@ -207,7 +213,7 @@ You can navigate back to the [button:Home](?article=Home)
     if (articleName) {
         const fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.some(article => article.name === fileName));
+        const fileExists = sections.some(section => section.articles.some(article => article.name === articleName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
@@ -215,7 +221,7 @@ You can navigate back to the [button:Home](?article=Home)
         }
     } else {
         // Load the first article in the first section by default
-        loadMarkdown(`markdown/${sections[0].articles[0].name}`);
+        loadMarkdown(`markdown/${sections[0].articles[0].name}.md`);
     }
 
     // Search functionality
