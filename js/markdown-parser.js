@@ -1,6 +1,19 @@
 function markdownToHtml(markdown) {
     let html = markdown;
 
+    // Extract configuration section
+    let config = {};
+    html = html.replace(/^-{5}\s*([\s\S]*?)^-{5}/gm, function (match, configContent) {
+        // Parse configuration options
+        configContent.split('\n').forEach(line => {
+            const [key, value] = line.split('=').map(part => part.trim());
+            if (key && value) {
+                config[key] = value;
+            }
+        });
+        return ''; // Remove the configuration section from the rendered HTML
+    });
+
     // Tabs
     html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
         // Extract tab titles and contents
@@ -102,5 +115,5 @@ function markdownToHtml(markdown) {
     // Remove empty <ul> tags
     html = html.replace(/<ul><\/ul>/g, '');
 
-    return html;
+    return { html, config };
 }
