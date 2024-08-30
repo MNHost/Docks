@@ -28,7 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const isVisible = themeDropdown.style.display === 'block';
         themeDropdown.style.display = isVisible ? 'none' : 'block';
     });
-
+// Adjust to use the article name without .md in URL parameters
+function getArticleFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('article');
+}
 async function loadMarkdown(file) {
     try {
         const response = await fetch(file);
@@ -46,7 +50,7 @@ async function loadMarkdown(file) {
         loadArticleNotFound();
     }
 }
-const articleName = getArticleFromUrl();
+    const articleName = getArticleFromUrl();
 if (articleName) {
     const fileName = `markdown/${articleName}.md`;
     // Check if the file exists in any section
@@ -138,14 +142,6 @@ You can navigate back to the [button:Home](?article=Home)
         const html = markdownToHtml(notFoundMarkdown).html;
         contentDiv.innerHTML = html;
     }
-
-// Adjust to use the article name without .md in URL parameters
-function getArticleFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('article');
-}
-
-
     const sections = [
         {
             title: 'Getting Started',
@@ -158,8 +154,6 @@ function getArticleFromUrl() {
     ];
 
     generateSidebar(sections);
-
-    const articleName = getArticleFromUrl();
     if (articleName) {
         const fileName = `${articleName}.md`;
         const fileExists = sections.some(section => section.articles.includes(fileName));
