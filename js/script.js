@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to load Markdown files
     async function loadMarkdown(file) {
         try {
-            const response = await fetch(file);
+            const response = await fetch(`${file}.md`);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
             const config = parseConfig(text); // Parse configuration from the Markdown content
