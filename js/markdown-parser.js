@@ -1,38 +1,38 @@
 function markdownToHtml(markdown) {
     let html = markdown;
-    let displayName = '';
+    let config = {};
 
-    // Extract the configuration section
-    html = html.replace(/-----\n([\s\S]*?)\n-----/g, function (match, configContent) {
-        // Extract displayName
-        const displayNameMatch = configContent.match(/display-name=([^\n]*)/);
-        if (displayNameMatch) {
-            displayName = displayNameMatch[1].trim();
-        }
-        // Remove the configuration section from the HTML
-        return '';
-    });
-
-    // Update the sidebar list item with the display name if present
-    if (displayName) {
-        document.querySelectorAll('.sidebar-section-title').forEach(item => {
-            if (item.textContent.trim() === displayName) {
-                item.textContent = displayName;
+    // Extract configuration section
+    const configMatch = markdown.match(/^-----([\s\S]*?)-----/);
+    if (configMatch) {
+        const configText = configMatch[1];
+        // Process configuration
+        configText.split('\n').forEach(line => {
+            const [key, value] = line.split(':').map(s => s.trim());
+            if (key && value) {
+                config[key] = value;
             }
         });
+        // Remove the configuration section from the markdown
+        html = markdown.replace(/^-----[\s\S]*?-----/, '');
     }
 
     // Tabs
     html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
+        // Extract tab titles and contents
         const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
+
+        // Generate HTML for tabs
         const tabButtons = tabs.map((tab, index) => {
             const title = tab.split('\n')[0].replace(/^###\s/, '');
             return `<button class="tab-button" data-tab="tab${index}">${title}</button>`;
         }).join('');
+
         const tabContents = tabs.map((tab, index) => {
             const content = tab.replace(/^###\s.*\n/, ''); // Remove title line
-            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content)}</div>`;
+            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content).html}</div>`;
         }).join('');
+
         return `<div class="tabs-container">
                     <div class="tab-buttons">${tabButtons}</div>
                     <div class="tab-contents">${tabContents}</div>
@@ -60,14 +60,29 @@ function markdownToHtml(markdown) {
         let width = '';
         let height = '';
         let align = '';
+
         const widthMatch = properties.match(/width=(\d+)/);
         const heightMatch = properties.match(/height=(\d+)/);
         const alignMatch = properties.match(/align=(left|center|right)/);
-        if (widthMatch) width = `width="${widthMatch[1]}" `;
-        if (heightMatch) height = `height="${heightMatch[1]}" `;
-        if (alignMatch) align = alignMatch[1];
+
+        if (widthMatch) {
+            width = `width="${widthMatch[1]}" `;
+        }
+        if (heightMatch) {
+            height = `height="${heightMatch[1]}" `;
+        }
+        if (alignMatch) {
+            align = alignMatch[1]; // Get the alignment value
+        }
+
+        // Create the image HTML with alignment
         let imgHtml = `<img src="${src}" alt="${alt}" ${width}${height}>`;
-        if (align) imgHtml = `<div class="img-${align}">${imgHtml}</div>`;
+
+        // Wrap the image in a div with an alignment class
+        if (align) {
+            imgHtml = `<div class="img-${align}">${imgHtml}</div>`;
+        }
+
         return imgHtml;
     });
 
@@ -78,6 +93,7 @@ function markdownToHtml(markdown) {
 
     // Code Blocks
     html = html.replace(/\[mcode\](\w*)\n([\s\S]*?)\[\/mcode\]/g, function (match, p1, p2) {
+        // p1 is the language specifier, p2 is the code
         return '<pre class="code-block"><code class="' + p1 + '">' + p2 + '</code></pre>';
     });
 
@@ -102,5 +118,5 @@ function markdownToHtml(markdown) {
     // Remove empty <ul> tags
     html = html.replace(/<ul><\/ul>/g, '');
 
-    return html;
+    return { html, config };
 }
