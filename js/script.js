@@ -29,19 +29,38 @@ document.addEventListener('DOMContentLoaded', function () {
         themeDropdown.style.display = isVisible ? 'none' : 'block';
     });
 
-    async function loadMarkdown(file) {
-        try {
-            const response = await fetch(file);
-            if (!response.ok) throw new Error('File not found');
-            const text = await response.text();
-            const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
-            contentDiv.innerHTML = html;
-            initializeTabs();
-        } catch (error) {
-            console.error('Error loading markdown:', error);
-            loadArticleNotFound();
-        }
+async function loadMarkdown(file) {
+    try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error('File not found');
+        const text = await response.text();
+        // Debugging output
+        console.log('Markdown content:', text);
+        const html = markdownToHtml(text); // This function is defined in markdown-parser.js
+        contentDiv.innerHTML = html;
+
+        // Initialize tabs after content is loaded
+        initializeTabs();
+    } catch (error) {
+        console.error('Error loading markdown:', error);
+        loadArticleNotFound();
     }
+}
+const articleName = getArticleFromUrl();
+if (articleName) {
+    const fileName = `markdown/${articleName}.md`;
+    // Check if the file exists in any section
+    const fileExists = sections.some(section => section.articles.includes(articleName));
+    if (fileExists) {
+        loadMarkdown(fileName);
+    } else {
+        loadArticleNotFound();
+    }
+} else {
+    // Load the first article in the first section by default
+    loadMarkdown(`markdown/${sections[0].articles[0]}.md`);
+}
+
 
     function initializeTabs() {
         const tabsContainers = document.querySelectorAll('.tabs-container');
@@ -79,22 +98,22 @@ function generateSidebar(sections) {
             const link = document.createElement('a');
             link.href = '#';
 
-            // Fetch markdown content to parse the configuration
-            fetch(`markdown/${article}`)
+            // Fetch markdown content with the .md extension
+            fetch(`markdown/${article}.md`)
                 .then(response => response.text())
                 .then(text => {
                     // Extract the display name from config if available
                     const { config } = markdownToHtml(text);
-                    link.textContent = config['display-name'] || article.replace('.md', '');
+                    link.textContent = config['display-name'] || article;
                 })
                 .catch(error => {
                     console.error('Error loading markdown for sidebar:', error);
-                    link.textContent = article.replace('.md', ''); // Fallback name in case of error
+                    link.textContent = article; // Fallback name in case of error
                 });
 
             link.addEventListener('click', (event) => {
                 event.preventDefault();
-                loadMarkdown(`markdown/${article}`);
+                loadMarkdown(`markdown/${article}.md`);
                 history.pushState({}, '', window.location.pathname);
             });
 
@@ -120,10 +139,12 @@ You can navigate back to the [button:Home](?article=Home)
         contentDiv.innerHTML = html;
     }
 
-    function getArticleFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('article');
-    }
+// Adjust to use the article name without .md in URL parameters
+function getArticleFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('article');
+}
+
 
     const sections = [
         {
