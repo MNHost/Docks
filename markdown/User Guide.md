@@ -24,7 +24,7 @@ Set up your environment by configuring the necessary settings:
   3. In the future we may create a cmdR pro version where you could have no ads.
 - **Game Storage**: Please understand that some packages can be very big. This could slow down your game and effect your users experience. Here are some tips to free up some storage:
   1. **Delete old package versions** If you have a previous package version installed, then after updating your code you can remove the outdated package from your game.\n
-  2. **Find "mini packages"** In the future some package may have mini versions with the same or about the same features using our script compressor (Coming Soon)\n
+  2. **Find "mini packages"** In the future some packages may have mini versions with the same or about the same features using our script compressor (Coming Soon)\n
   3. **Delete unneeded packages** Have any unneeded packages that you don't need? Get rid of them!\n
 
 For detailed configuration instructions, see the [Getting Started With cmdR](?article=Getting Started).
