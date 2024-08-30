@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search');
     const themeToggle = document.getElementById('theme-toggle');
     const themeDropdown = document.getElementById('theme-dropdown');
+    const pageTitle = document.getElementById('page-title');
 
     // Function to apply the selected theme
     function applyTheme(theme) {
@@ -100,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to generate the sidebar with sections
     function generateSidebar(sections) {
+        navList.innerHTML = ''; // Clear existing sidebar items
+
         sections.forEach(section => {
             const sectionItem = document.createElement('li');
             sectionItem.textContent = section.title;
@@ -110,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = '#';
-                link.textContent = article.replace('.md', '');
+                link.textContent = article.displayName || article.name; // Use displayName or name
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    loadMarkdown(`markdown/${article}`);
+                    loadMarkdown(`markdown/${article.name}`); // Automatically add .md extension
                     history.pushState({}, '', window.location.pathname); // Remove URL query
                 });
                 listItem.appendChild(link);
@@ -127,32 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update sidebar items based on configuration
     function updateSidebarItems(config) {
-        if (config['display-name']) {
-            // Find the sidebar item with the corresponding article name and update its text
-            const items = navList.querySelectorAll('li');
-            items.forEach(item => {
-                const link = item.querySelector('a');
-                if (link && link.textContent === currentArticle.replace('.md', '')) {
-                    link.textContent = config['display-name'];
-                }
-            });
-        }
-    }
-
-    // Function to parse the configuration from Markdown content
-    function parseConfig(markdown) {
-        const config = {};
-        const configSection = markdown.match(/-----([\s\S]*?)-----/);
-        if (configSection) {
-            const configText = configSection[1].trim();
-            configText.split('\n').forEach(line => {
-                const [key, value] = line.split('=').map(part => part.trim());
-                if (key && value) {
-                    config[key] = value;
-                }
-            });
-        }
-        return config;
+        const items = navList.querySelectorAll('a');
+        items.forEach(item => {
+            const articleName = item.textContent;
+            const configItem = config.articles.find(article => article.name === articleName);
+            if (configItem && configItem.displayName) {
+                item.textContent = configItem.displayName;
+            }
+        });
     }
 
     // Function to load the "Article Not Found" page
@@ -170,12 +155,27 @@ You can navigate back to the [button:Home](?article=Home)
         contentDiv.innerHTML = html;
     }
 
-    // Get the article and section from URL parameters
-    function getArticleFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('article');
+    // Function to parse configuration from Markdown content
+    function parseConfig(markdown) {
+        const config = {};
+        const configStart = markdown.indexOf('-----');
+        if (configStart !== -1) {
+            const configEnd = markdown.indexOf('-----', configStart + 5);
+            if (configEnd !== -1) {
+                const configSection = markdown.substring(configStart + 5, configEnd).trim();
+                const lines = configSection.split('\n');
+                lines.forEach(line => {
+                    const [key, value] = line.split(':').map(part => part.trim());
+                    if (key && value) {
+                        config[key.toLowerCase()] = value;
+                    }
+                });
+            }
+        }
+        return config;
     }
 
+    // Function to get the section from the URL parameter
     function getSectionFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('section');
@@ -185,11 +185,17 @@ You can navigate back to the [button:Home](?article=Home)
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'User Guide.md', 'Installing cmdR.md']
+            articles: [
+                { name: 'Home.md', displayName: 'Home' },
+                { name: 'User Guide.md', displayName: 'UserGuide' },
+                { name: 'Installing cmdR.md', displayName: 'Installing cmdR' }
+            ]
         },
         {
             title: 'Advanced Topics',
-            articles: ['Create Commands.md']
+            articles: [
+                { name: 'Create Commands.md', displayName: 'Create Commands' }
+            ]
         }
     ];
 
@@ -197,13 +203,11 @@ You can navigate back to the [button:Home](?article=Home)
     generateSidebar(sections);
 
     // Load article based on URL parameter or default to the first article
-    const articleName = getArticleFromUrl();
-    const section = getSectionFromUrl();
-    let fileName = '';
+    const articleName = new URLSearchParams(window.location.search).get('article');
     if (articleName) {
-        fileName = `${articleName}.md`;
+        const fileName = `${articleName}.md`;
         // Check if the file exists in any section
-        const fileExists = sections.some(section => section.articles.includes(fileName));
+        const fileExists = sections.some(section => section.articles.some(article => article.name === fileName));
         if (fileExists) {
             loadMarkdown(`markdown/${fileName}`);
         } else {
@@ -211,12 +215,11 @@ You can navigate back to the [button:Home](?article=Home)
         }
     } else {
         // Load the first article in the first section by default
-        fileName = sections[0].articles[0];
-        loadMarkdown(`markdown/${fileName}`);
+        loadMarkdown(`markdown/${sections[0].articles[0].name}`);
     }
 
     // Search functionality
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
         const query = this.value.toLowerCase();
         const items = navList.querySelectorAll('li');
 
