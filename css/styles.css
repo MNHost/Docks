@@ -259,6 +259,74 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     padding: 10px;
     margin: 10px 0;
 }
+/* Share Button */
+.header-share-btn {
+    font-size: 0.8em;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.header-share-btn:hover {
+    color: #0056b3;
+}
+
+/* Share Popup */
+.share-popup {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.share-popup.active {
+    display: block;
+}
+
+.share-popup .popup-content {
+    display: flex;
+    align-items: center;
+}
+
+.share-popup .popup-content input {
+    flex: 1;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.share-popup .popup-content button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1em;
+}
+
+.share-popup .popup-content button.copy-btn:hover {
+    color: #0056b3;
+}
+
+.share-popup .popup-content .close-btn {
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #333;
+}
+
+.share-popup .popup-content .close-btn:hover {
+    color: #ff0000;
+}
+
+.copy-message {
+    display: none;
+    color: green;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
 .button {
     display: inline-block;
     padding: 10px 20px;
