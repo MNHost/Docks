@@ -19,32 +19,21 @@ function markdownToHtml(markdown) {
     // Convert Markdown to HTML
     let html = markdown;
 
-    // Tabs
-    html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
-        const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
+    // Sections with IDs for URL params
+    html = html.replace(/^###### (.*)$/gm, '<h6 id="$1">$1</h6>');
+    html = html.replace(/^##### (.*)$/gm, '<h5 id="$1">$1</h5>');
+    html = html.replace(/^#### (.*)$/gm, '<h4 id="$1">$1</h4>');
+    html = html.replace(/^### (.*)$/gm, '<h3 id="$1">$1</h3>');
+    html = html.replace(/^## (.*)$/gm, '<h2 id="$1">$1</h2>');
+    html = html.replace(/^# (.*)$/gm, '<h1 id="$1">$1</h1>');
 
-        const tabButtons = tabs.map((tab, index) => {
-            const title = tab.split('\n')[0].replace(/^###\s/, '');
-            return `<button class="tab-button" data-tab="tab${index}">${title}</button>`;
-        }).join('');
+    // Add icons and labels for tips, notes, warnings, and dangers
+    html = html.replace(/^\*\*TIP\*\*: (.*)$/gm, '<div class="alert tip"><i class="icon icon-tip"></i><strong>Tip:</strong> $1</div>');
+    html = html.replace(/^\*\*NOTE\*\*: (.*)$/gm, '<div class="alert note"><i class="icon icon-note"></i><strong>Note:</strong> $1</div>');
+    html = html.replace(/^\*\*WARNING\*\*: (.*)$/gm, '<div class="alert warning"><i class="icon icon-warning"></i><strong>Warning:</strong> $1</div>');
+    html = html.replace(/^\*\*DANGER\*\*: (.*)$/gm, '<div class="alert danger"><i class="icon icon-danger"></i><strong>Danger:</strong> $1</div>');
 
-        const tabContents = tabs.map((tab, index) => {
-            const content = tab.replace(/^###\s.*\n/, '');
-            const tabHtml = markdownToHtml(content).html; // Recursively process tab content
-            return `<div class="tab-content" data-tab="tab${index}">${tabHtml}</div>`;
-        }).join('');
-
-        return `<div class="tabs-container">
-                    <div class="tab-buttons">${tabButtons}</div>
-                    <div class="tab-contents">${tabContents}</div>
-                </div>`;
-    });
-
-    // Notes, Tips, Warnings, and Dangers
-    html = html.replace(/:::(note|tip|warning|danger)\n([\s\S]*?)\n:::/g, function (match, type, content) {
-        return `<div class="${type}">${markdownToHtml(content).html}</div>`;
-    });
-
+    // Convert Markdown to HTML
     // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
