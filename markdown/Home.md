@@ -39,7 +39,7 @@ Coming Soon:
 - **[Community Forum](?article=Community+Forum):** Participate in discussions and get help.
 - **[Support Center](?article=Support+Center):** Access help resources and contact support.
 
-## 🔗 Additional Information
+## Additional Information
 
 - **[About cmdR](?article=About+cmdR):** Learn more about cmdR and its mission.
 - **[Contact Us](?article=Contact+Us):** Reach out for any inquiries or support.
