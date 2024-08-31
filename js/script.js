@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
             contentDiv.innerHTML = html;
             initializeTabs();
-            scrollToHash(); // Ensure scrolling after content is loaded
+            setTimeout(scrollToHash, 100); // Ensure scrolling after content is loaded
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -145,11 +145,13 @@ We couldn't find the article you were looking for. This could be due to a typo i
             // Decode the section ID
             const decodedSection = decodeURIComponent(section);
 
-            // Scroll to the section in the current or loaded article
-            const targetElement = document.querySelector(`#${decodedSection}`);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+            // Find all header elements and scroll to the matching one
+            const headers = document.querySelectorAll('h2, h3, h4, h5, h6');
+            headers.forEach(header => {
+                if (header.textContent.trim() === decodedSection) {
+                    header.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
     }
 
