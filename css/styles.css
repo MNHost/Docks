@@ -261,7 +261,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 /* Share Button */
 .header-share-btn {
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin-left: 10px;
     cursor: pointer;
     color: #007bff;
@@ -276,10 +276,14 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     display: none;
     position: absolute;
     background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
     z-index: 1000;
+    width: 350px; /* Increase the width */
+    max-width: 90vw; /* Responsive max-width */
+    box-sizing: border-box;
 }
 
 .share-popup.active {
@@ -288,32 +292,43 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .share-popup .popup-content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .share-popup .popup-content input {
-    flex: 1;
-    margin-right: 10px;
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
-    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 .share-popup .popup-content button {
     border: none;
-    background: none;
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
     cursor: pointer;
-    color: #007bff;
-    font-size: 1em;
+    font-size: 0.9em;
+    margin-right: 10px;
 }
 
-.share-popup .popup-content button.copy-btn:hover {
-    color: #0056b3;
+.share-popup .popup-content button.copy-btn {
+    background: #28a745;
+}
+
+.share-popup .popup-content button:hover {
+    opacity: 0.9;
 }
 
 .share-popup .popup-content .close-btn {
     font-size: 1.2em;
     cursor: pointer;
     color: #333;
+    margin-bottom: 10px;
+    display: block;
+    text-align: right;
 }
 
 .share-popup .popup-content .close-btn:hover {
@@ -322,9 +337,9 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .copy-message {
     display: none;
-    color: green;
+    color: #28a745;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .button {
