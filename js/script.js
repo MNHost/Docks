@@ -114,13 +114,19 @@ function generateSidebar(sections) {
 
     function loadArticleNotFound() {
         const notFoundMarkdown = `
-# Article Not Found
+# Oops! Article Not Found
 
-Sorry, the article you are looking for does not exist. Please check the URL or select another article from the sidebar.
+We couldn't find the article you were looking for. This could be due to a typo in the URL or the article may have been moved or deleted. But don't worry, we've got a few options to get you back on track!
 
-![404 Article Not Found](/Designer.png){width=800 height=400 align=center}
+![404 Error - Article Not Found](/Designer.png){width=600 height=300 align=center}
 
-You can navigate back to the [button:Home](?article=Home)
+### What Can You Do?
+
+- **Double-check the URL**: Make sure the address is correct.
+- **Browse Other Articles**: Use the sidebar to explore available topics and find what you're looking for.
+- **Return to Home**: Click the button below to go back to the homepage and start fresh.
+
+[button:Go to Home](?article=Home)
         `;
         const html = markdownToHtml(notFoundMarkdown).html;
         contentDiv.innerHTML = html;
