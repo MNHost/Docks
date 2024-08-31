@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
     const themeDropdown = document.getElementById('theme-dropdown');
 
+    let currentArticle = '';
+
     function applyTheme(theme) {
         document.body.classList.remove('light-theme', 'dark-theme', 'blue-theme');
         document.body.classList.add(theme);
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             initializeTabs();
             addShareButtons();  // Add share buttons after content is loaded
             setTimeout(scrollToHash, 100); // Ensure scrolling after content is loaded
+            currentArticle = file.split('/').pop().replace('.md', ''); // Set current article name
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -79,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         headers.forEach(header => {
             const shareBtn = document.createElement('span');
             shareBtn.classList.add('header-share-btn');
-            shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
+            shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> Share';
             header.style.position = 'relative';  // Ensure header is positioned
             header.appendChild(shareBtn);
 
@@ -140,9 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Set URL
-        const articleName = getArticleFromUrl();
         const sectionName = header.textContent.trim();
-        const url = `https://cmdrdocs.netlify.app/?article=${articleName}&section=${encodeURIComponent(sectionName)}`;
+        const url = `https://cmdrdocs.netlify.app/?article=${currentArticle}&section=${encodeURIComponent(sectionName)}`;
         popup.querySelector('input').value = url;
 
         // Position the popup
