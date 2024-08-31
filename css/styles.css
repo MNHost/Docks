@@ -295,6 +295,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     margin-bottom: 10px;
 }
 
+/* Tab Button Default Styles */
 .tab-button {
     position: relative;
     background: none;
@@ -305,14 +306,14 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     font-size: 1rem;
     flex: 1;
     text-align: center;
-    color: #333;
     transition: color 0.3s;
     outline: none;
+    color: #333; /* Default text color */
 }
 
 /* Text hover effect */
 .tab-button:hover {
-    color: #007bff;
+    color: #007bff; /* Default hover color */
 }
 
 /* Underline effect */
@@ -335,13 +336,14 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     width: 100%; /* Full width underline for active tab */
 }
 
+/* Tab Content Default Styles */
 .tab-content {
     display: none;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #fff;
-    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+    transition: opacity 0.3s ease-in-out, background-color 0.3s, color 0.3s; /* Smooth transition for themes */
     opacity: 0; /* Hidden by default */
 }
 
@@ -350,7 +352,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     display: block;
     opacity: 1; /* Visible with smooth fade-in */
 }
-
 
 /* Light Theme (Default) */
 .light-theme {
@@ -385,12 +386,31 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .light-theme #theme-switcher:hover {
     background-color: #27ae60; /* Darker green on hover */
 }
+
 .light-theme .button {
     background-color: #3498db;
     color: #ffffff;
 }
+
 .light-theme .sidebar a {
     color: black; /* Dark text color for light theme */
+}
+
+/* Light Theme Tab Content */
+.light-theme .tab-content {
+    background-color: #f9f9f9; /* Light grey background */
+    color: #2b2b2b; /* Default text color */
+}
+.light-theme .tab-button {
+    color: #333; /* Dark text color */
+}
+
+.light-theme .tab-button:hover, .light-theme .tab-button.active {
+    color: #007bff; /* Blue hover and active color */
+}
+
+.light-theme .tab-button::after {
+    background: #007bff; /* Blue underline */
 }
 
 /* Dark Theme */
@@ -426,17 +446,33 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .dark-theme #theme-switcher:hover {
     background-color: #1e8449; /* Even darker green on hover */
 }
+
 .dark-theme .button {
     background-color: black;
     color: white;
 }
-.dark-them .tab-content { 
-    background-color: #454545;
-    color: #ecf0f1;
+
+.dark-theme .tab-content {
+    background-color: #454545; /* Dark background for tab content */
+    color: #ecf0f1; /* Light text color */
 }
+
 .dark-theme .sidebar a {
-    color: white; /* Dark text color for light theme */
+    color: white; /* White text for dark theme */
 }
+
+.dark-theme .tab-button {
+    color: #ecf0f1; /* Light text color for dark theme */
+}
+
+.dark-theme .tab-button:hover, .dark-theme .tab-button.active {
+    color: #58a6ff; /* Light blue hover and active color */
+}
+
+.dark-theme .tab-button::after {
+    background: #58a6ff; /* Light blue underline */
+}
+
 /* Blue Theme */
 .blue-theme {
     background-color: #badeff;
@@ -470,10 +506,28 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .blue-theme #theme-switcher:hover {
     background-color: #1f618d; /* Darker blue on hover */
 }
+
 .blue-theme .button {
     background-color: white;
     color: blue;
 }
+
+.blue-theme .tab-content {
+    background-color: #eaf0f9; /* Light blue background */
+    color: #2c3e50; /* Dark text color */
+}
+
 .blue-theme .sidebar a {
-    color: blue; /* Dark text color for light theme */
+    color: #0e0136; /* Blue text color for blue theme */
+}
+.blue-theme .tab-button {
+    color: #2c3e50; /* Dark blue text color for blue theme */
+}
+
+.blue-theme .tab-button:hover, .blue-theme .tab-button.active {
+    color: #1f618d; /* Darker blue on hover and active */
+}
+
+.blue-theme .tab-button::after {
+    background: #1f618d; /* Darker blue underline */
 }
