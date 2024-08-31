@@ -311,13 +311,16 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 
 .share-popup .popup-content .close-btn {
+    position: absolute; /* Position it absolutely within the parent container */
+    top: 10px; /* Position it towards the top */
+    right: 10px; /* Position it towards the right */
     font-size: 1.2em;
     cursor: pointer;
-    color: #333;
+    color: red;
 }
 
 .share-popup .popup-content .close-btn:hover {
-    color: #ff0000;
+    color: #ff0000; /* Hover effect */
 }
 
 .copy-message {
