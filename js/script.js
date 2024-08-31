@@ -37,80 +37,90 @@ document.addEventListener('DOMContentLoaded', function () {
             const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
             contentDiv.innerHTML = html;
             initializeTabs();
+            scrollToHash(); // Scroll to section if hash is present
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
         }
     }
 
-function initializeTabs() {
-    const tabsContainers = document.querySelectorAll('.tabs-container');
+    function initializeTabs() {
+        const tabsContainers = document.querySelectorAll('.tabs-container');
 
-    tabsContainers.forEach(container => {
-        const tabButtons = container.querySelectorAll('.tab-button');
-        const tabContents = container.querySelectorAll('.tab-content');
+        tabsContainers.forEach(container => {
+            const tabButtons = container.querySelectorAll('.tab-button');
+            const tabContents = container.querySelectorAll('.tab-content');
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const targetTab = this.getAttribute('data-tab');
-                
-                // Remove active classes
-                tabContents.forEach(content => content.classList.remove('active'));
-                tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active classes
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
 
-                // Add active classes
-                container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
-                this.classList.add('active');
+                    // Add active classes
+                    container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
+                    this.classList.add('active');
+                });
             });
+
+            // Trigger click on the first tab button to activate it by default
+            if (tabButtons.length > 0) {
+                tabButtons[0].click();
+            }
         });
+    }
 
-        // Trigger click on the first tab button to activate it by default
-        if (tabButtons.length > 0) {
-            tabButtons[0].click();
+    function scrollToHash() {
+        const hash = window.location.hash;
+        if (hash) {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
         }
-    });
-}
+    }
 
+    function generateSidebar(sections) {
+        sections.forEach(section => {
+            const sectionItem = document.createElement('li');
+            sectionItem.textContent = section.title;
+            sectionItem.classList.add('sidebar-section-title');
 
-function generateSidebar(sections) {
-    sections.forEach(section => {
-        const sectionItem = document.createElement('li');
-        sectionItem.textContent = section.title;
-        sectionItem.classList.add('sidebar-section-title');
+            const ul = document.createElement('ul');
+            section.articles.forEach(article => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = '#';
 
-        const ul = document.createElement('ul');
-        section.articles.forEach(article => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = '#';
+                // Fetch markdown content to parse the configuration
+                fetch(`markdown/${article}`)
+                    .then(response => response.text())
+                    .then(text => {
+                        // Extract the display name from config if available
+                        const { config } = markdownToHtml(text);
+                        link.textContent = config['display-name'] || article.replace('.md', '');
+                    })
+                    .catch(error => {
+                        console.error('Error loading markdown for sidebar:', error);
+                        link.textContent = article.replace('.md', ''); // Fallback name in case of error
+                    });
 
-            // Fetch markdown content to parse the configuration
-            fetch(`markdown/${article}`)
-                .then(response => response.text())
-                .then(text => {
-                    // Extract the display name from config if available
-                    const { config } = markdownToHtml(text);
-                    link.textContent = config['display-name'] || article.replace('.md', '');
-                })
-                .catch(error => {
-                    console.error('Error loading markdown for sidebar:', error);
-                    link.textContent = article.replace('.md', ''); // Fallback name in case of error
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    loadMarkdown(`markdown/${article}`);
+                    history.pushState({}, '', window.location.pathname);
                 });
 
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                loadMarkdown(`markdown/${article}`);
-                history.pushState({}, '', window.location.pathname);
+                listItem.appendChild(link);
+                ul.appendChild(listItem);
             });
 
-            listItem.appendChild(link);
-            ul.appendChild(listItem);
+            sectionItem.appendChild(ul);
+            navList.appendChild(sectionItem);
         });
-
-        sectionItem.appendChild(ul);
-        navList.appendChild(sectionItem);
-    });
-}
+    }
 
     function loadArticleNotFound() {
         const notFoundMarkdown = `
