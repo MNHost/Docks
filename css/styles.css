@@ -232,6 +232,33 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .content a:hover {
     color: #2980b9; /* Darker blue on hover */
 }
+.note {
+    border-left: 4px solid #3498db;
+    background-color: #eaf0f9;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.tip {
+    border-left: 4px solid #2ecc71;
+    background-color: #eafaf1;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.warning {
+    border-left: 4px solid #f39c12;
+    background-color: #fcf8e3;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.danger {
+    border-left: 4px solid #e74c3c;
+    background-color: #f9e2e2;
+    padding: 10px;
+    margin: 10px 0;
+}
 .button {
     display: inline-block;
     padding: 10px 20px;
