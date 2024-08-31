@@ -43,29 +43,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function initializeTabs() {
-        const tabsContainers = document.querySelectorAll('.tabs-container');
+function initializeTabs() {
+    const tabsContainers = document.querySelectorAll('.tabs-container');
 
-        tabsContainers.forEach(container => {
-            const tabButtons = container.querySelectorAll('.tab-button');
-            const tabContents = container.querySelectorAll('.tab-content');
+    tabsContainers.forEach(container => {
+        const tabButtons = container.querySelectorAll('.tab-button');
+        const tabContents = container.querySelectorAll('.tab-content');
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const targetTab = this.getAttribute('data-tab');
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Remove active classes
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabButtons.forEach(btn => btn.classList.remove('active'));
 
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                });
+                // Add active classes
+                container.querySelector(`.tab-content[data-tab="${targetTab}"]`).classList.add('active');
+                this.classList.add('active');
             });
-
-            if (tabButtons.length > 0) {
-                tabButtons[0].click();
-            }
         });
-    }
+
+        // Trigger click on the first tab button to activate it by default
+        if (tabButtons.length > 0) {
+            tabButtons[0].click();
+        }
+    });
+}
+
 
 function generateSidebar(sections) {
     sections.forEach(section => {
