@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
             contentDiv.innerHTML = html;
             initializeTabs();
-            scrollToHash(); // Scroll to section if hash is present
+            scrollToHash(); // Ensure scrolling after content is loaded
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -71,17 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-function scrollToHash() {
-    const hash = decodeURIComponent(window.location.hash); // Decode the hash
-    if (hash) {
-        const targetElement = document.querySelector(hash);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-}
-
 
     function generateSidebar(sections) {
         sections.forEach(section => {
@@ -146,6 +135,22 @@ We couldn't find the article you were looking for. This could be due to a typo i
     function getArticleFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get('article');
+    }
+
+    function scrollToHash() {
+        const params = new URLSearchParams(window.location.search);
+        const section = params.get('section');
+
+        if (section) {
+            // Decode the section ID
+            const decodedSection = decodeURIComponent(section);
+
+            // Scroll to the section in the current or loaded article
+            const targetElement = document.querySelector(`#${decodedSection}`);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
     }
 
     const sections = [
