@@ -30,8 +30,7 @@ function markdownToHtml(markdown) {
 
         const tabContents = tabs.map((tab, index) => {
             const content = tab.replace(/^###\s.*\n/, '');
-            // Correctly extract HTML content from markdownToHtml
-            const tabHtml = markdownToHtml(content).html; // Extract the HTML from the returned object
+            const tabHtml = markdownToHtml(content).html; // Recursively process tab content
             return `<div class="tab-content" data-tab="tab${index}">${tabHtml}</div>`;
         }).join('');
 
@@ -39,6 +38,11 @@ function markdownToHtml(markdown) {
                     <div class="tab-buttons">${tabButtons}</div>
                     <div class="tab-contents">${tabContents}</div>
                 </div>`;
+    });
+
+    // Notes, Tips, Warnings, and Dangers
+    html = html.replace(/:::(note|tip|warning|danger)\n([\s\S]*?)\n:::/g, function (match, type, content) {
+        return `<div class="${type}">${markdownToHtml(content).html}</div>`;
     });
 
     // Headers
