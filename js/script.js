@@ -142,24 +142,26 @@ function scrollToHash() {
     const section = params.get('section');
 
     if (section) {
-        // Decode the section ID
-        const decodedSection = decodeURIComponent(section);
+        // Normalize the section parameter
+        const normalizedSection = normalizeText(section);
 
         // Find all header elements and scroll to the matching one
         const headers = document.querySelectorAll('h1, h2, h3');
         headers.forEach(header => {
-            // Extract text content only, ignoring any icons or elements
-            const headerText = Array.from(header.childNodes)
-                .filter(node => node.nodeType === Node.TEXT_NODE)
-                .map(node => node.textContent.trim())
-                .join(' ');
-
-            if (headerText === decodedSection) {
+            // Extract and normalize text content
+            const headerText = normalizeText(header.textContent.trim());
+            if (headerText === normalizedSection) {
                 header.scrollIntoView({ behavior: 'smooth' });
             }
         });
     }
 }
+
+function normalizeText(text) {
+    // Convert text to lowercase and remove special characters
+    return text.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+}
+
 
 
     const sections = [
