@@ -19,28 +19,59 @@ function markdownToHtml(markdown) {
     // Convert Markdown to HTML
     let html = markdown;
 
-    // Sections with IDs for URL params
+    // Tabs
+    html = html.replace(/::: tabs\s*([\s\S]*?):::$/gm, function (match, content) {
+        const tabs = content.split(/(?=###\s)/).map(tab => tab.trim());
+
+        const tabButtons = tabs.map((tab, index) => {
+            const title = tab.split('\n')[0].replace(/^###\s/, '');
+            return `<button class="tab-button" data-tab="tab${index}">${title}</button>`;
+        }).join('');
+
+        const tabContents = tabs.map((tab, index) => {
+            const content = tab.replace(/^###\s.*\n/, '');
+            const tabHtml = markdownToHtml(content).html; // Recursively process tab content
+            return `<div class="tab-content" data-tab="tab${index}">${tabHtml}</div>`;
+        }).join('');
+
+        return `<div class="tabs-container">
+                    <div class="tab-buttons">${tabButtons}</div>
+                    <div class="tab-contents">${tabContents}</div>
+                </div>`;
+    });
+
+    // Notes, Tips, Warnings, and Dangers
+    html = html.replace(/:::(note|tip|warning|danger)\n([\s\S]*?)\n:::/g, function (match, type, content) {
+        const icons = {
+            note: 'fa-lightbulb',
+            tip: 'fa-info-circle',
+            warning: 'fa-exclamation-triangle',
+            danger: 'fa-times-circle',
+            additional1: 'fa-star',  // Additional type 1
+            additional2: 'fa-question-circle' // Additional type 2
+        };
+        const labels = {
+            note: 'Note',
+            tip: 'Tip',
+            warning: 'Warning',
+            danger: 'Danger',
+            additional1: 'Additional 1',
+            additional2: 'Additional 2'
+        };
+        const icon = icons[type] || 'fa-info'; // Default icon
+        const label = labels[type] || 'Info'; // Default label
+        return `<div class="${type}">
+                    <i class="fa ${icon}"></i> <strong>${label}:</strong> ${markdownToHtml(content).html}
+                </div>`;
+    });
+
+    // Headers
     html = html.replace(/^###### (.*)$/gm, '<h6 id="$1">$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5 id="$1">$1</h5>');
     html = html.replace(/^#### (.*)$/gm, '<h4 id="$1">$1</h4>');
     html = html.replace(/^### (.*)$/gm, '<h3 id="$1">$1</h3>');
     html = html.replace(/^## (.*)$/gm, '<h2 id="$1">$1</h2>');
     html = html.replace(/^# (.*)$/gm, '<h1 id="$1">$1</h1>');
-
-    // Add icons and labels for tips, notes, warnings, and dangers
-    html = html.replace(/^\*\*TIP\*\*: (.*)$/gm, '<div class="alert tip"><i class="icon icon-tip"></i><strong>Tip:</strong> $1</div>');
-    html = html.replace(/^\*\*NOTE\*\*: (.*)$/gm, '<div class="alert note"><i class="icon icon-note"></i><strong>Note:</strong> $1</div>');
-    html = html.replace(/^\*\*WARNING\*\*: (.*)$/gm, '<div class="alert warning"><i class="icon icon-warning"></i><strong>Warning:</strong> $1</div>');
-    html = html.replace(/^\*\*DANGER\*\*: (.*)$/gm, '<div class="alert danger"><i class="icon icon-danger"></i><strong>Danger:</strong> $1</div>');
-
-    // Convert Markdown to HTML
-    // Headers
-    html = html.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
-    html = html.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
-    html = html.replace(/^#### (.*)$/gm, '<h4>$1</h4>');
-    html = html.replace(/^### (.*)$/gm, '<h3>$1</h3>');
-    html = html.replace(/^## (.*)$/gm, '<h2>$1</h2>');
-    html = html.replace(/^# (.*)$/gm, '<h1>$1</h1>');
 
     // Lists
     html = html.replace(/^\* (.*)$/gm, '<ul><li>$1</li></ul>');
