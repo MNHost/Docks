@@ -72,15 +72,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function scrollToHash() {
-        const hash = window.location.hash;
-        if (hash) {
-            const targetElement = document.querySelector(hash);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+function scrollToHash() {
+    const hash = decodeURIComponent(window.location.hash); // Decode the hash
+    if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     }
+}
+
 
     function generateSidebar(sections) {
         sections.forEach(section => {
