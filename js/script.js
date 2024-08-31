@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Position the popup
         const rect = header.getBoundingClientRect();
-        popup.style.top = `${rect.bottom + window.scrollY}px`;
+        popup.style.top = `${rect.bottom + window.scrollY + 10}px`; // Add some margin
         popup.style.left = `${rect.left + window.scrollX}px`;
         popup.classList.add('active');
     }
