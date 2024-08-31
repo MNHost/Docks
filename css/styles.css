@@ -431,7 +431,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     color: white;
 }
 .dark-them .tab-content { 
-    background-color: #2c3e50;
+    background-color: #454545;
     color: #ecf0f1;
 }
 .dark-theme .sidebar a {
