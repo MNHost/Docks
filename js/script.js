@@ -140,7 +140,7 @@ We couldn't find the article you were looking for. This could be due to a typo i
     const sections = [
         {
             title: 'Getting Started',
-            articles: ['Home.md', 'guide.md', 'Installing cmdR.md', 'intro.md']
+            articles: ['Home.md', 'guide.md', 'Installing cmdR.md', 'intro.md', 'example.md']
         },
         {
             title: 'Advanced Topics',
