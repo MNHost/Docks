@@ -275,7 +275,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .share-popup {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: black;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
