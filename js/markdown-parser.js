@@ -2,7 +2,7 @@ function markdownToHtml(markdown) {
     // Extract configuration section
     const configSectionMatch = markdown.match(/-----\n([\s\S]*?)\n-----/);
     let config = {};
-    
+
     if (configSectionMatch) {
         // Parse the configuration
         const configText = configSectionMatch[1];
@@ -30,7 +30,9 @@ function markdownToHtml(markdown) {
 
         const tabContents = tabs.map((tab, index) => {
             const content = tab.replace(/^###\s.*\n/, '');
-            return `<div class="tab-content" data-tab="tab${index}">${markdownToHtml(content)}</div>`;
+            // Correctly extract HTML content from markdownToHtml
+            const tabHtml = markdownToHtml(content).html; // Extract the HTML from the returned object
+            return `<div class="tab-content" data-tab="tab${index}">${tabHtml}</div>`;
         }).join('');
 
         return `<div class="tabs-container">
