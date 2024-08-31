@@ -34,9 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
+            const { html, config } = markdownToHtml(text);
             contentDiv.innerHTML = html;
             initializeTabs();
+            addShareButtons();  // Add share buttons after content is loaded
             setTimeout(scrollToHash, 100); // Ensure scrolling after content is loaded
         } catch (error) {
             console.error('Error loading markdown:', error);
@@ -70,6 +71,85 @@ document.addEventListener('DOMContentLoaded', function () {
                 tabButtons[0].click();
             }
         });
+    }
+
+    function addShareButtons() {
+        const headers = document.querySelectorAll('h1, h2, h3');
+
+        headers.forEach(header => {
+            const shareBtn = document.createElement('span');
+            shareBtn.classList.add('header-share-btn');
+            shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
+            header.style.position = 'relative';  // Ensure header is positioned
+            header.appendChild(shareBtn);
+
+            shareBtn.addEventListener('click', () => {
+                showSharePopup(header);
+            });
+        });
+    }
+
+    function showSharePopup(header) {
+        // Create popup if it doesn't exist
+        let popup = document.querySelector('.share-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.className = 'share-popup';
+            document.body.appendChild(popup);
+
+            // Close button
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'close-btn';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.addEventListener('click', () => {
+                popup.classList.remove('active');
+            });
+            popup.appendChild(closeBtn);
+
+            // Popup content
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+            popup.appendChild(popupContent);
+
+            // URL input
+            const urlInput = document.createElement('input');
+            urlInput.setAttribute('readonly', true);
+            popupContent.appendChild(urlInput);
+
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = 'Copy';
+            popupContent.appendChild(copyBtn);
+
+            // Copy message
+            const copyMessage = document.createElement('div');
+            copyMessage.className = 'copy-message';
+            copyMessage.textContent = 'Copied!';
+            popupContent.appendChild(copyMessage);
+
+            // Copy button event
+            copyBtn.addEventListener('click', () => {
+                urlInput.select();
+                document.execCommand('copy');
+                copyMessage.style.display = 'block';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 1000);
+            });
+        }
+
+        // Set URL
+        const articleName = getArticleFromUrl();
+        const sectionName = header.textContent.trim();
+        const url = `https://cmdrdocs.netlify.app/?article=${articleName}&section=${encodeURIComponent(sectionName)}`;
+        popup.querySelector('input').value = url;
+
+        // Position the popup
+        const rect = header.getBoundingClientRect();
+        popup.style.top = `${rect.bottom + window.scrollY}px`;
+        popup.style.left = `${rect.left + window.scrollX}px`;
+        popup.classList.add('active');
     }
 
     function generateSidebar(sections) {
@@ -137,32 +217,25 @@ We couldn't find the article you were looking for. This could be due to a typo i
         return params.get('article');
     }
 
-function scrollToHash() {
-    const params = new URLSearchParams(window.location.search);
-    const section = params.get('section');
+    function scrollToHash() {
+        const params = new URLSearchParams(window.location.search);
+        const section = params.get('section');
 
-    if (section) {
-        // Normalize the section parameter
-        const normalizedSection = normalizeText(section);
-
-        // Find all header elements and scroll to the matching one
-        const headers = document.querySelectorAll('h1, h2, h3');
-        headers.forEach(header => {
-            // Extract and normalize text content
-            const headerText = normalizeText(header.textContent.trim());
-            if (headerText === normalizedSection) {
-                header.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+        if (section) {
+            const normalizedSection = normalizeText(section);
+            const headers = document.querySelectorAll('h1, h2, h3');
+            headers.forEach(header => {
+                const headerText = normalizeText(header.textContent.trim());
+                if (headerText === normalizedSection) {
+                    header.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
     }
-}
 
-function normalizeText(text) {
-    // Convert text to lowercase and remove special characters
-    return text.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-}
-
-
+    function normalizeText(text) {
+        return text.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    }
 
     const sections = [
         {
