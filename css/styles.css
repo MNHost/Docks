@@ -316,7 +316,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     right: 10px; /* Position it towards the right */
     font-size: 1.2em;
     cursor: pointer;
-    color: red;
+    transition: color 0.3s; 
 }
 
 .share-popup .popup-content .close-btn:hover {
@@ -325,7 +325,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .copy-message {
     display: none;
-    color: green;
+    color: white;
     font-size: 0.9em;
     margin-top: 5px;
 }
@@ -510,6 +510,9 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .light-theme .tab-button::after {
     background: #007bff; /* Blue underline */
 }
+.light-theme .close-btn {
+    color: white;
+}
 
 /* Dark Theme */
 .dark-theme {
@@ -570,6 +573,10 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .dark-theme .tab-button::after {
     background: #58a6ff; /* Light blue underline */
 }
+.dark-theme .close-btn {
+    color: white;
+}
+
 
 /* Blue Theme */
 .blue-theme {
@@ -629,3 +636,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .blue-theme .tab-button::after {
     background: #1f618d; /* Darker blue underline */
 }
+.blue-theme .close-btn {
+    color: white;
+}
+
