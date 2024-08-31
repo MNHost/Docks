@@ -271,6 +271,18 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     color: #0056b3;
 }
 
+/* Share Button */
+.header-share-btn {
+    font-size: 0.9em;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.header-share-btn:hover {
+    color: #0056b3;
+}
+
 /* Share Popup */
 .share-popup {
     display: none;
@@ -278,10 +290,10 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: white;
     border: 1px solid #ddd;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     z-index: 1000;
-    width: 350px; /* Increase the width */
+    width: 300px; /* Adjusted width */
     max-width: 90vw; /* Responsive max-width */
     box-sizing: border-box;
 }
@@ -293,6 +305,19 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .share-popup .popup-content {
     display: flex;
     flex-direction: column;
+}
+
+.share-popup .popup-content .close-btn {
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+    text-align: right;
+}
+
+.share-popup .popup-content .close-btn:hover {
+    color: #ff0000;
 }
 
 .share-popup .popup-content input {
@@ -314,25 +339,8 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     margin-right: 10px;
 }
 
-.share-popup .popup-content button.copy-btn {
-    background: #28a745;
-}
-
 .share-popup .popup-content button:hover {
     opacity: 0.9;
-}
-
-.share-popup .popup-content .close-btn {
-    font-size: 1.2em;
-    cursor: pointer;
-    color: #333;
-    margin-bottom: 10px;
-    display: block;
-    text-align: right;
-}
-
-.share-popup .popup-content .close-btn:hover {
-    color: #ff0000;
 }
 
 .copy-message {
