@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         headers.forEach(header => {
             const shareBtn = document.createElement('span');
             shareBtn.classList.add('header-share-btn');
-            shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> Share';
+            shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
             header.style.position = 'relative';  // Ensure header is positioned
             header.appendChild(shareBtn);
 
