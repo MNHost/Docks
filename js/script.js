@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(file);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
-            const { html, config } = markdownToHtml(text);
+            const { html, config } = markdownToHtml(text); // Adjusted to use destructured config
             contentDiv.innerHTML = html;
             initializeTabs();
-            scrollToHash(); // Scroll to the specific section if URL params are present
+            scrollToHash(); // Scroll to section if hash is present
         } catch (error) {
             console.error('Error loading markdown:', error);
             loadArticleNotFound();
@@ -72,53 +72,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function scrollToHash() {
-        const params = new URLSearchParams(window.location.search);
-        const section = params.get('section');
-
-        if (section) {
-            const targetElement = document.querySelector(`#${section}`);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+function scrollToHash() {
+    const hash = decodeURIComponent(window.location.hash); // Decode the hash
+    if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     }
+}
 
-    function loadArticleNotFound() {
-        const notFoundMarkdown = `
-# Oops! Article Not Found
-
-We couldn't find the article you were looking for. This could be due to a typo in the URL or the article may have been moved or deleted. But don't worry, we've got a few options to get you back on track!
-
-![404 Error - Article Not Found](/Designer.png){width=600 height=300 align=center}
-
-### What Can You Do?
-
-- **Double-check the URL**: Make sure the address is correct.
-- **Browse Other Articles**: Use the sidebar to explore available topics and find what you're looking for.
-- **Return to Home**: Click the button below to go back to the homepage and start fresh.
-
-[button:Go to Home](?article=Home)
-        `;
-        const html = markdownToHtml(notFoundMarkdown).html;
-        contentDiv.innerHTML = html;
-    }
-
-    function getArticleFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('article');
-    }
-
-    const sections = [
-        {
-            title: 'Getting Started',
-            articles: ['Home.md', 'guide.md', 'Installing cmdR.md', 'intro.md', 'example.md']
-        },
-        {
-            title: 'Advanced Topics',
-            articles: ['Create Commands.md']
-        }
-    ];
 
     function generateSidebar(sections) {
         sections.forEach(section => {
@@ -159,6 +122,44 @@ We couldn't find the article you were looking for. This could be due to a typo i
             navList.appendChild(sectionItem);
         });
     }
+
+    function loadArticleNotFound() {
+        const notFoundMarkdown = `
+# Oops! Article Not Found
+
+We couldn't find the article you were looking for. This could be due to a typo in the URL or the article may have been moved or deleted. But don't worry, we've got a few options to get you back on track!
+
+![404 Error - Article Not Found](/Designer.png){width=600 height=300 align=center}
+
+### What Can You Do?
+
+- **Double-check the URL**: Make sure the address is correct.
+- **Browse Other Articles**: Use the sidebar to explore available topics and find what you're looking for.
+- **Return to Home**: Click the button below to go back to the homepage and start fresh.
+
+[button:Go to Home](?article=Home)
+        `;
+        const html = markdownToHtml(notFoundMarkdown).html;
+        contentDiv.innerHTML = html;
+    }
+
+    function getArticleFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('article');
+    }
+
+    const sections = [
+        {
+            title: 'Getting Started',
+            articles: ['Home.md', 'guide.md', 'Installing cmdR.md', 'intro.md', 'example.md']
+        },
+        {
+            title: 'Advanced Topics',
+            articles: ['Create Commands.md']
+        }
+    ];
+
+    generateSidebar(sections);
 
     const articleName = getArticleFromUrl();
     if (articleName) {
