@@ -30,7 +30,7 @@ function markdownToHtml(markdown) {
 
         const tabContents = tabs.map((tab, index) => {
             const content = tab.replace(/^###\s.*\n/, '');
-            const tabHtml = markdownToHtml(content).html; // Recursively process tab content
+            const tabHtml = markdownToHtml(content).html;
             return `<div class="tab-content" data-tab="tab${index}">${tabHtml}</div>`;
         }).join('');
 
@@ -39,7 +39,6 @@ function markdownToHtml(markdown) {
                     <div class="tab-contents">${tabContents}</div>
                 </div>`;
     });
-
     // Notes, Tips, Warnings, and Dangers
     html = html.replace(/:::(note|tip|warning|danger)\n([\s\S]*?)\n:::/g, function (match, type, content) {
         const icons = {
@@ -64,8 +63,7 @@ function markdownToHtml(markdown) {
                     <i class="fa ${icon}"></i> <strong>${label}:</strong> ${markdownToHtml(content).html}
                 </div>`;
     });
-
-    // Headers
+   // Headers with IDs for Navigation
     html = html.replace(/^###### (.*)$/gm, '<h6 id="$1">$1</h6>');
     html = html.replace(/^##### (.*)$/gm, '<h5 id="$1">$1</h5>');
     html = html.replace(/^#### (.*)$/gm, '<h4 id="$1">$1</h4>');
