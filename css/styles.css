@@ -261,19 +261,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 /* Share Button */
 .header-share-btn {
-    font-size: 0.9em;
-    margin-left: 10px;
-    cursor: pointer;
-    color: #007bff;
-}
-
-.header-share-btn:hover {
-    color: #0056b3;
-}
-
-/* Share Button */
-.header-share-btn {
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin-left: 10px;
     cursor: pointer;
     color: #007bff;
@@ -288,14 +276,10 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     display: none;
     position: absolute;
     background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     z-index: 1000;
-    width: 300px; /* Adjusted width */
-    max-width: 90vw; /* Responsive max-width */
-    box-sizing: border-box;
 }
 
 .share-popup.active {
@@ -304,50 +288,43 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 
 .share-popup .popup-content {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+}
+
+.share-popup .popup-content input {
+    flex: 1;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.share-popup .popup-content button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1em;
+}
+
+.share-popup .popup-content button.copy-btn:hover {
+    color: #0056b3;
 }
 
 .share-popup .popup-content .close-btn {
     font-size: 1.2em;
     cursor: pointer;
     color: #333;
-    margin-bottom: 10px;
-    display: block;
-    text-align: right;
 }
 
 .share-popup .popup-content .close-btn:hover {
     color: #ff0000;
 }
 
-.share-popup .popup-content input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.share-popup .popup-content button {
-    border: none;
-    background: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    margin-right: 10px;
-}
-
-.share-popup .popup-content button:hover {
-    opacity: 0.9;
-}
-
 .copy-message {
     display: none;
-    color: #28a745;
+    color: green;
     font-size: 0.9em;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .button {
