@@ -137,23 +137,30 @@ We couldn't find the article you were looking for. This could be due to a typo i
         return params.get('article');
     }
 
-    function scrollToHash() {
-        const params = new URLSearchParams(window.location.search);
-        const section = params.get('section');
+function scrollToHash() {
+    const params = new URLSearchParams(window.location.search);
+    const section = params.get('section');
 
-        if (section) {
-            // Decode the section ID
-            const decodedSection = decodeURIComponent(section);
+    if (section) {
+        // Decode the section ID
+        const decodedSection = decodeURIComponent(section);
 
-            // Find all header elements and scroll to the matching one
-            const headers = document.querySelectorAll('h2, h3, h4, h5, h6');
-            headers.forEach(header => {
-                if (header.textContent.trim() === decodedSection) {
-                    header.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        }
+        // Find all header elements and scroll to the matching one
+        const headers = document.querySelectorAll('h1, h2, h3');
+        headers.forEach(header => {
+            // Extract text content only, ignoring any icons or elements
+            const headerText = Array.from(header.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .join(' ');
+
+            if (headerText === decodedSection) {
+                header.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     }
+}
+
 
     const sections = [
         {
