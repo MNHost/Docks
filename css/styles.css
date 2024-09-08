@@ -517,18 +517,6 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .light-theme .close-btn {
     color: white;
 }
-.light-theme .note {
-    color: black;
-}
-.light-theme .tip {
-    color: black;
-}
-.light-theme .warning {
-    color: black;
-}
-.light-theme .danger {
-    color: black;
-}
 
 /* Dark Theme */
 .dark-theme {
@@ -665,16 +653,4 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 }
 .blue-theme .close-btn {
     color: white;
-}
-.blue-theme .note {
-    color: black;
-}
-.blue-theme .tip {
-    color: black;
-}
-.blue-theme .warning {
-    color: black;
-}
-.blue-theme .danger {
-    color: black;
 }
