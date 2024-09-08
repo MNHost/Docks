@@ -237,6 +237,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #eaf0f9;
     padding: 10px;
     margin: 10px 0;
+    transition: color 0.3s; /* Smooth transition for theme changes */
 }
 
 .tip {
@@ -244,6 +245,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #eafaf1;
     padding: 10px;
     margin: 10px 0;
+    transition: color 0.3s; /* Smooth transition for theme changes */
 }
 
 .warning {
@@ -251,6 +253,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #fcf8e3;
     padding: 10px;
     margin: 10px 0;
+    transition: color 0.3s; /* Smooth transition for theme changes */
 }
 
 .danger {
@@ -258,6 +261,7 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
     background-color: #f9e2e2;
     padding: 10px;
     margin: 10px 0;
+    transition: color 0.3s; /* Smooth transition for theme changes */
 }
 /* Share Button */
 .header-share-btn {
@@ -513,6 +517,18 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .light-theme .close-btn {
     color: white;
 }
+.light-theme .note {
+    color: black;
+}
+.light-theme .tip {
+    color: black;
+}
+.light-theme .warning {
+    color: black;
+}
+.light-theme .danger {
+    color: black;
+}
 
 /* Dark Theme */
 .dark-theme {
@@ -576,7 +592,18 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .dark-theme .close-btn {
     color: white;
 }
-
+.dark-theme .note {
+    color: black;
+}
+.dark-theme .tip {
+    color: black;
+}
+.dark-theme .warning {
+    color: black;
+}
+.dark-theme .danger {
+    color: black;
+}
 
 /* Blue Theme */
 .blue-theme {
@@ -639,4 +666,15 @@ pre.code-block.javascript .function { color: #ffb86c; } /* Light orange for Java
 .blue-theme .close-btn {
     color: white;
 }
-
+.blue-theme .note {
+    color: black;
+}
+.blue-theme .tip {
+    color: black;
+}
+.blue-theme .warning {
+    color: black;
+}
+.blue-theme .danger {
+    color: black;
+}
