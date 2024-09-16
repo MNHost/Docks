@@ -2,7 +2,7 @@
 ## The simple documentation tool for anything!
 <br>
 <br>
-## Table of contents
+## Table of contents <br>
  - [Installation](?article=installation)
  - [Syntax](?article=syntax)
 <br>
