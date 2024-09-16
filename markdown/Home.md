@@ -3,8 +3,8 @@
 <br>
 <br>
 ## Table of contents
-- [Installation](?article=installation)
-- [Syntax](?article=syntax)
+ - [Installation](?article=installation)
+ - [Syntax](?article=syntax)
 <br>
 ### Information
 
